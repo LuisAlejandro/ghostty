@@ -57,6 +57,17 @@ pub const i18n: bool = config.i18n;
 /// avoid it in Zig coe as much as possible.
 pub const bundle_id = "com.mitchellh.ghostty";
 
+/// Mash: true when this Ghostty is nested inside Mash.app and is reached only
+/// through Mash's launcher (`packaging/mash`), which passes -e herdr-pane and
+/// the isolated environment. macOS can start the nested bundle on its own -- a
+/// Dock icon, Finder, Spotlight, `open -a` -- and without the launcher the
+/// terminal comes up running the owner's own shell, which is not Mash.
+///
+/// packaging/build.sh builds this fork for Mash. This is Mash's copy of
+/// Ghostty, so the mark is simply on here; a stock Ghostty build of upstream
+/// has no such constant at all.
+pub const mash_nested = true;
+
 /// True if we should have "slow" runtime safety checks. The initial motivation
 /// for this was terminal page/pagelist integrity checks. These were VERY
 /// slow but very thorough. But they made it so slow that the terminal couldn't

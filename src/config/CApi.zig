@@ -2,6 +2,7 @@ const builtin = @import("builtin");
 const std = @import("std");
 const inputpkg = @import("../input.zig");
 const global = @import("../global.zig");
+const build_config = @import("../build_config.zig");
 const String = @import("../main_c.zig").String;
 
 const Config = @import("Config.zig");
@@ -50,8 +51,53 @@ export fn ghostty_config_clone(self: *Config) ?*Config {
     return result;
 }
 
+/// Mash: refuse to open unless the launcher brought us here.
+export fn ghostty_config_mash_guard() void {
+    // Mash: refuse to open unless the launcher brought us here.
+    //
+    // This binary is nested inside Mash.app, which is reached only through
+    // Mash's launcher (`packaging/mash`): it passes -e herdr-pane and the
+    // isolated environment. macOS does not know that, so a Dock icon, Finder,
+    // Spotlight or `open -a` can start this binary on its own. Without the
+    // launcher there is no -e, no herdr-pane and no ZDOTDIR, so the terminal
+    // came up running the owner's own shell with the owner's own ~/.zshrc: a
+    // working window that looked like an unconfigured Mash but could not run
+    // Mash at all.
+    //
+    // The launcher exports MASH_BIN and is the only caller that does, so its
+    // absence means this window is not Mash. build_config.mash_nested marks
+    // this as Mash's copy of Ghostty; Ghostty's own app has no such mark and
+    // behaves exactly as upstream does.
+    if (build_config.mash_nested and global.environ().getPosix("MASH_BIN") == null) {
+        var out_buffer: [1024]u8 = undefined;
+        var stdout_writer = std.Io.File.stdout().writer(
+            std.Io.Threaded.global_single_threaded.io(),
+            &out_buffer,
+        );
+        const stdout = &stdout_writer.interface;
+        const message =
+            "\n" ++
+            "  Mash did not open through its launcher, so this window is not Mash.\n" ++
+            "  Nothing was configured.\n" ++
+            "\n" ++
+            "  Open /Applications/Mash.app instead, or use the Mash icon in the Dock.\n" ++
+            "\n" ++
+            "  Press Enter to close this window. ";
+        _ = stdout.print("{s}", .{message}) catch {};
+        stdout.flush() catch {};
+        var line_buf: [8]u8 = undefined;
+        var stdin_r = std.Io.File.stdin().reader(
+            std.Io.Threaded.global_single_threaded.io(),
+            &line_buf,
+        );
+        _ = stdin_r.interface.readSliceAll(&line_buf) catch {};
+        std.process.exit(1);
+    }
+}
+
 /// Load the configuration from the CLI args.
 export fn ghostty_config_load_cli_args(self: *Config) void {
+    ghostty_config_mash_guard();
     self.loadCliArgs(global.alloc()) catch |err| {
         log.err("error loading config err={}", .{err});
     };
