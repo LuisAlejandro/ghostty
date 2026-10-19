@@ -49,6 +49,15 @@ class DockTilePlugin: NSObject, NSDockTilePlugIn {
 
     /// Reset the application icon and dock tile icon to the default.
     private func resetIcon(dockTile: NSDockTile) {
+        // Mash: this plugin runs inside the Ghostty bundle nested in Mash.app,
+        // which Mash reaches only through its launcher. Its Dock icon is
+        // Mash's own, set by Mash's build through CFBundleIconFile. Drawing a
+        // resource from this bundle's catalog would replace it with Ghostty's
+        // artwork, so leave the tile alone and let Mash's icon stand.
+        if mashNested {
+            dockTile.setIcon(nil)
+            return
+        }
         let appIcon: NSImage?
         if #available(macOS 26.0, *) {
             #if DEBUG
@@ -63,6 +72,13 @@ class DockTilePlugin: NSObject, NSDockTilePlugIn {
             appIcon = pluginBundle.image(forResource: "AppIconImage")!
         }
         dockTile.setIcon(appIcon)
+    }
+
+    /// Mash: true when this bundle is the copy nested in Mash.app. The bundle
+    /// identifier is `com.mitchellh.ghostty` in both cases, so the nesting is
+    /// what identifies Mash's copy.
+    private var mashNested: Bool {
+        pluginBundle.bundleURL.path.contains("/Mash.app/")
     }
 }
 

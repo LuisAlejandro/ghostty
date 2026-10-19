@@ -174,7 +174,7 @@ extension Ghostty {
     struct SurfaceRendererUnhealthyView: View {
         var body: some View {
             HStack {
-                Image("AppIconImage")
+                Image("MashIconImage")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
@@ -196,7 +196,7 @@ extension Ghostty {
     struct SurfaceErrorView: View {
         var body: some View {
             HStack {
-                Image("AppIconImage")
+                Image("MashIconImage")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
