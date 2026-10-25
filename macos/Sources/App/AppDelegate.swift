@@ -542,15 +542,8 @@ class AppDelegate: NSObject,
             }
         }
 
-        switch ghostty.config.macosDockDropBehavior {
-        case .new_tab:
-            _ = TerminalController.newTab(
-                ghostty,
-                from: TerminalController.preferredParent?.window,
-                withBaseConfig: config
-            )
-        case .new_window: _ = TerminalController.newWindow(ghostty, withBaseConfig: config)
-        }
+        // Mash ships no Ghostty tabs, so every dock drop opens a window.
+        _ = TerminalController.newWindow(ghostty, withBaseConfig: config)
 
         return true
     }
@@ -772,7 +765,7 @@ class AppDelegate: NSObject,
         let configAny = notification.userInfo?[Ghostty.Notification.NewSurfaceConfigKey]
         let config = configAny as? Ghostty.SurfaceConfiguration
 
-        _ = TerminalController.newTab(ghostty, from: window, withBaseConfig: config)
+        _ = TerminalController.newWindow(ghostty, withBaseConfig: config, withParent: window)
     }
 
     private func setDockBadge() {
@@ -990,13 +983,6 @@ class AppDelegate: NSObject,
         _ = TerminalController.newWindow(ghostty)
     }
 
-    @IBAction func newTab(_ sender: Any?) {
-        _ = TerminalController.newTab(
-            ghostty,
-            from: TerminalController.preferredParent?.window
-        )
-    }
-
     @IBAction func closeAllWindows(_ sender: Any?) {
         TerminalController.closeAllWindows()
         AboutController.shared.hide()
@@ -1125,11 +1111,9 @@ extension AppDelegate {
 
     private func reloadDockMenu() {
         let newWindow = NSMenuItem(title: "New Window", action: #selector(newWindow), keyEquivalent: "")
-        let newTab = NSMenuItem(title: "New Tab", action: #selector(newTab), keyEquivalent: "")
 
         dockMenu.removeAllItems()
         dockMenu.addItem(newWindow)
-        dockMenu.addItem(newTab)
     }
 
     /// Setup all the images for our menu items.

@@ -5,30 +5,16 @@ class ServiceProvider: NSObject {
     static private let errorNoString = NSString(string: "Could not load any text from the clipboard.")
 
     /// The target for an open operation
-    private enum OpenTarget {
-        case tab
-        case window
-    }
-
-    @objc func openTab(
-        _ pasteboard: NSPasteboard,
-        userData: String?,
-        error: AutoreleasingUnsafeMutablePointer<NSString>
-    ) {
-        openTerminal(from: pasteboard, target: .tab, error: error)
-    }
-
     @objc func openWindow(
         _ pasteboard: NSPasteboard,
         userData: String?,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
-        openTerminal(from: pasteboard, target: .window, error: error)
+        openTerminal(from: pasteboard, error: error)
     }
 
     private func openTerminal(
         from pasteboard: NSPasteboard,
-        target: OpenTarget,
         error: AutoreleasingUnsafeMutablePointer<NSString>
     ) {
         guard let delegate = NSApp.delegate as? AppDelegate else { return }
@@ -61,16 +47,9 @@ class ServiceProvider: NSObject {
             var config = Ghostty.SurfaceConfiguration()
             config.workingDirectory = url.pathWithoutTrailingSlash
 
-            switch target {
-            case .window:
-                _ = TerminalController.newWindow(delegate.ghostty, withBaseConfig: config)
-
-            case .tab:
-                _ = TerminalController.newTab(
-                    delegate.ghostty,
-                    from: TerminalController.preferredParent?.window,
-                    withBaseConfig: config)
-            }
+            // Mash ships no Ghostty tabs, so a "open here" request opens a
+            // window instead.
+            _ = TerminalController.newWindow(delegate.ghostty, withBaseConfig: config)
         }
 
     }
