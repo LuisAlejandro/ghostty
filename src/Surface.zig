@@ -4885,6 +4885,74 @@ fn showMouse(self: *Surface) void {
     };
 }
 
+/// Mash: Ghostty UI that Mash does not ship, because Herdr or Fresh already
+/// owns that surface. Mash Terminal hosts exactly one full-window Herdr
+/// client, so a Ghostty tab or split would open a second surface that is not
+/// Mash, and Ghostty's own palette, search, quick terminal and inspector would
+/// draw UI on top of Herdr's.
+///
+/// These are rejected in `performBindingAction` rather than deleted from the
+/// action union, because that one function is the funnel every entry point
+/// already goes through: default and user keybindings, GTK menu and context
+/// menu actions (`src/apprt/gtk/class/window.zig` calls it directly), and the
+/// macOS menu shortcuts (the `ghostty_surface_split*` C entry points in
+/// `src/apprt/embedded.zig` route through here on purpose, "so menus and
+/// keybinds share one path").
+///
+/// Rejecting here is not the whole story on macOS: `TerminalController.newTab`,
+/// the AppleScript tab/split commands and the Services tab target build their
+/// own tabs without passing through this function, and the command palette
+/// toggles a SwiftUI flag with no core round-trip. Those are removed in the
+/// macOS frontend itself.
+///
+/// The matching `keybind = ... = unbind` lines in Mash's terminal config stay
+/// deliberately. A binding that returns false still consumes its chord unless
+/// it carries the `performable:` prefix, so the unbind is what actually lets
+/// those chords reach Herdr and Fresh; deleting it would restore the default
+/// binding and silently swallow the key.
+const mash_removed_ui: std.EnumSet(std.meta.Tag(input.Binding.Action)) = .initMany(&.{
+    // Tabs and the tab overview.
+    .new_tab,
+    .previous_tab,
+    .next_tab,
+    .last_tab,
+    .goto_tab,
+    .move_tab,
+    .move_tab_to_new_window,
+    .toggle_tab_overview,
+    .close_tab,
+
+    // Splits.
+    .new_split,
+    .goto_split,
+    .resize_split,
+    .equalize_splits,
+    .toggle_split_zoom,
+
+    // Command palette, quick terminal, inspector.
+    .toggle_command_palette,
+    .toggle_quick_terminal,
+    .inspector,
+    .show_gtk_inspector,
+
+    // Ghostty's own search UI.
+    .start_search,
+    .search_selection,
+    .navigate_search,
+    .end_search,
+
+    // Ghostty's scrollback navigation. Herdr keeps its own scrollback, so these
+    // chords belong to Herdr rather than moving this surface's viewport.
+    .scroll_to_top,
+    .scroll_to_bottom,
+    .scroll_to_selection,
+    .scroll_page_up,
+    .scroll_page_down,
+    .scroll_page_fractional,
+    .scroll_page_lines,
+    .jump_to_prompt,
+});
+
 /// Perform a binding action. A binding is a keybinding. This function
 /// must be called from the GUI thread.
 ///
@@ -4896,6 +4964,11 @@ fn showMouse(self: *Surface) void {
 /// will ever return false. We can expand this in the future if it becomes
 /// useful. We did previous/next tab so we could implement #498.
 pub fn performBindingAction(self: *Surface, action: input.Binding.Action) !bool {
+    // Mash ships no Ghostty-owned tabs, splits, palette, search, quick terminal
+    // or inspector. This must come before the scope split below so it covers
+    // app-scoped and surface-scoped actions alike.
+    if (mash_removed_ui.contains(std.meta.activeTag(action))) return false;
+
     // Forward app-scoped actions to the app. Some app-scoped actions are
     // special-cased here because they do some special things when performed
     // from the surface.
