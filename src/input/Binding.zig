@@ -332,6 +332,14 @@ pub const Action = union(enum) {
     /// the error will currently only show up in logs.
     text: []const u8,
 
+    /// Mash: deliver a key chord to the focused surface exactly as if it were
+    /// typed, for example `mash_send_key:super+ctrl+g`. The argument is a
+    /// trigger in keybind syntax. It skips Ghostty's own keybind table and goes
+    /// straight to the terminal's key encoder, so the program in the terminal
+    /// (Herdr) sees the same bytes a physical press would produce. Mash's menus
+    /// use it to invoke Herdr commands by their shortcut.
+    mash_send_key: []const u8,
+
     /// Send data to the pty depending on whether cursor key mode is enabled
     /// (`application`) or disabled (`normal`).
     cursor_key: CursorKey,
@@ -1381,6 +1389,7 @@ pub const Action = union(enum) {
             .csi,
             .esc,
             .text,
+            .mash_send_key,
             .cursor_key,
             .search,
             .navigate_search,

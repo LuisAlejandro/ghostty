@@ -5046,6 +5046,52 @@ pub fn performBindingAction(self: *Surface, action: input.Binding.Action) !bool 
             }
         },
 
+        .mash_send_key => |data| {
+            const trigger = input.Binding.Trigger.parse(data) catch |err| {
+                log.warn("invalid mash_send_key chord={s} err={}", .{ data, err });
+                return true;
+            };
+            const key: input.Key = switch (trigger.key) {
+                .physical => |k| k,
+                .unicode => |cp| if (cp < 128)
+                    input.Key.fromASCII(@intCast(cp)) orelse .unidentified
+                else
+                    .unidentified,
+                .catch_all => .unidentified,
+            };
+            if (key == .unidentified) {
+                log.warn("mash_send_key has no physical key chord={s}", .{data});
+                return true;
+            }
+
+            // A real press reports the unshifted codepoint and no text for a
+            // modified chord; the encoder derives the bytes Herdr expects from
+            // the key, its codepoint and the mods, in whatever keyboard
+            // protocol the terminal has negotiated.
+            const press: input.KeyEvent = .{
+                .action = .press,
+                .key = key,
+                .mods = trigger.mods,
+                .unshifted_codepoint = key.codepoint() orelse 0,
+            };
+            if (try self.encodeKey(press, null)) |req| {
+                self.queueIo(switch (req) {
+                    .small => |v| .{ .write_small = v },
+                    .stable => |v| .{ .write_stable = v },
+                    .alloc => |v| .{ .write_alloc = v },
+                }, .unlocked);
+            }
+            var release = press;
+            release.action = .release;
+            if (try self.encodeKey(release, null)) |req| {
+                self.queueIo(switch (req) {
+                    .small => |v| .{ .write_small = v },
+                    .stable => |v| .{ .write_stable = v },
+                    .alloc => |v| .{ .write_alloc = v },
+                }, .unlocked);
+            }
+        },
+
         .text => |data| {
             var stack = std.heap.stackFallback(256, self.alloc);
             const alloc = stack.get();
