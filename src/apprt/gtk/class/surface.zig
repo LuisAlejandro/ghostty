@@ -726,13 +726,6 @@ pub const Surface = extern struct {
         /// and the matching left mouse release should also be suppressed.
         suppress_left_mouse_release: bool = false,
 
-        /// How much pending horizontal scroll do we have?
-        pending_horizontal_scroll: f64 = 0.0,
-
-        /// Timer to reset the amount of horizontal scroll if the user
-        /// stops scrolling.
-        pending_horizontal_scroll_reset: ?c_uint = null,
-
         overrides: struct {
             command: ?configpkg.Command = null,
             shell_integration: ?configpkg.Config.ShellIntegration = null,
@@ -1918,13 +1911,6 @@ pub const Surface = extern struct {
             priv.idle_rechild = null;
         }
 
-        if (priv.pending_horizontal_scroll_reset) |v| {
-            if (glib.Source.remove(v) == 0) {
-                log.warn("unable to remove pending horizontal scroll reset source", .{});
-            }
-            priv.pending_horizontal_scroll_reset = null;
-        }
-
         // This works around a GTK double-free bug where if you bind
         // to a top-level template child, it frees twice if the widget is
         // also the root child of the template. By unsetting the child here,
@@ -3081,53 +3067,15 @@ pub const Surface = extern struct {
     }
 
     fn ecMouseScrollHorizontal(
-        ec: *gtk.EventControllerScroll,
+        _: *gtk.EventControllerScroll,
         x: f64,
         _: f64,
         self: *Self,
     ) callconv(.c) c_int {
         const priv: *Private = self.private();
 
-        // Check if horizontal tab scrolling is enabled and this is a
-        // touchpad surface scroll. If not, forward to the terminal.
-        const tab_scroll_enabled = if (priv.config) |config|
-            config.get().@"gtk-horizontal-tab-scroll"
-        else
-            true;
-
-        const is_surface_scroll = ec.getUnit() == .surface;
-
-        if (tab_scroll_enabled and is_surface_scroll) {
-            priv.pending_horizontal_scroll += x;
-
-            if (@abs(priv.pending_horizontal_scroll) < 120) {
-                if (priv.pending_horizontal_scroll_reset) |v| {
-                    _ = glib.Source.remove(v);
-                    priv.pending_horizontal_scroll_reset = null;
-                }
-                priv.pending_horizontal_scroll_reset = glib.timeoutAdd(500, ecMouseScrollHorizontalReset, self);
-                return @intFromBool(true);
-            }
-
-            _ = self.as(gtk.Widget).activateAction(
-                if (priv.pending_horizontal_scroll < 0.0)
-                    "tab.next-page"
-                else
-                    "tab.previous-page",
-                null,
-            );
-
-            if (priv.pending_horizontal_scroll_reset) |v| {
-                _ = glib.Source.remove(v);
-                priv.pending_horizontal_scroll_reset = null;
-            }
-
-            priv.pending_horizontal_scroll = 0.0;
-
-            return @intFromBool(true);
-        }
-
-        // Forward horizontal scroll to the terminal (e.g. for neovim).
+        // Mash has no Ghostty tabs. Forward every horizontal gesture to the
+        // terminal rather than swallowing touchpad scrolls to change pages.
         const surface = priv.core_surface orelse return @intFromBool(false);
         const scaled = self.scaledCoordinates(x, 0);
         surface.scrollCallback(
@@ -3140,14 +3088,6 @@ pub const Surface = extern struct {
         };
 
         return @intFromBool(true);
-    }
-
-    fn ecMouseScrollHorizontalReset(ud: ?*anyopaque) callconv(.c) c_int {
-        const self: *Self = @ptrCast(@alignCast(ud orelse return @intFromBool(glib.SOURCE_REMOVE)));
-        const priv: *Private = self.private();
-        priv.pending_horizontal_scroll = 0.0;
-        priv.pending_horizontal_scroll_reset = null;
-        return @intFromBool(glib.SOURCE_REMOVE);
     }
 
     fn imPreeditStart(

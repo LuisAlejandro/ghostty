@@ -2,7 +2,6 @@ const std = @import("std");
 const assert = @import("../../../quirks.zig").inlineAssert;
 const Allocator = std.mem.Allocator;
 const adw = @import("adw");
-const gio = @import("gio");
 const glib = @import("glib");
 const gobject = @import("gobject");
 const gtk = @import("gtk");
@@ -176,28 +175,9 @@ pub const SplitTree = extern struct {
     fn init(self: *Self, _: *Class) callconv(.c) void {
         gtk.Widget.initTemplate(self.as(gtk.Widget));
 
-        // Initialize our actions
-        self.initActionMap();
-
         // Initialize some basic state
         const priv = self.private();
         priv.pending_close = null;
-    }
-
-    fn initActionMap(self: *Self) void {
-        const s_variant_type = glib.ext.VariantType.newFor([:0]const u8);
-        defer s_variant_type.free();
-
-        const actions = [_]ext.actions.Action(Self){
-            // All of these will eventually take a target surface parameter.
-            // For now all our targets originate from the focused surface.
-            .init("new-split", actionNewSplit, s_variant_type),
-            .init("equalize", actionEqualize, null),
-            .init("zoom", actionZoom, null),
-            .init("close-split", actionCloseSplit, null),
-        };
-
-        _ = ext.actions.addAsGroup(Self, self, "split-tree", &actions);
     }
 
     /// Create a new split in the given direction from the currently
@@ -681,79 +661,6 @@ pub const SplitTree = extern struct {
 
     //---------------------------------------------------------------
     // Signal handlers
-
-    pub fn actionNewSplit(
-        _: *gio.SimpleAction,
-        args_: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const args = args_ orelse {
-            log.warn("split-tree.new-split called without a parameter", .{});
-            return;
-        };
-
-        var dir: ?[*:0]const u8 = null;
-        args.get("&s", &dir);
-
-        const direction = std.meta.stringToEnum(
-            Surface.Tree.Split.Direction,
-            std.mem.span(dir) orelse return,
-        ) orelse {
-            // Need to be defensive here since actions can be triggered externally.
-            log.warn("invalid split direction for split-tree.new-split: {s}", .{dir.?});
-            return;
-        };
-
-        self.newSplit(
-            direction,
-            self.getActiveSurface(),
-            .none,
-        ) catch |err| {
-            log.warn("new split failed error={}", .{err});
-        };
-    }
-
-    pub fn actionEqualize(
-        _: *gio.SimpleAction,
-        parameter_: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        _ = parameter_;
-
-        const old_tree = self.getTree() orelse return;
-        var new_tree = old_tree.equalize(Application.default().allocator()) catch |err| {
-            log.warn("unable to equalize tree: {}", .{err});
-            return;
-        };
-        defer new_tree.deinit();
-        self.setTree(&new_tree);
-    }
-
-    pub fn actionZoom(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const tree = self.getTree() orelse return;
-        if (tree.zoomed != null) {
-            tree.zoomed = null;
-        } else {
-            const active = self.getActiveSurfaceHandle() orelse return;
-            if (tree.zoomed == active) return;
-            tree.zoom(active);
-        }
-
-        self.as(gobject.Object).notifyByPspec(properties.tree.impl.param_spec);
-    }
-
-    pub fn actionCloseSplit(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const surface = self.getActiveSurface() orelse return;
-        surface.close();
-    }
 
     fn surfaceCloseRequest(
         surface: *Surface,

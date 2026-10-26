@@ -230,15 +230,10 @@ pub const Tab = extern struct {
     }
 
     fn initActionMap(self: *Self) void {
-        const s_param_type = glib.ext.VariantType.newFor([:0]const u8);
-        defer s_param_type.free();
-
+        // The one internal tab still carries bell attention for its window;
+        // tab navigation, close and title actions are not Mash UI.
         const actions = [_]ext.actions.Action(Self){
-            .init("close", actionClose, s_param_type),
             .init("ring-bell", actionRingBell, null),
-            .init("next-page", actionNextPage, null),
-            .init("previous-page", actionPreviousPage, null),
-            .init("prompt-tab-title", actionPromptTabTitle, null),
         };
 
         _ = ext.actions.addAsGroup(Self, self, "tab", &actions);
@@ -389,53 +384,6 @@ pub const Tab = extern struct {
         self.as(gobject.Object).notifyByPspec(properties.@"active-surface".impl.param_spec);
     }
 
-    fn actionClose(
-        _: *gio.SimpleAction,
-        param_: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const param = param_ orelse {
-            log.warn("tab.close-tab called without a parameter", .{});
-            return;
-        };
-
-        var str: ?[*:0]const u8 = null;
-        param.get("&s", &str);
-
-        const tab_view = self.getTabView() orelse return;
-        const page = tab_view.getPage(self.as(gtk.Widget));
-
-        const mode = std.meta.stringToEnum(
-            apprt.action.CloseTabMode,
-            std.mem.span(
-                str orelse {
-                    log.warn("invalid mode provided to tab.close-tab", .{});
-                    return;
-                },
-            ),
-        ) orelse {
-            // Need to be defensive here since actions can be triggered externally.
-            log.warn("invalid mode provided to tab.close-tab: {s}", .{str.?});
-            return;
-        };
-
-        // Delegate to our parent to handle this, since this will emit
-        // a close-page signal that the parent can intercept.
-        switch (mode) {
-            .this => tab_view.closePage(page),
-            .other => tab_view.closeOtherPages(page),
-            .right => tab_view.closePagesAfter(page),
-        }
-    }
-
-    fn actionPromptTabTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        self.promptTabTitle();
-    }
-
     fn actionRingBell(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
@@ -451,26 +399,6 @@ pub const Tab = extern struct {
         const page = self.getTabPage() orelse return;
         if (page.getSelected() != 0) return;
         page.setNeedsAttention(@intFromBool(true));
-    }
-
-    /// Select the next tab page.
-    fn actionNextPage(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const tab_view = self.getTabView() orelse return;
-        _ = tab_view.selectNextPage();
-    }
-
-    /// Select the previous tab page.
-    fn actionPreviousPage(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const tab_view = self.getTabView() orelse return;
-        _ = tab_view.selectPreviousPage();
     }
 
     fn closureComputedTitle(

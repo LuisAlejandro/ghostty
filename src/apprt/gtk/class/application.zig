@@ -1217,27 +1217,13 @@ pub const Application = extern struct {
         self.syncActionAccelerator("app.open-config::os-open", .{ .open_config = .os_open });
         self.syncActionAccelerator("app.open-config::new-window", .{ .open_config = .new_window });
         self.syncActionAccelerator("app.reload-config", .{ .reload_config = {} });
-        self.syncActionAccelerator("win.toggle-inspector", .{ .inspector = .toggle });
-        self.syncActionAccelerator("app.show-gtk-inspector", .show_gtk_inspector);
-        self.syncActionAccelerator("win.toggle-command-palette", .toggle_command_palette);
         self.syncActionAccelerator("win.close", .{ .close_window = {} });
         self.syncActionAccelerator("win.new-window", .{ .new_window = {} });
-        self.syncActionAccelerator("win.new-tab", .{ .new_tab = {} });
-        self.syncActionAccelerator("win.close-tab::this", .{ .close_tab = .this });
-        self.syncActionAccelerator("tab.close::this", .{ .close_tab = .this });
-        self.syncActionAccelerator("win.split-right", .{ .new_split = .right });
-        self.syncActionAccelerator("win.split-down", .{ .new_split = .down });
-        self.syncActionAccelerator("win.split-left", .{ .new_split = .left });
-        self.syncActionAccelerator("win.split-up", .{ .new_split = .up });
         self.syncActionAccelerator("win.copy", .{ .copy_to_clipboard = .mixed });
         self.syncActionAccelerator("win.paste", .{ .paste_from_clipboard = {} });
         self.syncActionAccelerator("win.reset", .{ .reset = {} });
         self.syncActionAccelerator("win.clear", .{ .clear_screen = {} });
         self.syncActionAccelerator("win.prompt-title", .{ .prompt_surface_title = {} });
-        self.syncActionAccelerator("split-tree.new-split::left", .{ .new_split = .left });
-        self.syncActionAccelerator("split-tree.new-split::right", .{ .new_split = .right });
-        self.syncActionAccelerator("split-tree.new-split::up", .{ .new_split = .up });
-        self.syncActionAccelerator("split-tree.new-split::down", .{ .new_split = .down });
     }
 
     fn syncActionAccelerator(
@@ -1491,21 +1477,16 @@ pub const Application = extern struct {
         const as_variant_type = glib.VariantType.new("as");
         defer as_variant_type.free();
 
-        const tas_variant_type = glib.VariantType.new("(tas)");
-        defer tas_variant_type.free();
-
         const s_variant_type = glib.ext.VariantType.newFor([:0]const u8);
         defer s_variant_type.free();
 
         const actions = [_]ext.actions.Action(Self){
             .init("new-window", actionNewWindow, null),
             .init("new-window-command", actionNewWindow, as_variant_type),
-            .init("new-tab", actionNewTab, tas_variant_type),
             .init("open-config", actionOpenConfig, s_variant_type),
             .init("present-surface", actionPresentSurface, t_variant_type),
             .init("quit", actionQuit, null),
             .init("reload-config", actionReloadConfig, null),
-            .init("toggle-quick-terminal", actionToggleQuickTerminal, null),
             .init("ring-bell", actionRingBell, null),
         };
 
@@ -1805,17 +1786,6 @@ pub const Application = extern struct {
         };
     }
 
-    fn actionToggleQuickTerminal(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const priv = self.private();
-        priv.core_app.performAction(self.rt(), .toggle_quick_terminal) catch |err| {
-            log.warn("error toggling quick terminal err={}", .{err});
-        };
-    }
-
     fn actionQuit(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
@@ -1874,101 +1844,6 @@ pub const Application = extern struct {
         ) catch |err| {
             log.warn("unable to create new window: {t}", .{err});
         };
-    }
-
-    /// Handle `app.new-tab` GTK action
-    pub fn actionNewTab(
-        _: *gio.SimpleAction,
-        parameter_: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        log.debug("received new tab action", .{});
-
-        const core_app = self.core();
-
-        var arena: std.heap.ArenaAllocator = .init(core_app.alloc);
-        defer arena.deinit();
-
-        const alloc = arena.allocator();
-
-        const surface_id_, const overrides = result: {
-            // were we given a parameter?
-            const parameter = parameter_ orelse {
-                log.warn("app.new-tab did not receive a parameter", .{});
-                return;
-            };
-
-            log.warn("got parameter: {s}", .{parameter.getTypeString()});
-
-            const tas_variant_type = glib.VariantType.new("(tas)");
-            defer tas_variant_type.free();
-
-            // ensure that the supplied parameter is an array of strings
-            if (glib.Variant.isOfType(parameter, tas_variant_type) == 0) {
-                log.warn("parameter is of type '{s}', not '{s}'", .{
-                    parameter.getTypeString(),
-                    tas_variant_type.peekString()[0..tas_variant_type.getStringLength()],
-                });
-                return;
-            }
-
-            var surface_id: u64 = 0;
-            var arguments_it_: ?*glib.VariantIter = null;
-            defer if (arguments_it_) |arguments_it| arguments_it.free();
-
-            parameter.get("(tas)", &surface_id, &arguments_it_);
-
-            const arguments_it = arguments_it_ orelse return;
-
-            const overrides = Overrides.parse(alloc, arguments_it) catch return;
-
-            break :result .{ if (surface_id == 0) null else surface_id, overrides };
-        };
-
-        const surface_ = surface: {
-            if (surface_id_) |surface_id| find_by_id: {
-                break :surface core_app.findSurfaceByID(surface_id) orelse {
-                    log.warn("new-tab: unable to find surface 0x{x:0>16}", .{surface_id});
-                    break :find_by_id;
-                };
-            }
-            find_focused: {
-                break :surface core_app.focusedSurface() orelse {
-                    log.warn("new-tab: unable to find surface", .{});
-                    break :find_focused;
-                };
-            }
-            break :surface null;
-        };
-
-        if (surface_) |surface| {
-            if (!Action.newTab(
-                .{
-                    .surface = surface,
-                },
-                .{
-                    .command = overrides.command,
-                    .shell_integration = overrides.shell_integration,
-                    .working_directory = overrides.working_directory,
-                    .title = overrides.title,
-                },
-            )) {
-                log.warn("new-tab: unable to create tab", .{});
-            }
-        } else {
-            Action.newWindow(
-                self,
-                null,
-                .{
-                    .command = overrides.command,
-                    .shell_integration = overrides.shell_integration,
-                    .working_directory = overrides.working_directory,
-                    .title = overrides.title,
-                },
-            ) catch |err| {
-                log.warn("new-tab: unable to create new window: {t}", .{err});
-            };
-        }
     }
 
     pub fn actionOpenConfig(

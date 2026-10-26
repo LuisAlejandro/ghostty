@@ -27,8 +27,6 @@ const SplitTree = @import("split_tree.zig").SplitTree;
 const Surface = @import("surface.zig").Surface;
 const Tab = @import("tab.zig").Tab;
 const DebugWarning = @import("debug_warning.zig").DebugWarning;
-const CommandPalette = @import("command_palette.zig").CommandPalette;
-const WeakRef = @import("../weak_ref.zig").WeakRef;
 const TitleDialog = @import("title_dialog.zig").TitleDialog;
 const Overrides = @import("Overrides.zig");
 
@@ -271,13 +269,6 @@ pub const Window = extern struct {
         /// See tabOverviewOpen for why we have this.
         tab_overview_focus_timer: ?c_uint = null,
 
-        /// A weak reference to a command palette.
-        command_palette: WeakRef(CommandPalette) = .empty,
-
-        /// Tab page that the context menu was opened for.
-        /// setup by `setup-menu`.
-        context_menu_page: ?*adw.TabPage = null,
-
         /// The manually overridden title.
         title_override: ?[:0]const u8 = null,
 
@@ -376,31 +367,20 @@ pub const Window = extern struct {
 
     /// Setup our action map.
     fn initActionMap(self: *Self) void {
-        const s_variant_type = glib.ext.VariantType.newFor([:0]const u8);
-        defer s_variant_type.free();
-
+        // Mash hosts one Herdr client. Tab, split, palette and inspector
+        // actions must not remain directly invokable via GTK/DBus after
+        // their buttons and menu entries have been removed.
         const actions = [_]ext.actions.Action(Self){
             .init("about", actionAbout, null),
             .init("close", actionClose, null),
-            .init("close-tab", actionCloseTab, s_variant_type),
-            .init("new-tab", actionNewTab, null),
             .init("new-window", actionNewWindow, null),
             .init("prompt-surface-title", actionPromptSurfaceTitle, null),
-            .init("prompt-tab-title", actionPromptTabTitle, null),
-            .init("prompt-context-tab-title", actionPromptContextTabTitle, null),
             .init("prompt-window-title", actionPromptWindowTitle, null),
             .init("ring-bell", actionRingBell, null),
-            .init("split-right", actionSplitRight, null),
-            .init("split-left", actionSplitLeft, null),
-            .init("split-up", actionSplitUp, null),
-            .init("split-down", actionSplitDown, null),
             .init("copy", actionCopy, null),
             .init("paste", actionPaste, null),
             .init("reset", actionReset, null),
             .init("clear", actionClear, null),
-            // TODO: accept the surface that toggled the command palette
-            .init("toggle-command-palette", actionToggleCommandPalette, null),
-            .init("toggle-inspector", actionToggleInspector, null),
         };
 
         ext.actions.add(Self, self, &actions);
@@ -1438,8 +1418,6 @@ pub const Window = extern struct {
             priv.handle_active_state_source = null;
         }
 
-        priv.command_palette.deinit();
-
         if (priv.config) |v| {
             v.unref();
             priv.config = null;
@@ -1830,14 +1808,6 @@ pub const Window = extern struct {
             self.as(gtk.Window).close();
         }
     }
-    fn setupTabMenu(
-        _: *adw.TabView,
-        page: ?*adw.TabPage,
-        self: *Self,
-    ) callconv(.c) void {
-        self.private().context_menu_page = page;
-    }
-
     fn surfaceClipboardWrite(
         _: *Surface,
         clipboard_type: apprt.Clipboard,
@@ -2035,61 +2005,12 @@ pub const Window = extern struct {
         self.as(gtk.Window).close();
     }
 
-    fn actionCloseTab(
-        _: *gio.SimpleAction,
-        param_: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        const param = param_ orelse {
-            log.warn("win.close-tab called without a parameter", .{});
-            return;
-        };
-
-        var str: ?[*:0]const u8 = null;
-        param.get("&s", &str);
-
-        const mode = std.meta.stringToEnum(
-            input.Binding.Action.CloseTabMode,
-            std.mem.span(
-                str orelse {
-                    log.warn("invalid mode provided to win.close-tab", .{});
-                    return;
-                },
-            ),
-        ) orelse {
-            log.warn("invalid mode provided to win.close-tab: {s}", .{str.?});
-            return;
-        };
-
-        self.performBindingAction(.{ .close_tab = mode });
-    }
-
     fn actionNewWindow(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
         self: *Window,
     ) callconv(.c) void {
         self.performBindingAction(.new_window);
-    }
-
-    fn actionNewTab(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.new_tab);
-    }
-
-    fn actionPromptContextTabTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const priv = self.private();
-        const page = priv.context_menu_page orelse return;
-        const child = page.getChild();
-        const tab = gobject.ext.cast(Tab, child) orelse return;
-        tab.promptTabTitle();
     }
 
     fn actionPromptSurfaceTitle(
@@ -2100,52 +2021,12 @@ pub const Window = extern struct {
         self.performBindingAction(.prompt_surface_title);
     }
 
-    fn actionPromptTabTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.prompt_tab_title);
-    }
-
     fn actionPromptWindowTitle(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
         self: *Window,
     ) callconv(.c) void {
         self.performBindingAction(.prompt_window_title);
-    }
-
-    fn actionSplitRight(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.{ .new_split = .right });
-    }
-
-    fn actionSplitLeft(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.{ .new_split = .left });
-    }
-
-    fn actionSplitUp(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.{ .new_split = .up });
-    }
-
-    fn actionSplitDown(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.{ .new_split = .down });
     }
 
     fn actionCopy(
@@ -2207,85 +2088,6 @@ pub const Window = extern struct {
         }
     }
 
-    /// Toggle the command palette.
-    ///
-    /// TODO: accept the surface that toggled the command palette as a parameter
-    fn toggleCommandPalette(self: *Window) void {
-        const priv = self.private();
-
-        // Get a reference to a command palette. First check the weak reference
-        // that we save to see if we already have one stored. If we don't then
-        // create a new one.
-        const command_palette = priv.command_palette.get() orelse command_palette: {
-            // Create a fresh command palette.
-            const command_palette = CommandPalette.new();
-
-            // Synchronize our config to the command palette's config.
-            _ = gobject.Object.bindProperty(
-                self.as(gobject.Object),
-                "config",
-                command_palette.as(gobject.Object),
-                "config",
-                .{ .sync_create = true },
-            );
-
-            // Listen to the activate signal to know if the user selected an option in
-            // the command palette.
-            _ = CommandPalette.signals.trigger.connect(
-                command_palette,
-                *Window,
-                signalCommandPaletteTrigger,
-                self,
-                .{},
-            );
-
-            // Save a weak reference to the command palette. We use a weak reference to avoid
-            // reference counting cycles that might cause problems later.
-            priv.command_palette.set(command_palette);
-
-            break :command_palette command_palette;
-        };
-        defer command_palette.unref();
-
-        // Tell the command palette to toggle itself. If the dialog gets
-        // presented (instead of hidden) it will be modal over our window.
-        command_palette.toggle(self);
-    }
-
-    // React to a signal from a command palette asking an action to be performed.
-    fn signalCommandPaletteTrigger(_: *CommandPalette, action: *const input.Binding.Action, self: *Self) callconv(.c) void {
-        // If the activation actually has an action, perform it.
-        self.performBindingAction(action.*);
-    }
-
-    /// React to a GTK action requesting that the command palette be toggled.
-    fn actionToggleCommandPalette(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        // TODO: accept the surface that toggled the command palette as a
-        // parameter
-        self.toggleCommandPalette();
-    }
-
-    /// Toggle the Ghostty inspector for the active surface.
-    fn toggleInspector(self: *Self) void {
-        const surface = self.getActiveSurface() orelse return;
-        _ = surface.controlInspector(.toggle);
-    }
-
-    /// React to a GTK action requesting that the Ghostty inspector be toggled.
-    fn actionToggleInspector(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        // TODO: accept the surface that toggled the command palette as a
-        // parameter
-        self.toggleInspector();
-    }
-
     const C = Common(Self, Private);
     pub const as = C.as;
     pub const ref = C.ref;
@@ -2339,7 +2141,6 @@ pub const Window = extern struct {
             class.bindTemplateCallback("close_page", &tabViewClosePage);
             class.bindTemplateCallback("page_attached", &tabViewPageAttached);
             class.bindTemplateCallback("page_detached", &tabViewPageDetached);
-            class.bindTemplateCallback("setup_tab_menu", &setupTabMenu);
             class.bindTemplateCallback("tab_create_window", &tabViewCreateWindow);
             class.bindTemplateCallback("notify_n_pages", &tabViewNPages);
             class.bindTemplateCallback("notify_selected_page", &tabViewSelectedPage);

@@ -53,14 +53,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
 
         [end]
         Gtk.Box {
-          Gtk.ToggleButton {
-            icon-name: "view-grid-symbolic";
-            tooltip-text: _("View Open Tabs");
-            active: bind tab_overview.open bidirectional;
-            can-focus: false;
-            focus-on-click: false;
-          }
-
           Gtk.MenuButton {
             notify::active => $notify_menu_active();
             icon-name: "open-menu-symbolic";
@@ -87,8 +79,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
             page-attached => $page_attached();
             page-detached => $page_detached();
             create-window => $tab_create_window();
-            setup-menu => $setup_tab_menu();
-            menu-model: tab_context_menu;
             shortcuts: none;
           }
         }
@@ -128,15 +118,10 @@ menu main_menu {
   }
 
   section {
-  }
-
-  section {
-        item {
-          label: _("Change Title…");
-          action: "win.prompt-surface-title";
-        }
-
-    
+    item {
+      label: _("Change Title…");
+      action: "win.prompt-surface-title";
+    }
   }
 
   section {
@@ -184,12 +169,5 @@ menu main_menu {
       label: _("Quit");
       action: "app.quit";
     }
-  }
-}
-
-menu tab_context_menu {
-  item {
-    label: _("Change Tab Title…");
-    action: "win.prompt-context-tab-title";
   }
 }
