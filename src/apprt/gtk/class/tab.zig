@@ -15,7 +15,6 @@ const Config = @import("config.zig").Config;
 const Application = @import("application.zig").Application;
 const SplitTree = @import("split_tree.zig").SplitTree;
 const Surface = @import("surface.zig").Surface;
-const TitleDialog = @import("title_dialog.zig").TitleDialog;
 const Overrides = @import("Overrides.zig");
 
 const log = std.log.scoped(.gtk_ghostty_window);
@@ -250,27 +249,6 @@ pub const Tab = extern struct {
         priv.title_override = null;
         if (title) |v| priv.title_override = glib.ext.dupeZ(u8, v);
         self.as(gobject.Object).notifyByPspec(properties.@"title-override".impl.param_spec);
-    }
-    fn titleDialogSet(
-        _: *TitleDialog,
-        title_ptr: [*:0]const u8,
-        self: *Self,
-    ) callconv(.c) void {
-        const title = std.mem.span(title_ptr);
-        self.setTitleOverride(if (title.len == 0) null else title);
-    }
-    pub fn promptTabTitle(self: *Self) void {
-        const priv = self.private();
-        const dialog = TitleDialog.new(.tab, priv.title_override orelse priv.title);
-        _ = TitleDialog.signals.set.connect(
-            dialog,
-            *Self,
-            titleDialogSet,
-            self,
-            .{},
-        );
-
-        dialog.present(self.as(gtk.Widget));
     }
 
     /// Get the currently active surface. See the "active-surface" property.

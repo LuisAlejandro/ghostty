@@ -12,7 +12,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
   notify::fullscreened => $notify_fullscreened();
   notify::is-active => $notify_is_active();
   notify::maximized => $notify_maximized();
-  notify::quick-terminal => $notify_quick_terminal();
   notify::scale-factor => $notify_scale_factor();
   default-width: 800;
   default-height: 600;
@@ -102,11 +101,6 @@ menu main_menu {
 
   section {
     item {
-      label: _("Change Window Title…");
-      action: "win.prompt-window-title";
-    }
-
-    item {
       label: _("New Window");
       action: "win.new-window";
     }
@@ -114,13 +108,6 @@ menu main_menu {
     item {
       label: _("Close Window");
       action: "win.close";
-    }
-  }
-
-  section {
-    item {
-      label: _("Change Title…");
-      action: "win.prompt-surface-title";
     }
   }
 
@@ -161,7 +148,7 @@ menu main_menu {
 
   section {
     item {
-      label: _("About Ghostty");
+      label: _("About Mash Terminal");
       action: "win.about";
     }
 

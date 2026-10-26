@@ -27,13 +27,10 @@ const Common = @import("../class.zig").Common;
 const Application = @import("application.zig").Application;
 const Config = @import("config.zig").Config;
 const ResizeOverlay = @import("resize_overlay.zig").ResizeOverlay;
-const SearchOverlay = @import("search_overlay.zig").SearchOverlay;
 const KeyStateOverlay = @import("key_state_overlay.zig").KeyStateOverlay;
 const ChildExited = @import("surface_child_exited.zig").SurfaceChildExited;
 const ClipboardConfirmationDialog = @import("clipboard_confirmation_dialog.zig").ClipboardConfirmationDialog;
-const TitleDialog = @import("title_dialog.zig").TitleDialog;
 const Window = @import("window.zig").Window;
-const InspectorWindow = @import("inspector_window.zig").InspectorWindow;
 const SplitTree = @import("split_tree.zig").SplitTree;
 const RenderSurface = @import("render_surface.zig").RenderSurface;
 const i18n = @import("../../../os/i18n.zig");
@@ -633,9 +630,6 @@ pub const Surface = extern struct {
         /// The resize overlay
         resize_overlay: *ResizeOverlay,
 
-        /// The search overlay
-        search_overlay: *SearchOverlay,
-
         /// The key state overlay
         key_state_overlay: *KeyStateOverlay,
 
@@ -683,9 +677,6 @@ pub const Surface = extern struct {
 
         /// The source that handles setting our child property.
         idle_rechild: ?c_uint = null,
-
-        /// A weak reference to an inspector window.
-        inspector: ?*InspectorWindow = null,
 
         // True if the current surface is a split, this is used to apply
         // unfocused-split-* options
@@ -862,11 +853,10 @@ pub const Surface = extern struct {
     /// should be applied to the surface
     fn closureShouldUnfocusedSplitBeShown(
         _: *Self,
-        search_active: c_int,
         focused: c_int,
         is_split: c_int,
     ) callconv(.c) c_int {
-        return @intFromBool(search_active == 0 and focused == 0 and is_split != 0);
+        return @intFromBool(focused == 0 and is_split != 0);
     }
 
     pub fn toggleFullscreen(self: *Self) void {
@@ -885,41 +875,6 @@ pub const Surface = extern struct {
             .{},
             null,
         );
-    }
-
-    pub fn toggleCommandPalette(self: *Self) bool {
-        // TODO: pass the surface with the action
-        return self.as(gtk.Widget).activateAction("win.toggle-command-palette", null) != 0;
-    }
-
-    pub fn controlInspector(
-        self: *Self,
-        value: apprt.Action.Value(.inspector),
-    ) bool {
-        // Let's see if we have an inspector already.
-        const priv = self.private();
-        if (priv.inspector) |inspector| switch (value) {
-            .show => {},
-            // Our weak ref will set our private value to null
-            .toggle, .hide => inspector.as(gtk.Window).destroy(),
-        } else switch (value) {
-            .toggle, .show => {
-                const inspector = InspectorWindow.new(self);
-                inspector.present();
-                inspector.as(gobject.Object).weakRef(inspectorWeakNotify, self);
-                priv.inspector = inspector;
-            },
-
-            .hide => {},
-        }
-
-        return true;
-    }
-
-    /// Redraw our inspector, if there is one associated with this surface.
-    pub fn redrawInspector(self: *Self) void {
-        const priv = self.private();
-        if (priv.inspector) |v| v.queueRender();
     }
 
     /// Handle a key sequence action from the apprt.
@@ -1464,21 +1419,6 @@ pub const Surface = extern struct {
         return false;
     }
 
-    /// Prompt for a manual title change for the surface.
-    pub fn promptTitle(self: *Self) void {
-        const priv = self.private();
-        const dialog = TitleDialog.new(.surface, priv.title_override orelse priv.title);
-        _ = TitleDialog.signals.set.connect(
-            dialog,
-            *Self,
-            titleDialogSet,
-            self,
-            .{},
-        );
-
-        dialog.present(self.as(gtk.Widget));
-    }
-
     /// Scale x/y by the GDK device scale.
     fn scaledCoordinates(
         self: *Self,
@@ -1851,11 +1791,6 @@ pub const Surface = extern struct {
         const priv: *Private = self.private();
 
         const actions = [_]ext.actions.Action(Self){
-            .init(
-                "prompt-title",
-                actionPromptTitle,
-                null,
-            ),
             .initStateful(
                 "notify-on-next-command-finish",
                 actionNotifyOnNextCommandFinish,
@@ -2294,33 +2229,6 @@ pub const Surface = extern struct {
         self.as(gobject.Object).notifyByPspec(properties.@"error".impl.param_spec);
     }
 
-    pub fn setSearchActive(self: *Self, active: bool, needle: [:0]const u8) void {
-        const priv = self.private();
-        var value = gobject.ext.Value.newFrom(active);
-        defer value.unset();
-        gobject.Object.setProperty(
-            priv.search_overlay.as(gobject.Object),
-            SearchOverlay.properties.active.name,
-            &value,
-        );
-
-        if (!std.mem.eql(u8, needle, "")) {
-            priv.search_overlay.setSearchContents(needle);
-        }
-
-        if (active) {
-            priv.search_overlay.grabFocus();
-        }
-    }
-
-    pub fn setSearchTotal(self: *Self, total: ?usize) void {
-        self.private().search_overlay.setSearchTotal(total);
-    }
-
-    pub fn setSearchSelected(self: *Self, selected: ?usize) void {
-        self.private().search_overlay.setSearchSelected(selected);
-    }
-
     fn propConfig(
         self: *Self,
         _: *gobject.ParamSpec,
@@ -2610,17 +2518,6 @@ pub const Surface = extern struct {
     //---------------------------------------------------------------
     // Signal Handlers
 
-    pub fn actionPromptTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Self,
-    ) callconv(.c) void {
-        const surface = self.core() orelse return;
-        _ = surface.performBindingAction(.prompt_surface_title) catch |err| {
-            log.warn("unable to perform prompt title action err={}", .{err});
-        };
-    }
-
     pub fn actionNotifyOnNextCommandFinish(
         action: *gio.SimpleAction,
         _: ?*glib.Variant,
@@ -2651,15 +2548,6 @@ pub const Surface = extern struct {
         // bar if there are tabs. That's not correct. We need to grab it
         // on the surface.
         self.grabFocus();
-    }
-
-    fn inspectorWeakNotify(
-        ud: ?*anyopaque,
-        _: *gobject.Object,
-    ) callconv(.c) void {
-        const self: *Self = @ptrCast(@alignCast(ud orelse return));
-        const priv = self.private();
-        priv.inspector = null;
     }
 
     fn dtDrop(
@@ -3520,44 +3408,6 @@ pub const Surface = extern struct {
         right.setVisible(0);
     }
 
-    fn titleDialogSet(
-        _: *TitleDialog,
-        title_ptr: [*:0]const u8,
-        self: *Self,
-    ) callconv(.c) void {
-        const title = std.mem.span(title_ptr);
-        self.setTitleOverride(if (title.len == 0) null else title);
-    }
-
-    fn searchStop(_: *SearchOverlay, self: *Self) callconv(.c) void {
-        const surface = self.core() orelse return;
-        _ = surface.performBindingAction(.end_search) catch |err| {
-            log.warn("unable to perform end_search action err={}", .{err});
-        };
-        _ = self.private().render_surface.as(gtk.Widget).grabFocus();
-    }
-
-    fn searchChanged(_: *SearchOverlay, needle: ?[*:0]const u8, self: *Self) callconv(.c) void {
-        const surface = self.core() orelse return;
-        _ = surface.performBindingAction(.{ .search = std.mem.sliceTo(needle orelse "", 0) }) catch |err| {
-            log.warn("unable to perform search action err={}", .{err});
-        };
-    }
-
-    fn searchNextMatch(_: *SearchOverlay, self: *Self) callconv(.c) void {
-        const surface = self.core() orelse return;
-        _ = surface.performBindingAction(.{ .navigate_search = .next }) catch |err| {
-            log.warn("unable to perform navigate_search action err={}", .{err});
-        };
-    }
-
-    fn searchPreviousMatch(_: *SearchOverlay, self: *Self) callconv(.c) void {
-        const surface = self.core() orelse return;
-        _ = surface.performBindingAction(.{ .navigate_search = .previous }) catch |err| {
-            log.warn("unable to perform navigate_search action err={}", .{err});
-        };
-    }
-
     fn closureShouldDragHandleBeShown(
         _: *Self,
         config_: ?*Config,
@@ -3744,7 +3594,6 @@ pub const Surface = extern struct {
 
         fn init(class: *Class) callconv(.c) void {
             gobject.ext.ensureType(ResizeOverlay);
-            gobject.ext.ensureType(SearchOverlay);
             gobject.ext.ensureType(KeyStateOverlay);
             gobject.ext.ensureType(ChildExited);
             gtk.Widget.Class.setTemplateFromResource(
@@ -3765,7 +3614,6 @@ pub const Surface = extern struct {
             class.bindTemplateChildPrivate("error_page", .{});
             class.bindTemplateChildPrivate("progress_bar_overlay", .{});
             class.bindTemplateChildPrivate("resize_overlay", .{});
-            class.bindTemplateChildPrivate("search_overlay", .{});
             class.bindTemplateChildPrivate("key_state_overlay", .{});
             class.bindTemplateChildPrivate("terminal_page", .{});
             class.bindTemplateChildPrivate("drop_target", .{});
@@ -3809,10 +3657,6 @@ pub const Surface = extern struct {
             class.bindTemplateCallback("notify_vadjustment", &propVAdjustment);
             class.bindTemplateCallback("should_border_be_shown", &closureShouldBorderBeShown);
             class.bindTemplateCallback("should_unfocused_split_be_shown", &closureShouldUnfocusedSplitBeShown);
-            class.bindTemplateCallback("search_stop", &searchStop);
-            class.bindTemplateCallback("search_changed", &searchChanged);
-            class.bindTemplateCallback("search_next_match", &searchNextMatch);
-            class.bindTemplateCallback("search_previous_match", &searchPreviousMatch);
             class.bindTemplateCallback("should_drag_handle_be_shown", &closureShouldDragHandleBeShown);
             class.bindTemplateCallback("surface_drag_prepare", &surfaceDragPrepare);
             class.bindTemplateCallback("surface_drag_begin", &surfaceDragBegin);

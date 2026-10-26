@@ -6,7 +6,6 @@ const gdk = @import("gdk");
 const gdk_wayland = @import("gdk_wayland");
 const gobject = @import("gobject");
 const gtk = @import("gtk");
-const layer_shell = @import("gtk4-layer-shell");
 
 const wayland = @import("wayland");
 const wl = wayland.client.wl;
@@ -89,25 +88,12 @@ pub const App = struct {
         return null;
     }
 
-    pub fn supportsQuickTerminal(self: App) bool {
-        _ = self;
-        if (!layer_shell.isSupported()) {
-            log.warn("your compositor does not support the wlr-layer-shell protocol; disabling quick terminal", .{});
-            return false;
-        }
-
-        return true;
+    // Mash ships no quick terminal.
+    pub fn supportsQuickTerminal(_: App) bool {
+        return false;
     }
 
-    pub fn initQuickTerminal(self: *App, apprt_window: *ApprtWindow) !void {
-        const window = apprt_window.as(gtk.Window);
-        layer_shell.initForWindow(window);
-
-        // Set target monitor based on config (null lets compositor decide)
-        const monitor = resolveQuickTerminalMonitor(self.globals, apprt_window);
-        defer if (monitor) |v| v.unref();
-        layer_shell.setMonitor(window, monitor);
-    }
+    pub fn initQuickTerminal(_: *App, _: *ApprtWindow) !void {}
 };
 
 /// Per-window (wl_surface) state for the Wayland protocol.
@@ -126,10 +112,6 @@ pub const Window = struct {
     /// Object that controls the decoration mode (client/server/auto)
     /// of the window.
     decoration: ?*org.KdeKwinServerDecoration = null,
-
-    /// Object that controls the slide-in/slide-out animations of the
-    /// quick terminal. Always null for windows other than the quick terminal.
-    slide: ?*org.KdeKwinSlide = null,
 
     /// Object that, when present, denotes that the window is currently
     /// requesting attention from the user.
@@ -194,16 +176,6 @@ pub const Window = struct {
             break :bg bg_effect;
         };
 
-        if (apprt_window.isQuickTerminal()) {
-            _ = gdk.Surface.signals.enter_monitor.connect(
-                gdk_surface,
-                *ApprtWindow,
-                enteredMonitor,
-                apprt_window,
-                .{},
-            );
-        }
-
         return .{
             .apprt_window = apprt_window,
             .surface = wl_surface,
@@ -217,7 +189,6 @@ pub const Window = struct {
         self.blur_region.deinit(self.globals.alloc);
         if (self.bg_effect) |bg| bg.destroy();
         if (self.decoration) |deco| deco.release();
-        if (self.slide) |slide| slide.release();
     }
 
     pub fn resizeEvent(self: *Window) !void {
@@ -233,12 +204,6 @@ pub const Window = struct {
         self.syncDecoration() catch |err| {
             log.err("failed to sync decoration={}", .{err});
         };
-
-        if (self.apprt_window.isQuickTerminal()) {
-            self.syncQuickTerminal() catch |err| {
-                log.warn("failed to sync quick terminal appearance={}", .{err});
-            };
-        }
     }
 
     pub fn clientSideDecorationEnabled(self: Window) bool {
@@ -336,119 +301,6 @@ pub const Window = struct {
         };
     }
 
-    fn syncQuickTerminal(self: *Window) !void {
-        const window = self.apprt_window.as(gtk.Window);
-        const config = if (self.apprt_window.getConfig()) |v|
-            v.get()
-        else
-            return;
-
-        layer_shell.setLayer(window, switch (config.@"gtk-quick-terminal-layer") {
-            .overlay => .overlay,
-            .top => .top,
-            .bottom => .bottom,
-            .background => .background,
-        });
-        layer_shell.setNamespace(window, config.@"gtk-quick-terminal-namespace");
-
-        // Re-resolve the target monitor on every sync so that config reloads
-        // and primary-output changes take effect without recreating the window.
-        const target_monitor = resolveQuickTerminalMonitor(self.globals, self.apprt_window);
-        defer if (target_monitor) |v| v.unref();
-        layer_shell.setMonitor(window, target_monitor);
-
-        layer_shell.setKeyboardMode(
-            window,
-            switch (config.@"quick-terminal-keyboard-interactivity") {
-                .none => .none,
-                .@"on-demand" => on_demand: {
-                    if (layer_shell.getProtocolVersion() < 4) {
-                        log.warn("your compositor does not support on-demand keyboard access; falling back to exclusive access", .{});
-                        break :on_demand .exclusive;
-                    }
-                    break :on_demand .on_demand;
-                },
-                .exclusive => .exclusive,
-            },
-        );
-
-        const anchored_edge: ?layer_shell.ShellEdge = switch (config.@"quick-terminal-position") {
-            .left => .left,
-            .right => .right,
-            .top => .top,
-            .bottom => .bottom,
-            .center => null,
-        };
-
-        for (std.meta.tags(layer_shell.ShellEdge)) |edge| {
-            if (anchored_edge) |anchored| {
-                if (edge == anchored) {
-                    layer_shell.setMargin(window, edge, 0);
-                    layer_shell.setAnchor(window, edge, true);
-                    continue;
-                }
-            }
-
-            // Arbitrary margin - could be made customizable?
-            layer_shell.setMargin(window, edge, 20);
-            layer_shell.setAnchor(window, edge, false);
-        }
-
-        if (self.slide) |slide| slide.release();
-
-        self.slide = if (anchored_edge) |anchored| slide: {
-            const mgr = self.globals.get(.kde_slide_manager) orelse break :slide null;
-
-            const slide = mgr.create(self.surface) catch |err| {
-                log.warn("could not create slide object={}", .{err});
-                break :slide null;
-            };
-
-            const slide_location: org.KdeKwinSlide.Location = switch (anchored) {
-                .top => .top,
-                .bottom => .bottom,
-                .left => .left,
-                .right => .right,
-            };
-
-            slide.setLocation(@intCast(@intFromEnum(slide_location)));
-            slide.commit();
-            break :slide slide;
-        } else null;
-    }
-
-    /// Update the size of the quick terminal based on monitor dimensions.
-    fn enteredMonitor(
-        _: *gdk.Surface,
-        monitor: *gdk.Monitor,
-        apprt_window: *ApprtWindow,
-    ) callconv(.c) void {
-        const window = apprt_window.as(gtk.Window);
-        const config = if (apprt_window.getConfig()) |v| v.get() else return;
-
-        const resolved_monitor = resolveQuickTerminalMonitor(
-            apprt_window.winproto().wayland.globals,
-            apprt_window,
-        );
-        defer if (resolved_monitor) |v| v.unref();
-
-        // Use the configured monitor for sizing if not in mouse mode.
-        const size_monitor = resolved_monitor orelse monitor;
-
-        var monitor_size: gdk.Rectangle = undefined;
-        size_monitor.getGeometry(&monitor_size);
-
-        const dims = config.@"quick-terminal-size".calculate(
-            config.@"quick-terminal-position",
-            .{
-                .width = @intCast(monitor_size.f_width),
-                .height = @intCast(monitor_size.f_height),
-            },
-        );
-
-        window.setDefaultSize(@intCast(dims.width), @intCast(dims.height));
-    }
-
     fn onActivationTokenEvent(
         token: *xdg.ActivationTokenV1,
         event: xdg.ActivationTokenV1.Event,
@@ -471,45 +323,3 @@ pub const Window = struct {
         }
     }
 };
-
-/// Resolve the quick-terminal-screen config to a specific monitor.
-/// Returns null to let the compositor decide (used for .mouse mode).
-/// Caller owns the returned ref and must unref it.
-fn resolveQuickTerminalMonitor(
-    globals: *Globals,
-    apprt_window: *ApprtWindow,
-) ?*gdk.Monitor {
-    const config = if (apprt_window.getConfig()) |v| v.get() else return null;
-
-    switch (config.@"quick-terminal-screen") {
-        .mouse => return null,
-        .main, .@"macos-menu-bar" => {},
-    }
-
-    const display = apprt_window.as(gtk.Widget).getDisplay();
-    const monitors = display.getMonitors();
-
-    // Try to find the monitor matching the primary output name.
-    if (globals.state.primary_output_name) |stored_name| {
-        var i: u32 = 0;
-        while (monitors.getObject(i)) |item| : (i += 1) {
-            const monitor = gobject.ext.cast(gdk.Monitor, item) orelse {
-                item.unref();
-                continue;
-            };
-            if (monitor.getConnector()) |connector_z| {
-                if (std.mem.orderZ(u8, connector_z, stored_name) == .eq) {
-                    return monitor;
-                }
-            }
-            monitor.unref();
-        }
-    }
-
-    // Fall back to the first monitor in the list.
-    const first = monitors.getObject(0) orelse return null;
-    return gobject.ext.cast(gdk.Monitor, first) orelse {
-        first.unref();
-        return null;
-    };
-}

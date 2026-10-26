@@ -27,7 +27,6 @@ const SplitTree = @import("split_tree.zig").SplitTree;
 const Surface = @import("surface.zig").Surface;
 const Tab = @import("tab.zig").Tab;
 const DebugWarning = @import("debug_warning.zig").DebugWarning;
-const TitleDialog = @import("title_dialog.zig").TitleDialog;
 const Overrides = @import("Overrides.zig");
 
 const log = std.log.scoped(.gtk_ghostty_window);
@@ -132,24 +131,6 @@ pub const Window = extern struct {
             );
         };
 
-        pub const @"quick-terminal" = struct {
-            pub const name = "quick-terminal";
-            const impl = gobject.ext.defineProperty(
-                name,
-                Self,
-                bool,
-                .{
-                    .default = true,
-                    .accessor = gobject.ext.privateFieldAccessor(
-                        Self,
-                        Private,
-                        &Private.offset,
-                        "quick_terminal",
-                    ),
-                },
-            );
-        };
-
         pub const @"tabs-autohide" = struct {
             pub const name = "tabs-autohide";
             const impl = gobject.ext.defineProperty(
@@ -229,10 +210,6 @@ pub const Window = extern struct {
     };
 
     const Private = struct {
-        /// Whether this window is a quick terminal. If it is then it
-        /// behaves slightly differently under certain scenarios.
-        quick_terminal: bool = false,
-
         /// Timeout source to react to this window becoming (in)active.
         handle_active_state_source: ?c_uint = null,
 
@@ -374,8 +351,6 @@ pub const Window = extern struct {
             .init("about", actionAbout, null),
             .init("close", actionClose, null),
             .init("new-window", actionNewWindow, null),
-            .init("prompt-surface-title", actionPromptSurfaceTitle, null),
-            .init("prompt-window-title", actionPromptWindowTitle, null),
             .init("ring-bell", actionRingBell, null),
             .init("copy", actionCopy, null),
             .init("paste", actionPaste, null),
@@ -877,18 +852,6 @@ pub const Window = extern struct {
         const priv = self.private();
         priv.handle_active_state_source = null;
 
-        // Hide quick-terminal if set to autohide
-        if (self.isQuickTerminal()) {
-            if (self.getConfig()) |cfg| {
-                if (cfg.get().@"quick-terminal-autohide" and
-                    self.as(gtk.Window).isActive() == 0 and
-                    self.as(gtk.Widget).isVisible() == 1)
-                {
-                    self.toggleVisibility();
-                }
-            }
-        }
-
         // Don't change urgency if we're not the active window.
         if (self.as(gtk.Window).isActive() == 0) return 0;
 
@@ -904,9 +867,10 @@ pub const Window = extern struct {
     //---------------------------------------------------------------
     // Properties
 
-    /// Whether this terminal is a quick terminal or not.
-    pub fn isQuickTerminal(self: *Self) bool {
-        return self.private().quick_terminal;
+    /// Mash ships no quick terminal, so no window is ever one. Kept so the
+    /// winproto and surface callers need no Mash-specific branches.
+    pub fn isQuickTerminal(_: *Self) bool {
+        return false;
     }
 
     /// Get the currently active surface. See the "active-surface" property.
@@ -1061,9 +1025,6 @@ pub const Window = extern struct {
         // Never display the header bar when CSDs are disabled.
         const csd_enabled = priv.winproto.clientSideDecorationEnabled();
         if (!csd_enabled) return false;
-
-        // Never display the header bar as a quick terminal.
-        if (priv.quick_terminal) return false;
 
         // If we're fullscreen we never show the header bar.
         if (self.isFullscreen()) return false;
@@ -1291,26 +1252,6 @@ pub const Window = extern struct {
         self.syncActions();
     }
 
-    fn propQuickTerminal(
-        _: *adw.ApplicationWindow,
-        _: *gobject.ParamSpec,
-        self: *Self,
-    ) callconv(.c) void {
-        const priv = self.private();
-        if (priv.surface_init) {
-            log.warn("quick terminal property can't be changed after surfaces have been initialized", .{});
-            return;
-        }
-
-        if (priv.quick_terminal) {
-            // Initialize the quick terminal at the app-layer
-            Application.default().winproto().initQuickTerminal(self) catch |err| {
-                log.warn("failed to initialize quick terminal error={}", .{err});
-                return;
-            };
-        }
-    }
-
     fn propScaleFactor(
         _: *adw.ApplicationWindow,
         _: *gobject.ParamSpec,
@@ -1348,35 +1289,6 @@ pub const Window = extern struct {
         if (title) |v| priv.title_override = glib.ext.dupeZ(u8, v);
 
         self.as(gobject.Object).notifyByPspec(properties.@"title-override".impl.param_spec);
-    }
-
-    fn titleDialogSet(_: *TitleDialog, title_: [*:0]const u8, self: *Self) callconv(.c) void {
-        const title = std.mem.span(title_);
-        self.setTitleOverride(if (title.len == 0) null else title);
-    }
-
-    pub fn promptWindowTitle(self: *Self) void {
-        const priv: *Private = self.private();
-
-        var value = std.mem.zeroes(gobject.Value);
-        _ = value.init(gobject.ext.types.string);
-        defer value.unset();
-
-        self.as(gobject.Object).getProperty("title", &value);
-
-        const title_: ?[*:0]const u8 = value.getString();
-        const title: ?[:0]const u8 = if (title_) |v| std.mem.span(v) else null;
-
-        const dialog = TitleDialog.new(.window, priv.title_override orelse title);
-        _ = TitleDialog.signals.set.connect(
-            dialog,
-            *Self,
-            titleDialogSet,
-            self,
-            .{},
-        );
-
-        dialog.present(self.as(gtk.Widget));
     }
 
     fn closureTitle(
@@ -2013,22 +1925,6 @@ pub const Window = extern struct {
         self.performBindingAction(.new_window);
     }
 
-    fn actionPromptSurfaceTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.prompt_surface_title);
-    }
-
-    fn actionPromptWindowTitle(
-        _: *gio.SimpleAction,
-        _: ?*glib.Variant,
-        self: *Window,
-    ) callconv(.c) void {
-        self.performBindingAction(.prompt_window_title);
-    }
-
     fn actionCopy(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
@@ -2119,7 +2015,6 @@ pub const Window = extern struct {
                 properties.config.impl,
                 properties.debug.impl,
                 properties.@"headerbar-visible".impl,
-                properties.@"quick-terminal".impl,
                 properties.@"tabs-autohide".impl,
                 properties.@"tabs-visible".impl,
                 properties.@"tabs-wide".impl,
@@ -2149,7 +2044,6 @@ pub const Window = extern struct {
             class.bindTemplateCallback("notify_is_active", &propIsActive);
             class.bindTemplateCallback("notify_maximized", &propMaximized);
             class.bindTemplateCallback("notify_menu_active", &propMenuActive);
-            class.bindTemplateCallback("notify_quick_terminal", &propQuickTerminal);
             class.bindTemplateCallback("notify_scale_factor", &propScaleFactor);
             class.bindTemplateCallback("titlebar_style_is_tabs", &closureTitlebarStyleIsTab);
             class.bindTemplateCallback("computed_title", &closureTitle);

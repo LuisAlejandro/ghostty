@@ -14,7 +14,6 @@ const Application = @import("class/application.zig").Application;
 const Surface = @import("Surface.zig");
 const ipcNewWindow = @import("ipc/new_window.zig").newWindow;
 const ipcNewTab = @import("ipc/new_tab.zig").newTab;
-const ipcToggleQuickTerminal = @import("ipc/toggle_quick_terminal.zig").toggleQuickTerminal;
 
 const log = std.log.scoped(.gtk);
 
@@ -82,11 +81,10 @@ pub fn performIpc(
     switch (action) {
         .new_window => return try ipcNewWindow(alloc, target, value),
         .new_tab => return try ipcNewTab(alloc, target, value),
-        .toggle_quick_terminal => return try ipcToggleQuickTerminal(alloc, target),
+        // Mash ships no quick terminal.
+        .toggle_quick_terminal => return false,
     }
 }
 
-/// Redraw the inspector for the given surface.
-pub fn redrawInspector(_: *App, surface: *Surface) void {
-    surface.redrawInspector();
-}
+/// Mash ships no GTK inspector window, so there is nothing to redraw.
+pub fn redrawInspector(_: *App, _: *Surface) void {}

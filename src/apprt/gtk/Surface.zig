@@ -97,8 +97,3 @@ pub fn setClipboard(
 pub fn defaultTermioEnv(self: *Self) !std.process.Environ.Map {
     return try self.surface.defaultTermioEnv();
 }
-
-/// Redraw the inspector for our surface.
-pub fn redrawInspector(self: *Self) void {
-    self.surface.redrawInspector();
-}

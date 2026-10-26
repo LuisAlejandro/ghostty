@@ -186,14 +186,6 @@ Overlay terminal_page {
   }
 
   [overlay]
-  $GhosttySearchOverlay search_overlay {
-    stop-search => $search_stop();
-    search-changed => $search_changed();
-    next-match => $search_next_match();
-    previous-match => $search_previous_match();
-  }
-
-  [overlay]
   $GhosttyKeyStateOverlay key_state_overlay {
     tables: bind template.key-table;
     sequence: bind template.key-sequence;
@@ -204,14 +196,12 @@ Overlay terminal_page {
   // this is only applied when a tab has more than one surface
   Revealer {
     reveal-child: bind $should_unfocused_split_be_shown(
-      search_overlay.active,
       template.focused,
       template.is-split
       ) as <bool>;
     transition-duration: 0;
     // This is all necessary so that the Revealer itself doesn't override
-    // any input events from the other overlays. Namely, if you don't have
-    // these then the search overlay won't get mouse events.
+    // any input events from the other overlays.
     can-focus: false;
     can-target: false;
     focusable: false;
@@ -336,19 +326,8 @@ menu context_menu_model {
   }
 
   section {
-        item {
-          label: _("Change Title…");
-          action: "surface.prompt-title";
-        }
-
-    
     submenu {
       label: _("Window");
-
-      item {
-        label: _("Change Window Title…");
-        action: "win.prompt-window-title";
-      }
 
       item {
         label: _("New Window");

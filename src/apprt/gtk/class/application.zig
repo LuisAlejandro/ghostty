@@ -716,7 +716,6 @@ pub const Application = extern struct {
 
             .initial_size => return Action.initialSize(target, value),
 
-            .inspector => return Action.controlInspector(target, value),
             .export_terminal_io => return try Action.exportTerminalIO(
                 self,
                 target,
@@ -756,8 +755,6 @@ pub const Application = extern struct {
 
             .progress_report => return Action.progressReport(target, value),
 
-            .prompt_title => return Action.promptTitle(target, value),
-
             .quit => self.quit(),
 
             .quit_timer => try Action.quitTimer(self, value),
@@ -783,27 +780,27 @@ pub const Application = extern struct {
 
             .show_child_exited => return Action.showChildExited(target, value),
 
-            .show_gtk_inspector => Action.showGtkInspector(),
-
             .size_limit => return Action.sizeLimit(target, value),
 
             .toggle_maximize => Action.toggleMaximize(target),
             .toggle_fullscreen => Action.toggleFullscreen(target),
-            .toggle_quick_terminal => return Action.toggleQuickTerminal(self),
             .toggle_tab_overview => return Action.toggleTabOverview(target),
             .toggle_window_decorations => return Action.toggleWindowDecorations(target),
-            .toggle_command_palette => return Action.toggleCommandPalette(target),
             .toggle_split_zoom => return Action.toggleSplitZoom(target),
             .show_on_screen_keyboard => return Action.showOnScreenKeyboard(target),
             .command_finished => return Action.commandFinished(target, value),
             .readonly => return Action.setReadonly(target, value),
 
-            .start_search => Action.startSearch(target, value),
-            .end_search => Action.endSearch(target),
-            .search_total => Action.searchTotal(target, value),
-            .search_selected => Action.searchSelected(target, value),
-
-            // Unimplemented
+            // Unimplemented, or Ghostty UI that Mash does not ship.
+            .inspector,
+            .prompt_title,
+            .show_gtk_inspector,
+            .toggle_quick_terminal,
+            .toggle_command_palette,
+            .start_search,
+            .end_search,
+            .search_total,
+            .search_selected,
             .secure_input,
             .close_all_windows,
             .float_window,
@@ -1223,7 +1220,6 @@ pub const Application = extern struct {
         self.syncActionAccelerator("win.paste", .{ .paste_from_clipboard = {} });
         self.syncActionAccelerator("win.reset", .{ .reset = {} });
         self.syncActionAccelerator("win.clear", .{ .clear_screen = {} });
-        self.syncActionAccelerator("win.prompt-title", .{ .prompt_surface_title = {} });
     }
 
     fn syncActionAccelerator(
@@ -2652,52 +2648,6 @@ const Action = struct {
         };
     }
 
-    pub fn promptTitle(target: apprt.Target, value: apprt.action.PromptTitle) bool {
-        switch (value) {
-            .surface => switch (target) {
-                .app => return false,
-                .surface => |v| {
-                    v.rt_surface.surface.promptTitle();
-                    return true;
-                },
-            },
-            .tab => {
-                switch (target) {
-                    .app => return false,
-                    .surface => |v| {
-                        const surface = v.rt_surface.surface;
-                        const tab = ext.getAncestor(
-                            Tab,
-                            surface.as(gtk.Widget),
-                        ) orelse {
-                            log.warn("surface is not in a tab, ignoring prompt_tab_title", .{});
-                            return false;
-                        };
-                        tab.promptTabTitle();
-                        return true;
-                    },
-                }
-            },
-            .window => {
-                switch (target) {
-                    .app => return false,
-                    .surface => |v| {
-                        const surface = v.rt_surface.surface;
-                        const win = ext.getAncestor(
-                            Window,
-                            surface.as(gtk.Widget),
-                        ) orelse {
-                            log.warn("surface is not in a window, ignoring prompt_window_title", .{});
-                            return false;
-                        };
-                        win.promptWindowTitle();
-                        return true;
-                    },
-                }
-            },
-        }
-    }
-
     /// Reload the configuration for the application and propagate it
     /// across the entire application and all terminals.
     pub fn reloadConfig(
@@ -2830,34 +2780,6 @@ const Action = struct {
         }
     }
 
-    pub fn startSearch(target: apprt.Target, value: apprt.action.StartSearch) void {
-        switch (target) {
-            .app => {},
-            .surface => |v| v.rt_surface.surface.setSearchActive(true, value.needle),
-        }
-    }
-
-    pub fn endSearch(target: apprt.Target) void {
-        switch (target) {
-            .app => {},
-            .surface => |v| v.rt_surface.surface.setSearchActive(false, ""),
-        }
-    }
-
-    pub fn searchTotal(target: apprt.Target, value: apprt.action.SearchTotal) void {
-        switch (target) {
-            .app => {},
-            .surface => |v| v.rt_surface.surface.setSearchTotal(value.total),
-        }
-    }
-
-    pub fn searchSelected(target: apprt.Target, value: apprt.action.SearchSelected) void {
-        switch (target) {
-            .app => {},
-            .surface => |v| v.rt_surface.surface.setSearchSelected(value.selected),
-        }
-    }
-
     pub fn setTitle(
         target: apprt.Target,
         value: apprt.action.SetTitle,
@@ -2926,10 +2848,6 @@ const Action = struct {
         };
     }
 
-    pub fn showGtkInspector() void {
-        gtk.Window.setInteractiveDebugging(@intFromBool(true));
-    }
-
     pub fn sizeLimit(
         target: apprt.Target,
         value: apprt.action.SizeLimit,
@@ -2955,28 +2873,6 @@ const Action = struct {
             .app => {},
             .surface => |v| v.rt_surface.surface.toggleFullscreen(),
         }
-    }
-
-    pub fn toggleQuickTerminal(self: *Application) bool {
-        // If we already have a quick terminal window, we just toggle the
-        // visibility of it.
-        if (getQuickTerminalWindow()) |win| {
-            win.toggleVisibility();
-            return true;
-        }
-
-        // If we don't support quick terminals then we do nothing.
-        const priv = self.private();
-        if (!priv.winproto.supportsQuickTerminal()) return false;
-
-        // Create our new window as a quick terminal
-        const win = gobject.ext.newInstance(Window, .{
-            .application = self,
-            .@"quick-terminal" = true,
-        });
-        assert(win.isQuickTerminal());
-        initAndShowWindow(self, win, null, .none);
-        return true;
     }
 
     pub fn toggleSplitZoom(target: apprt.Target) bool {
@@ -3021,26 +2917,6 @@ const Action = struct {
         }
     }
 
-    fn getQuickTerminalWindow() ?*Window {
-        // Find a quick terminal window.
-        const list = gtk.Window.listToplevels();
-        defer list.free();
-        if (ext.listFind(gtk.Window, list, struct {
-            fn find(gtk_win: *gtk.Window) bool {
-                const win = gobject.ext.cast(
-                    Window,
-                    gtk_win,
-                ) orelse return false;
-                return win.isQuickTerminal();
-            }
-        }.find)) |w| return gobject.ext.cast(
-            Window,
-            w,
-        ).?;
-
-        return null;
-    }
-
     pub fn toggleMaximize(target: apprt.Target) void {
         switch (target) {
             .app => {},
@@ -3082,24 +2958,6 @@ const Action = struct {
 
                 window.toggleWindowDecorations();
                 return true;
-            },
-        }
-    }
-
-    pub fn toggleCommandPalette(target: apprt.Target) bool {
-        switch (target) {
-            .app => return false,
-            .surface => |surface| {
-                return surface.rt_surface.gobj().toggleCommandPalette();
-            },
-        }
-    }
-
-    pub fn controlInspector(target: apprt.Target, value: apprt.Action.Value(.inspector)) bool {
-        switch (target) {
-            .app => return false,
-            .surface => |surface| {
-                return surface.rt_surface.gobj().controlInspector(value);
             },
         }
     }

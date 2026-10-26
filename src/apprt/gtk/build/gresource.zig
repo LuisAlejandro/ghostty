@@ -36,11 +36,7 @@ pub const blueprints: []const Blueprint = &.{
     .{ .major = 1, .minor = 2, .name = "config-errors-dialog" },
     .{ .major = 1, .minor = 2, .name = "debug-warning" },
     .{ .major = 1, .minor = 3, .name = "debug-warning" },
-    .{ .major = 1, .minor = 5, .name = "imgui-widget" },
-    .{ .major = 1, .minor = 5, .name = "inspector-widget" },
-    .{ .major = 1, .minor = 5, .name = "inspector-window" },
     .{ .major = 1, .minor = 2, .name = "resize-overlay" },
-    .{ .major = 1, .minor = 2, .name = "search-overlay" },
     .{ .major = 1, .minor = 2, .name = "key-state-overlay" },
     .{ .major = 1, .minor = 5, .name = "split-tree" },
     .{ .major = 1, .minor = 5, .name = "split-tree-split" },
@@ -48,9 +44,7 @@ pub const blueprints: []const Blueprint = &.{
     .{ .major = 1, .minor = 5, .name = "surface-scrolled-window" },
     .{ .major = 1, .minor = 3, .name = "surface-child-exited" },
     .{ .major = 1, .minor = 5, .name = "tab" },
-    .{ .major = 1, .minor = 5, .name = "title-dialog" },
     .{ .major = 1, .minor = 5, .name = "window" },
-    .{ .major = 1, .minor = 5, .name = "command-palette" },
 };
 
 /// CSS files in css_path
