@@ -123,30 +123,351 @@ menu main_menu {
     }
   }
 
+  // Mash: Herdr commands. Each item sends its shipped Linux Herdr chord to
+  // this window's terminal (win.mash-send-key -> mash_send_key), so it
+  // behaves exactly like the shortcut. accel only displays the chord.
   section {
     submenu {
-      label: _("Config");
+      label: _("File");
 
-      item {
-        label: _("Open Configuration in OS Editor");
-        action: "app.open-config";
-        target: "os-open";
+      section {
+        item {
+          label: _("New Dev Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+t";
+          accel: "<Control><Alt>t";
+        }
+
+        item {
+          label: _("New Agent Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+t";
+          accel: "<Control><Alt><Shift>t";
+        }
+
+        item {
+          label: _("New Review Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+r";
+          accel: "<Control><Shift>r";
+        }
+
+        item {
+          label: _("New Shell Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+t";
+          accel: "<Control><Shift>t";
+        }
       }
 
-      item {
-        label: _("Open Configuration in New Window");
-        action: "app.open-config";
-        target: "new-window";
+      section {
+        item {
+          label: _("New Workspace…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+n";
+          accel: "<Control><Alt><Shift>n";
+        }
+
+        item {
+          label: _("New Worktree…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+e";
+          accel: "<Control><Alt><Shift>e";
+        }
+
+        item {
+          label: _("Workspace Picker…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+o";
+          accel: "<Control><Alt><Shift>o";
+        }
       }
 
-      item {
-        label: _("Reload Configuration");
-        action: "app.reload-config";
+      section {
+        item {
+          label: _("Close Pane");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+w";
+          accel: "<Control><Alt>w";
+        }
+
+        item {
+          label: _("Close Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+w";
+          accel: "<Control><Shift>w";
+        }
+
+        item {
+          label: _("Close Workspace");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+w";
+          accel: "<Control><Alt><Shift>w";
+        }
+
+        item {
+          label: _("Remove Worktree");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+backspace";
+          accel: "<Control><Alt><Shift>BackSpace";
+        }
+      }
+    }
+
+    submenu {
+      label: _("Edit");
+
+      section {
+        item {
+          label: _("Annotate Selection");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+k";
+          accel: "<Control><Alt>k";
+        }
+
+        item {
+          label: _("Paste Annotations into Agent");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+l";
+          accel: "<Control><Alt>l";
+        }
+
+        item {
+          label: _("Manage Annotations");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+l";
+          accel: "<Control><Shift>l";
+        }
+      }
+
+      section {
+        item {
+          label: _("Pick Link or ID");
+          action: "win.mash-send-key";
+          target: "alt+g";
+          accel: "<Alt>g";
+        }
+      }
+    }
+
+    submenu {
+      label: _("View");
+
+      section {
+        item {
+          label: _("Toggle Sidebar");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+b";
+          accel: "<Control><Alt>b";
+        }
+
+        item {
+          label: _("Zoom Pane");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+z";
+          accel: "<Control><Alt>z";
+        }
+      }
+
+      section {
+        item {
+          label: _("Split Pane Right");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+backslash";
+          accel: "<Control><Alt>backslash";
+        }
+
+        item {
+          label: _("Split Pane Down");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+minus";
+          accel: "<Control><Alt>minus";
+        }
+
+        item {
+          label: _("Resize Mode");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+r";
+          accel: "<Control><Alt>r";
+        }
+      }
+    }
+
+    submenu {
+      label: _("Go");
+
+      section {
+        item {
+          label: _("Goto…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+g";
+          accel: "<Control><Alt><Shift>g";
+        }
+      }
+
+      section {
+        item {
+          label: _("Previous Workspace");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+bracket_left";
+          accel: "<Control><Alt><Shift>bracketleft";
+        }
+
+        item {
+          label: _("Next Workspace");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+bracket_right";
+          accel: "<Control><Alt><Shift>bracketright";
+        }
+
+        item {
+          label: _("Previous Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+bracket_left";
+          accel: "<Control><Shift>bracketleft";
+        }
+
+        item {
+          label: _("Next Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+bracket_right";
+          accel: "<Control><Shift>bracketright";
+        }
+
+        item {
+          label: _("Previous Pane");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+bracket_left";
+          accel: "<Control><Alt>bracketleft";
+        }
+
+        item {
+          label: _("Next Pane");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+bracket_right";
+          accel: "<Control><Alt>bracketright";
+        }
+
+        item {
+          label: _("Previous Agent");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+arrow_up";
+          accel: "<Control><Shift>Up";
+        }
+
+        item {
+          label: _("Next Agent");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+arrow_down";
+          accel: "<Control><Shift>Down";
+        }
+      }
+
+      section {
+        item {
+          label: _("Open Notification Target");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+y";
+          accel: "<Control><Alt>y";
+        }
+      }
+    }
+
+    submenu {
+      label: _("Tools");
+
+      section {
+        item {
+          label: _("Command Palette…");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+p";
+          accel: "<Control><Shift>p";
+        }
+
+        item {
+          label: _("File Finder…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+p";
+          accel: "<Control><Alt>p";
+        }
+
+        item {
+          label: _("Source Control");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+g";
+          accel: "<Control><Shift>g";
+        }
+
+        item {
+          label: _("Session Search…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+l";
+          accel: "<Control><Alt><Shift>l";
+        }
+
+        item {
+          label: _("Snippets…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+p";
+          accel: "<Control><Alt><Shift>p";
+        }
+
+        item {
+          label: _("Container Status");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+o";
+          accel: "<Control><Shift>o";
+        }
+
+        item {
+          label: _("Plugin Manager");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+x";
+          accel: "<Control><Shift>x";
+        }
+      }
+
+      section {
+        item {
+          label: _("Fork Agent from Message…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+y";
+          accel: "<Control><Alt><Shift>y";
+        }
       }
     }
   }
 
   section {
+    item {
+      label: _("Settings…");
+      action: "win.mash-send-key";
+      target: "ctrl+alt+i";
+      accel: "<Control><Alt>i";
+    }
+
+    item {
+      label: _("Reload Configuration");
+      action: "win.mash-reload";
+      accel: "<Control><Alt><Shift>k";
+    }
+
+    item {
+      label: _("Detach");
+      action: "win.mash-send-key";
+      target: "ctrl+alt+u";
+      accel: "<Control><Alt>u";
+    }
+  }
+
+  section {
+    item {
+      label: _("Mash Help");
+      action: "win.mash-send-key";
+      target: "ctrl+shift+i";
+      accel: "<Control><Shift>i";
+    }
+
     item {
       label: _("About Mash Terminal");
       action: "win.about";

@@ -347,6 +347,9 @@ pub const Window = extern struct {
         // Mash hosts one Herdr client. Tab, split, palette and inspector
         // actions must not remain directly invokable via GTK/DBus after
         // their buttons and menu entries have been removed.
+        const s_variant_type = glib.ext.VariantType.newFor([:0]const u8);
+        defer s_variant_type.free();
+
         const actions = [_]ext.actions.Action(Self){
             .init("about", actionAbout, null),
             .init("close", actionClose, null),
@@ -356,6 +359,9 @@ pub const Window = extern struct {
             .init("paste", actionPaste, null),
             .init("reset", actionReset, null),
             .init("clear", actionClear, null),
+            // Mash's menu items: send a Herdr chord to this window's terminal.
+            .init("mash-send-key", actionMashSendKey, s_variant_type),
+            .init("mash-reload", actionMashReload, null),
         };
 
         ext.actions.add(Self, self, &actions);
@@ -1955,6 +1961,31 @@ pub const Window = extern struct {
         self: *Window,
     ) callconv(.c) void {
         self.performBindingAction(.clear_screen);
+    }
+
+    fn actionMashSendKey(
+        _: *gio.SimpleAction,
+        param_: ?*glib.Variant,
+        self: *Window,
+    ) callconv(.c) void {
+        const param = param_ orelse return;
+        var chord: ?[*:0]const u8 = null;
+        param.get("&s", &chord);
+        self.performBindingAction(.{
+            .mash_send_key = std.mem.span(chord orelse return),
+        });
+    }
+
+    /// Reload Ghostty's configuration and Herdr's, which has no API from here
+    /// beyond its own reload chord. Fresh is left alone: it has no config
+    /// reload, only a script re-run that drops its timers and commands.
+    fn actionMashReload(
+        _: *gio.SimpleAction,
+        _: ?*glib.Variant,
+        self: *Window,
+    ) callconv(.c) void {
+        _ = self.as(gtk.Widget).activateAction("app.reload-config", null);
+        self.performBindingAction(.{ .mash_send_key = "ctrl+alt+shift+k" });
     }
 
     fn actionRingBell(
