@@ -281,9 +281,10 @@ pub const Window = extern struct {
         /// The manually overridden title.
         title_override: ?[:0]const u8 = null,
 
-        // Template bindings
+        // Template bindings. There is no tab_bar: Mash ships no Ghostty tabs,
+        // and a required template child that the blueprint no longer declares
+        // panics when the window template is instantiated.
         tab_overview: *adw.TabOverview,
-        tab_bar: *adw.TabBar,
         tab_view: *adw.TabView,
         toolbar: *adw.ToolbarView,
         toast_overlay: *adw.ToastOverlay,
@@ -732,13 +733,6 @@ pub const Window = extern struct {
             !gtk_version.atLeast(4, 16, 0) and
                 config.@"window-theme" == .ghostty,
         );
-
-        // Move the tab bar to the proper location.
-        priv.toolbar.remove(priv.tab_bar.as(gtk.Widget));
-        switch (config.@"gtk-tabs-location") {
-            .top => priv.toolbar.addTopBar(priv.tab_bar.as(gtk.Widget)),
-            .bottom => priv.toolbar.addBottomBar(priv.tab_bar.as(gtk.Widget)),
-        }
 
         // Do our window-protocol specific appearance sync.
         priv.winproto.syncAppearance() catch |err| {
@@ -1550,17 +1544,6 @@ pub const Window = extern struct {
         while (it.next()) |entry| entry.view.updateOcclusion();
     }
 
-    fn btnNewTab(_: *adw.SplitButton, self: *Self) callconv(.c) void {
-        self.performBindingAction(.new_tab);
-    }
-
-    fn tabOverviewCreateTab(
-        _: *adw.TabOverview,
-        self: *Self,
-    ) callconv(.c) *adw.TabPage {
-        return self.newTabPage(if (self.getActiveSurface()) |v| v.core() else null, .tab, .none);
-    }
-
     fn tabOverviewOpen(
         tab_overview: *adw.TabOverview,
         _: *gobject.ParamSpec,
@@ -2345,15 +2328,12 @@ pub const Window = extern struct {
 
             // Bindings
             class.bindTemplateChildPrivate("tab_overview", .{});
-            class.bindTemplateChildPrivate("tab_bar", .{});
             class.bindTemplateChildPrivate("tab_view", .{});
             class.bindTemplateChildPrivate("toolbar", .{});
             class.bindTemplateChildPrivate("toast_overlay", .{});
 
             // Template Callbacks
             class.bindTemplateCallback("realize", &windowRealize);
-            class.bindTemplateCallback("new_tab", &btnNewTab);
-            class.bindTemplateCallback("overview_create_tab", &tabOverviewCreateTab);
             class.bindTemplateCallback("overview_notify_open", &tabOverviewOpen);
             class.bindTemplateCallback("close_request", &windowCloseRequest);
             class.bindTemplateCallback("close_page", &tabViewClosePage);
