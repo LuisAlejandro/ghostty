@@ -4910,7 +4910,7 @@ fn showMouse(self: *Surface) void {
 /// it carries the `performable:` prefix, so the unbind is what actually lets
 /// those chords reach Herdr and Fresh; deleting it would restore the default
 /// binding and silently swallow the key.
-const mash_removed_ui: std.EnumSet(std.meta.Tag(input.Binding.Action)) = .initMany(&.{
+pub const mash_removed_ui: std.EnumSet(std.meta.Tag(input.Binding.Action)) = .initMany(&.{
     // Tabs and the tab overview.
     .new_tab,
     .previous_tab,
@@ -4951,6 +4951,24 @@ const mash_removed_ui: std.EnumSet(std.meta.Tag(input.Binding.Action)) = .initMa
     .scroll_page_fractional,
     .scroll_page_lines,
     .jump_to_prompt,
+
+    // Undo only reopens a closed window, which would hold that Mash instance
+    // claim open for the timeout.
+    .undo,
+    .redo,
+
+    // Mash ships no updater: releases arrive through the DMG and APT.
+    .check_for_updates,
+
+    // Window stacking extras Mash does not offer.
+    .toggle_window_float_on_top,
+
+    // Herdr owns titles. Titles set by programs through the terminal are a
+    // separate path (set_title) and keep working.
+    .prompt_surface_title,
+    .prompt_tab_title,
+    .prompt_window_title,
+    .set_surface_title,
 });
 
 /// Perform a binding action. A binding is a keybinding. This function

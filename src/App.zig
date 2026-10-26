@@ -455,6 +455,13 @@ pub fn performAction(
     rt_app: *apprt.App,
     action: input.Binding.Action.Scoped(.app),
 ) !void {
+    // App-scoped keybinds (including global ones) arrive here without passing
+    // through Surface.performBindingAction, so apply Mash's rejection too.
+    if (Surface.mash_removed_ui.contains(std.meta.stringToEnum(
+        std.meta.Tag(input.Binding.Action),
+        @tagName(action),
+    ).?)) return;
+
     switch (action) {
         .unbind => unreachable,
         .ignore => {},
