@@ -2,7 +2,6 @@ import AppKit
 import SwiftUI
 import UserNotifications
 import OSLog
-import Sparkle
 import GhosttyKit
 
 class AppDelegate: NSObject,
@@ -20,7 +19,6 @@ class AppDelegate: NSObject,
     /// Various menu items so that we can programmatically sync the keyboard shortcut with the Ghostty config
     @IBOutlet private var menuAbout: NSMenuItem?
     @IBOutlet private var menuServices: NSMenu?
-    @IBOutlet private var menuCheckForUpdates: NSMenuItem?
     @IBOutlet private var menuOpenConfig: NSMenuItem?
     @IBOutlet private var menuReloadConfig: NSMenuItem?
     @IBOutlet private var menuSecureInput: NSMenuItem?
@@ -37,8 +35,6 @@ class AppDelegate: NSObject,
     @IBOutlet private var menuCloseWindow: NSMenuItem?
     @IBOutlet private var menuCloseAllWindows: NSMenuItem?
 
-    @IBOutlet private var menuUndo: NSMenuItem?
-    @IBOutlet private var menuRedo: NSMenuItem?
     @IBOutlet private var menuCopy: NSMenuItem?
     @IBOutlet private var menuPaste: NSMenuItem?
     @IBOutlet private var menuPasteSelection: NSMenuItem?
@@ -62,19 +58,11 @@ class AppDelegate: NSObject,
     @IBOutlet private var menuSelectSplitLeft: NSMenuItem?
     @IBOutlet private var menuSelectSplitRight: NSMenuItem?
     @IBOutlet private var menuReturnToDefaultSize: NSMenuItem?
-    @IBOutlet private var menuFloatOnTop: NSMenuItem?
-    @IBOutlet private var menuUseAsDefault: NSMenuItem?
-    @IBOutlet private var menuSetAsDefaultTerminal: NSMenuItem?
 
     @IBOutlet private var menuIncreaseFontSize: NSMenuItem?
     @IBOutlet private var menuDecreaseFontSize: NSMenuItem?
     @IBOutlet private var menuResetFontSize: NSMenuItem?
-    @IBOutlet private var menuChangeTitle: NSMenuItem?
-    @IBOutlet private var menuChangeTabTitle: NSMenuItem?
     @IBOutlet private var menuReadonly: NSMenuItem?
-    @IBOutlet private var menuQuickTerminal: NSMenuItem?
-    @IBOutlet private var menuTerminalInspector: NSMenuItem?
-    @IBOutlet private var menuCommandPalette: NSMenuItem?
 
     @IBOutlet private var menuEqualizeSplits: NSMenuItem?
     @IBOutlet private var menuMoveSplitDividerUp: NSMenuItem?
@@ -109,50 +97,6 @@ class AppDelegate: NSObject,
 
     /// The global undo manager for app-level state such as window restoration.
     lazy var undoManager = ExpiringUndoManager()
-
-    /// The current state of the quick terminal.
-    private var quickTerminalControllerState: QuickTerminalState = .uninitialized
-
-    /// Whether the quick terminal has already been initialized.
-    var quickControllerInitialized: Bool {
-        if case .initialized = quickTerminalControllerState {
-            return true
-        }
-        return false
-    }
-
-    /// Our quick terminal. This starts out uninitialized and only initializes if used.
-    var quickController: QuickTerminalController {
-        switch quickTerminalControllerState {
-        case .initialized(let controller):
-            return controller
-
-        case .pendingRestore(let state):
-            let controller = QuickTerminalController(
-                ghostty,
-                position: derivedConfig.quickTerminalPosition,
-                baseConfig: state.baseConfig,
-                restorationState: state
-            )
-            quickTerminalControllerState = .initialized(controller)
-            return controller
-
-        case .uninitialized:
-            let controller = QuickTerminalController(
-                ghostty,
-                position: derivedConfig.quickTerminalPosition,
-                restorationState: nil
-            )
-            quickTerminalControllerState = .initialized(controller)
-            return controller
-        }
-    }
-
-    /// Manages updates
-    let updateController = UpdateController()
-    var updateViewModel: UpdateViewModel {
-        updateController.viewModel
-    }
 
     /// The elapsed time since the process was started
     var timeSinceLaunch: TimeInterval {
@@ -229,9 +173,6 @@ class AppDelegate: NSObject,
         // Initial config loading
         ghosttyConfigDidChange(config: ghostty.config)
 
-        // Start our update checker.
-        updateController.startUpdater()
-
         // Register our service provider. This must happen after everything is initialized.
         NSApp.servicesProvider = ServiceProvider()
 
@@ -245,18 +186,6 @@ class AppDelegate: NSObject,
             handler: localEventHandler)
 
         // Notifications
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(windowDidBecomeKey),
-            name: NSWindow.didBecomeKeyNotification,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(quickTerminalDidChangeVisibility),
-            name: .quickTerminalDidChangeVisibility,
-            object: nil
-        )
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(ghosttyConfigDidChange(_:)),
@@ -388,12 +317,6 @@ class AppDelegate: NSObject,
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         let windows = NSApplication.shared.windows
         if windows.isEmpty { return .terminateNow }
-
-        // If we've already accepted to install an update, then we don't need to
-        // confirm quit. The user is already expecting the update to happen.
-        if updateController.shouldTerminateWithoutWarning {
-            return .terminateNow
-        }
 
         // If the user is shutting down, restarting, or logging out, we don't confirm quit.
         why: if let event = NSAppleEventManager.shared().currentAppleEvent {
@@ -650,15 +573,6 @@ class AppDelegate: NSObject,
         return event
     }
 
-    @objc private func windowDidBecomeKey(_ notification: Notification) {
-        syncFloatOnTopMenu(notification.object as? NSWindow)
-    }
-
-    @objc private func quickTerminalDidChangeVisibility(_ notification: Notification) {
-        guard let quickController = notification.object as? QuickTerminalController else { return }
-        self.menuQuickTerminal?.state = if quickController.visible { .on } else { .off }
-    }
-
     @objc private func ghosttyConfigDidChange(_ notification: Notification) {
         // We only care if the configuration is a global configuration, not a surface one.
         guard notification.object == nil else { return }
@@ -792,28 +706,6 @@ class AppDelegate: NSObject,
         default: UserDefaults.ghostty.removeObject(forKey: "NSQuitAlwaysKeepsWindows")
         }
 
-        // Sync our auto-update settings. If SUEnableAutomaticChecks (in our Info.plist) is
-        // explicitly false (NO), auto-updates are disabled. Otherwise, we use the behavior
-        // defined by our "auto-update" configuration (if set) or fall back to Sparkle
-        // user-based defaults.
-        if Bundle.main.infoDictionary?["SUEnableAutomaticChecks"] as? Bool == false {
-            updateController.updater.automaticallyChecksForUpdates = false
-            updateController.updater.automaticallyDownloadsUpdates = false
-        } else if let autoUpdate = config.autoUpdate {
-            updateController.updater.automaticallyChecksForUpdates =
-                autoUpdate == .check || autoUpdate == .download
-            updateController.updater.automaticallyDownloadsUpdates =
-                autoUpdate == .download
-            /*
-             To test `auto-update` easily, uncomment the line below and
-             delete `SUEnableAutomaticChecks` in Ghostty-Info.plist.
-
-             Note: When `auto-update = download`, you may need to
-             `Clean Build Folder` if a background install has already begun.
-             */
-            // updateController.updater.checkForUpdatesInBackground()
-        }
-
         // Config could change keybindings, so update everything that depends on that
         DispatchQueue.main.async {
             self.syncMenuShortcuts(config)
@@ -886,33 +778,6 @@ class AppDelegate: NSObject,
         return true
     }
 
-    func application(_ app: NSApplication, willEncodeRestorableState coder: NSCoder) {
-        guard ghostty.config.windowSaveState != "never" else { return }
-
-        // Encode our quick terminal state if we have it.
-        switch quickTerminalControllerState {
-        case .initialized(let controller) where controller.restorable:
-            let data = QuickTerminalRestorableState(from: controller)
-            data.encode(with: coder)
-
-        case .pendingRestore(let state):
-            state.encode(with: coder)
-
-        default:
-            break
-        }
-    }
-
-    func application(_ app: NSApplication, didDecodeRestorableState coder: NSCoder) {
-        Self.logger.debug("application will restore window state")
-
-        // Decode our quick terminal state.
-        if ghostty.config.windowSaveState != "never",
-            let state = QuickTerminalRestorableState(coder: coder) {
-            quickTerminalControllerState = .pendingRestore(state)
-        }
-    }
-
     // MARK: - UNUserNotificationCenterDelegate
 
     func userNotificationCenter(
@@ -974,11 +839,6 @@ class AppDelegate: NSObject,
         ghostty.reloadConfig()
     }
 
-    @IBAction func checkForUpdates(_ sender: Any?) {
-        updateController.checkForUpdates()
-        // UpdateSimulator.happyPath.simulate(with: updateViewModel)
-    }
-
     @IBAction func newWindow(_ sender: Any?) {
         _ = TerminalController.newWindow(ghostty)
     }
@@ -992,17 +852,8 @@ class AppDelegate: NSObject,
         AboutController.shared.show()
     }
 
-    @IBAction func showHelp(_ sender: Any) {
-        guard let url = URL(string: "https://ghostty.org/docs") else { return }
-        NSWorkspace.shared.open(url)
-    }
-
     @IBAction func toggleSecureInput(_ sender: Any) {
         setSecureInput(.toggle)
-    }
-
-    @IBAction func toggleQuickTerminal(_ sender: Any) {
-        quickController.toggle()
     }
 
     /// Toggles visibility of all Ghosty Terminal windows. When hidden, activates Ghostty as the frontmost application
@@ -1036,29 +887,18 @@ class AppDelegate: NSObject,
         NSApplication.shared.arrangeInFront(sender)
     }
 
-    @IBAction func undo(_ sender: Any?) {
-        undoManager.undo()
-    }
-
-    @IBAction func redo(_ sender: Any?) {
-        undoManager.redo()
-    }
-
     private struct DerivedConfig {
         let initialWindow: Bool
         let shouldQuitAfterLastWindowClosed: Bool
-        let quickTerminalPosition: QuickTerminalPosition
 
         init() {
             self.initialWindow = true
             self.shouldQuitAfterLastWindowClosed = false
-            self.quickTerminalPosition = .top
         }
 
         init(_ config: Ghostty.Config) {
             self.initialWindow = config.initialWindow
             self.shouldQuitAfterLastWindowClosed = config.shouldQuitAfterLastWindowClosed
-            self.quickTerminalPosition = config.quickTerminalPosition
         }
     }
 
@@ -1121,7 +961,6 @@ extension AppDelegate {
         // Note: This COULD Be done all in the xib file, but I find it easier to
         // modify this stuff as code.
         self.menuAbout?.setImageIfDesired(systemSymbolName: "info.circle")
-        self.menuCheckForUpdates?.setImageIfDesired(systemSymbolName: "square.and.arrow.down")
         self.menuOpenConfig?.setImageIfDesired(systemSymbolName: "gear")
         self.menuReloadConfig?.setImageIfDesired(systemSymbolName: "arrow.trianglehead.2.clockwise.rotate.90")
         self.menuSecureInput?.setImageIfDesired(systemSymbolName: "lock.display")
@@ -1136,12 +975,7 @@ extension AppDelegate {
         self.menuIncreaseFontSize?.setImageIfDesired(systemSymbolName: "textformat.size.larger")
         self.menuResetFontSize?.setImageIfDesired(systemSymbolName: "textformat.size")
         self.menuDecreaseFontSize?.setImageIfDesired(systemSymbolName: "textformat.size.smaller")
-        self.menuCommandPalette?.setImageIfDesired(systemSymbolName: "filemenu.and.selection")
-        self.menuQuickTerminal?.setImageIfDesired(systemSymbolName: "apple.terminal")
-        self.menuChangeTabTitle?.setImageIfDesired(systemSymbolName: "pencil.line")
-        self.menuTerminalInspector?.setImageIfDesired(systemSymbolName: "scope")
         self.menuReadonly?.setImageIfDesired(systemSymbolName: "eye.fill")
-        self.menuSetAsDefaultTerminal?.setImageIfDesired(systemSymbolName: "star.fill")
         self.menuToggleFullScreen?.setImageIfDesired(systemSymbolName: "square.arrowtriangle.4.outward")
         self.menuToggleVisibility?.setImageIfDesired(systemSymbolName: "eye")
         self.menuZoomSplit?.setImageIfDesired(systemSymbolName: "arrow.up.left.and.arrow.down.right")
@@ -1156,7 +990,6 @@ extension AppDelegate {
         self.menuMoveSplitDividerDown?.setImageIfDesired(systemSymbolName: "arrow.down.to.line")
         self.menuMoveSplitDividerLeft?.setImageIfDesired(systemSymbolName: "arrow.left.to.line")
         self.menuMoveSplitDividerRight?.setImageIfDesired(systemSymbolName: "arrow.right.to.line")
-        self.menuFloatOnTop?.setImageIfDesired(systemSymbolName: "square.filled.on.square")
         self.menuFindParent?.setImageIfDesired(systemSymbolName: "text.page.badge.magnifyingglass")
     }
 
@@ -1166,7 +999,6 @@ extension AppDelegate {
 
         menuShortcutManager.reset()
 
-        syncMenuShortcut(config, action: "check_for_updates", menuItem: self.menuCheckForUpdates)
         syncMenuShortcut(config, action: "open_config", menuItem: self.menuOpenConfig)
         syncMenuShortcut(config, action: "reload_config", menuItem: self.menuReloadConfig)
         syncMenuShortcut(config, action: "quit", menuItem: self.menuQuit)
@@ -1182,8 +1014,6 @@ extension AppDelegate {
         syncMenuShortcut(config, action: "new_split:down", menuItem: self.menuSplitDown)
         syncMenuShortcut(config, action: "new_split:up", menuItem: self.menuSplitUp)
 
-        syncMenuShortcut(config, action: "undo", menuItem: self.menuUndo)
-        syncMenuShortcut(config, action: "redo", menuItem: self.menuRedo)
         syncMenuShortcut(config, action: "copy_to_clipboard", menuItem: self.menuCopy)
         syncMenuShortcut(config, action: "paste_from_clipboard", menuItem: self.menuPaste)
         syncMenuShortcut(config, action: "paste_from_selection", menuItem: self.menuPasteSelection)
@@ -1212,13 +1042,7 @@ extension AppDelegate {
         syncMenuShortcut(config, action: "increase_font_size:1", menuItem: self.menuIncreaseFontSize)
         syncMenuShortcut(config, action: "decrease_font_size:1", menuItem: self.menuDecreaseFontSize)
         syncMenuShortcut(config, action: "reset_font_size", menuItem: self.menuResetFontSize)
-        syncMenuShortcut(config, action: "prompt_surface_title", menuItem: self.menuChangeTitle)
-        syncMenuShortcut(config, action: "prompt_tab_title", menuItem: self.menuChangeTabTitle)
-        syncMenuShortcut(config, action: "toggle_quick_terminal", menuItem: self.menuQuickTerminal)
         syncMenuShortcut(config, action: "toggle_visibility", menuItem: self.menuToggleVisibility)
-        syncMenuShortcut(config, action: "toggle_window_float_on_top", menuItem: self.menuFloatOnTop)
-        syncMenuShortcut(config, action: "inspector:toggle", menuItem: self.menuTerminalInspector)
-        syncMenuShortcut(config, action: "toggle_command_palette", menuItem: self.menuCommandPalette)
 
         syncMenuShortcut(config, action: "toggle_secure_input", menuItem: self.menuSecureInput)
 
@@ -1238,89 +1062,6 @@ extension AppDelegate {
 
     @MainActor func performGhosttyBindingMenuKeyEquivalent(with event: NSEvent) -> Bool {
         menuShortcutManager.performGhosttyBindingMenuKeyEquivalent(with: event)
-    }
-}
-
-// MARK: Floating Windows
-
-extension AppDelegate {
-    func syncFloatOnTopMenu(_ window: NSWindow?) {
-        guard let window = (window ?? NSApp.keyWindow) as? TerminalWindow else {
-            // If some other window became key we always turn this off
-            self.menuFloatOnTop?.state = .off
-            return
-        }
-
-        self.menuFloatOnTop?.state = window.level == .floating ? .on : .off
-    }
-
-    @IBAction func floatOnTop(_ menuItem: NSMenuItem) {
-        menuItem.state = menuItem.state == .on ? .off : .on
-        guard let window = NSApp.keyWindow else { return }
-        window.level = menuItem.state == .on ? .floating : .normal
-    }
-
-    @IBAction func useAsDefault(_ sender: NSMenuItem) {
-        let ud = UserDefaults.ghostty
-        let key = TerminalWindow.defaultLevelKey
-        if menuFloatOnTop?.state == .on {
-            ud.set(NSWindow.Level.floating, forKey: key)
-        } else {
-            ud.removeObject(forKey: key)
-        }
-    }
-
-    @IBAction func setAsDefaultTerminal(_ sender: NSMenuItem) {
-        NSWorkspace.shared.setDefaultApplication(at: Bundle.main.bundleURL, toOpen: .unixExecutable) { error in
-            guard let error else { return }
-            Task { @MainActor in
-                let alert = NSAlert()
-                alert.messageText = "Failed to Set Default Terminal"
-                alert.informativeText = """
-                Ghostty could not be set as the default terminal application.
-
-                Error: \(error.localizedDescription)
-                """
-                alert.alertStyle = .warning
-                alert.runModal()
-            }
-        }
-    }
-}
-
-// MARK: NSMenuItemValidation
-
-extension AppDelegate: NSMenuItemValidation {
-    func validateMenuItem(_ item: NSMenuItem) -> Bool {
-        switch item.action {
-        case #selector(setAsDefaultTerminal(_:)):
-            return NSWorkspace.shared.defaultTerminal != Bundle.main.bundleURL
-
-        case #selector(floatOnTop(_:)),
-            #selector(useAsDefault(_:)):
-            // Float on top items only active if the key window is a primary
-            // terminal window (not quick terminal).
-            return NSApp.keyWindow is TerminalWindow
-
-        case #selector(undo(_:)):
-            if undoManager.canUndo {
-                item.title = "Undo \(undoManager.undoActionName)"
-            } else {
-                item.title = "Undo"
-            }
-            return undoManager.canUndo
-
-        case #selector(redo(_:)):
-            if undoManager.canRedo {
-                item.title = "Redo \(undoManager.redoActionName)"
-            } else {
-                item.title = "Redo"
-            }
-            return undoManager.canRedo
-
-        default:
-            return true
-        }
     }
 }
 
@@ -1391,14 +1132,4 @@ extension AppDelegate {
             await NSApp.reply(toApplicationShouldTerminate: true)
         }
     }
-}
-
-/// Represents the state of the quick terminal controller.
-private enum QuickTerminalState {
-    /// Controller has not been initialized and has no pending restoration state.
-    case uninitialized
-    /// Restoration state is pending; controller will use this when first accessed.
-    case pendingRestore(QuickTerminalRestorableState)
-    /// Controller has been initialized.
-    case initialized(QuickTerminalController)
 }

@@ -276,12 +276,6 @@ extension Ghostty {
         case visible
         case hidden
     }
-
-    /// Enum for auto-update-channel config option
-    enum AutoUpdateChannel: String {
-        case tip
-        case stable
-    }
 }
 
 // MARK: Surface Notification
@@ -323,7 +317,6 @@ extension Notification.Name {
     /// Readonly mode changed
     static let ghosttyDidChangeReadonly = Notification.Name("com.mitchellh.ghostty.didChangeReadonly")
     static let ReadonlyKey = ghosttyDidChangeReadonly.rawValue + ".readonly"
-    static let ghosttyCommandPaletteDidToggle = Notification.Name("com.mitchellh.ghostty.commandPaletteDidToggle")
 
     /// Toggle maximize of current window
     static let ghosttyMaximizeDidToggle = Notification.Name("com.mitchellh.ghostty.maximizeDidToggle")
@@ -376,12 +369,6 @@ extension Ghostty.Notification {
     /// Notification
     static let didReceiveInitialWindowFrame = Notification.Name("com.mitchellh.ghostty.didReceiveInitialWindowFrame")
     static let FrameKey = "com.mitchellh.ghostty.frame"
-
-    /// Notification to render the inspector for a surface
-    static let inspectorNeedsDisplay = Notification.Name("com.mitchellh.ghostty.inspectorNeedsDisplay")
-
-    /// Notification to show/hide the inspector
-    static let didControlInspector = Notification.Name("com.mitchellh.ghostty.didControlInspector")
 
     /// Notification sent to the active split view to resize the split.
     static let didResizeSplit = Notification.Name("com.mitchellh.ghostty.didResizeSplit")

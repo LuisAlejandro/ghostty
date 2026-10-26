@@ -14,7 +14,6 @@ class TerminalWindow: NSWindow {
 
     /// This is the key in UserDefaults to use for the default `level` value. This is
     /// used by the manual float on top menu item feature.
-    static let defaultLevelKey: String = "TerminalDefaultLevel"
 
     /// The view model for SwiftUI views
     private var viewModel = ViewModel()
@@ -23,7 +22,6 @@ class TerminalWindow: NSWindow {
     private let resetZoomAccessory = NSTitlebarAccessoryViewController()
 
     /// Update notification UI in titlebar
-    private let updateAccessory = NSTitlebarAccessoryViewController()
 
     /// Visual indicator that mirrors the selected tab color.
     private lazy var tabColorIndicator: NSHostingView<TabColorIndicatorView> = {
@@ -43,13 +41,6 @@ class TerminalWindow: NSWindow {
         hostWindow: self,
         delegate: self
     )
-
-    /// Whether this window supports the update accessory. If this is false, then views within this
-    /// window should determine how to show update notifications.
-    var supportsUpdateAccessory: Bool {
-        // Native window supports it.
-        true
-    }
 
     /// Glass effect view for liquid glass background when transparency is enabled
     private var glassEffectView: NSView?
@@ -143,17 +134,6 @@ class TerminalWindow: NSWindow {
                 }))
             addTitlebarAccessoryViewController(resetZoomAccessory)
             resetZoomAccessory.view.translatesAutoresizingMaskIntoConstraints = false
-
-            // Create update notification accessory
-            if supportsUpdateAccessory {
-                updateAccessory.layoutAttribute = .right
-                updateAccessory.view = NonDraggableHostingView(rootView: UpdateAccessoryView(
-                    viewModel: viewModel,
-                    model: appDelegate.updateViewModel
-                ))
-                addTitlebarAccessoryViewController(updateAccessory)
-                updateAccessory.view.translatesAutoresizingMaskIntoConstraints = false
-            }
         }
 
         // Setup the accessory view for tabs that shows our keyboard shortcuts,
@@ -171,8 +151,9 @@ class TerminalWindow: NSWindow {
         stackView.addArrangedSubview(resetZoomTabButton)
         tab.accessoryView = stackView
 
-        // Get our saved level
-        level = UserDefaults.ghostty.value(forKey: Self.defaultLevelKey) as? NSWindow.Level ?? .normal
+        // Mash dropped "Float on Top"; clear a level saved by an older build so
+        // no window is stuck floating with no menu item to turn it off.
+        UserDefaults.ghostty.removeObject(forKey: "TerminalDefaultLevel")
     }
 
     // Both of these must be true for windows without decorations to be able to
@@ -230,16 +211,6 @@ class TerminalWindow: NSWindow {
     @discardableResult
     func beginInlineTabTitleEdit(for targetWindow: NSWindow) -> Bool {
         tabTitleEditor.beginEditing(for: targetWindow)
-    }
-
-    @objc private func renameTabFromContextMenu(_ sender: NSMenuItem) {
-        let targetWindow = sender.representedObject as? NSWindow ?? self
-        if beginInlineTabTitleEdit(for: targetWindow) {
-            return
-        }
-
-        guard let targetController = targetWindow.windowController as? BaseTerminalController else { return }
-        targetController.promptTabTitle()
     }
 
     override func mergeAllWindows(_ sender: Any?) {
@@ -718,19 +689,6 @@ extension TerminalWindow {
         }
     }
 
-    /// A pill-shaped button that displays update status and provides access to update actions.
-    struct UpdateAccessoryView: View {
-        @ObservedObject var viewModel: ViewModel
-        @ObservedObject var model: UpdateViewModel
-
-        var body: some View {
-            // We use the same top/trailing padding so that it hugs the same.
-            UpdatePill(model: model)
-                .padding(.top, viewModel.accessoryTopPadding)
-                .padding(.trailing, viewModel.accessoryTopPadding)
-        }
-    }
-
 }
 
 /// A small circle indicator displayed in the tab accessory view that shows
@@ -757,7 +715,6 @@ private struct TabColorIndicatorView: View {
 
 extension TerminalWindow {
     private static let closeTabsOnRightMenuItemIdentifier = NSUserInterfaceItemIdentifier("com.mitchellh.ghostty.closeTabsOnTheRightMenuItem")
-    private static let changeTitleMenuItemIdentifier = NSUserInterfaceItemIdentifier("com.mitchellh.ghostty.changeTitleMenuItem")
     private static let tabColorSeparatorIdentifier = NSUserInterfaceItemIdentifier("com.mitchellh.ghostty.tabColorSeparator")
 
     private static let tabColorPaletteIdentifier = NSUserInterfaceItemIdentifier("com.mitchellh.ghostty.tabColorPalette")
@@ -812,21 +769,12 @@ extension TerminalWindow {
     private func appendTabModifierSection(to menu: NSMenu, target: TerminalController?) {
         menu.removeItems(withIdentifiers: [
             Self.tabColorSeparatorIdentifier,
-            Self.changeTitleMenuItemIdentifier,
             Self.tabColorPaletteIdentifier
         ])
 
         let separator = NSMenuItem.separator()
         separator.identifier = Self.tabColorSeparatorIdentifier
         menu.addItem(separator)
-
-        // Rename Tab...
-        let changeTitleItem = NSMenuItem(title: "Rename Tab...", action: #selector(TerminalWindow.renameTabFromContextMenu(_:)), keyEquivalent: "")
-        changeTitleItem.identifier = Self.changeTitleMenuItemIdentifier
-        changeTitleItem.target = self
-        changeTitleItem.representedObject = target?.window
-        changeTitleItem.setImageIfDesired(systemSymbolName: "pencil.line")
-        menu.addItem(changeTitleItem)
 
         let paletteItem = NSMenuItem()
         paletteItem.identifier = Self.tabColorPaletteIdentifier
@@ -858,7 +806,8 @@ extension TerminalWindow: TabTitleEditorDelegate {
         _ editor: TabTitleEditor,
         canRenameTabFor targetWindow: NSWindow
     ) -> Bool {
-        targetWindow.windowController is BaseTerminalController
+        // Mash leaves titles to Herdr: no inline tab rename.
+        false
     }
 
     func tabTitleEditor(
@@ -885,8 +834,6 @@ extension TerminalWindow: TabTitleEditorDelegate {
         _ editor: TabTitleEditor,
         performFallbackRenameFor targetWindow: NSWindow
     ) {
-        guard let targetController = targetWindow.windowController as? BaseTerminalController else { return }
-        targetController.promptTabTitle()
     }
 
     func tabTitleEditor(_ editor: TabTitleEditor, didFinishEditing targetWindow: NSWindow) {

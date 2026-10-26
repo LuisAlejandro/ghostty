@@ -535,60 +535,6 @@ extension Ghostty {
             )
         }
 
-        var quickTerminalPosition: QuickTerminalPosition {
-            guard let config = self.config else { return .top }
-            var v: UnsafePointer<Int8>?
-            let key = "quick-terminal-position"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return .top }
-            guard let ptr = v else { return .top }
-            let str = String(cString: ptr)
-            return QuickTerminalPosition(rawValue: str) ?? .top
-        }
-
-        var quickTerminalScreen: QuickTerminalScreen {
-            guard let config = self.config else { return .main }
-            var v: UnsafePointer<Int8>?
-            let key = "quick-terminal-screen"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return .main }
-            guard let ptr = v else { return .main }
-            let str = String(cString: ptr)
-            return QuickTerminalScreen(fromGhosttyConfig: str) ?? .main
-        }
-
-        var quickTerminalAnimationDuration: Double {
-            guard let config = self.config else { return 0.2 }
-            var v: Double = 0.2
-            let key = "quick-terminal-animation-duration"
-            _ = ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8)))
-            return v
-        }
-
-        var quickTerminalAutoHide: Bool {
-            guard let config = self.config else { return true }
-            var v = true
-            let key = "quick-terminal-autohide"
-            _ = ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8)))
-            return v
-        }
-
-        var quickTerminalSpaceBehavior: QuickTerminalSpaceBehavior {
-            guard let config = self.config else { return .move }
-            var v: UnsafePointer<Int8>?
-            let key = "quick-terminal-space-behavior"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return .move }
-            guard let ptr = v else { return .move }
-            let str = String(cString: ptr)
-            return QuickTerminalSpaceBehavior(fromGhosttyConfig: str) ?? .move
-        }
-
-        var quickTerminalSize: QuickTerminalSize {
-            guard let config = self.config else { return QuickTerminalSize() }
-            var v = ghostty_config_quick_terminal_size_s()
-            let key = "quick-terminal-size"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return QuickTerminalSize() }
-            return QuickTerminalSize(from: v)
-        }
-
         var resizeOverlay: ResizeOverlay {
             guard let config = self.config else { return .after_first }
             var v: UnsafePointer<Int8>?
@@ -616,35 +562,6 @@ extension Ghostty {
             let key = "resize-overlay-duration"
             _ = ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8)))
             return v
-        }
-
-        var undoTimeout: Duration {
-            guard let config = self.config else { return .seconds(5) }
-            var v: UInt = 0
-            let key = "undo-timeout"
-            _ = ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8)))
-            return .milliseconds(v)
-        }
-
-        var autoUpdate: AutoUpdate? {
-            guard let config = self.config else { return nil }
-            var v: UnsafePointer<Int8>?
-            let key = "auto-update"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return nil }
-            guard let ptr = v else { return nil }
-            let str = String(cString: ptr)
-            return AutoUpdate(rawValue: str)
-        }
-
-        var autoUpdateChannel: AutoUpdateChannel {
-            let defaultValue = AutoUpdateChannel.stable
-            guard let config = self.config else { return defaultValue }
-            var v: UnsafePointer<Int8>?
-            let key = "auto-update-channel"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return defaultValue }
-            guard let ptr = v else { return defaultValue }
-            let str = String(cString: ptr)
-            return AutoUpdateChannel(rawValue: str) ?? defaultValue
         }
 
         var autoSecureInput: Bool {
@@ -711,16 +628,6 @@ extension Ghostty {
             return Scrollbar(rawValue: str) ?? defaultValue
         }
 
-        var commandPaletteEntries: [Ghostty.Command] {
-            guard let config = self.config else { return [] }
-            var v: ghostty_config_command_list_s = .init()
-            let key = "command-palette-entry"
-            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return [] }
-            guard v.len > 0 else { return [] }
-            let buffer = UnsafeBufferPointer(start: v.commands, count: v.len)
-            return buffer.map { Ghostty.Command(cValue: $0) }
-        }
-
         var progressStyle: Bool {
             guard let config = self.config else { return true }
             var v = true
@@ -734,12 +641,6 @@ extension Ghostty {
 // MARK: Configuration Enums
 
 extension Ghostty.Config {
-    enum AutoUpdate: String {
-        case off
-        case check
-        case download
-    }
-
     /// Background blur configuration that maps from the C API values.
     /// Positive values represent blur radius, special negative values
     /// represent macOS-specific glass effects.

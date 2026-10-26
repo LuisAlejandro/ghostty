@@ -53,12 +53,6 @@ class BaseTerminalController: NSWindowController,
         }
     }
 
-    /// This can be set to show/hide the command palette.
-    @Published var commandPaletteIsShowing: Bool = false
-
-    /// Set if the terminal view should show the update overlay.
-    @Published var updateOverlayIsVisible: Bool = false
-
     /// True when any surface in this controller currently has an active bell.
     @Published private(set) var bell: Bool = false
 
@@ -110,8 +104,12 @@ class BaseTerminalController: NSWindowController,
     private var lastComputedTitle: String = "👻"
 
     /// The time that undo/redo operations that contain running ptys are valid for.
+    ///
+    /// mash: no Ghostty undo. Zero makes ExpiringUndoManager drop every
+    /// registration, so closing a window frees its Mash instance immediately
+    /// instead of keeping its Herdr client alive for undo-timeout.
     var undoExpiration: Duration {
-        ghostty.config.undoTimeout
+        .zero
     }
 
     /// The undo manager for this controller is the undo manager of the window,
@@ -168,11 +166,6 @@ class BaseTerminalController: NSWindowController,
             self,
             selector: #selector(ghosttyConfigDidChangeBase(_:)),
             name: .ghosttyConfigDidChange,
-            object: nil)
-        center.addObserver(
-            self,
-            selector: #selector(ghosttyCommandPaletteDidToggle(_:)),
-            name: .ghosttyCommandPaletteDidToggle,
             object: nil)
         center.addObserver(
             self,
@@ -423,37 +416,6 @@ class BaseTerminalController: NSWindowController,
         }
     }
 
-    /// Prompt the user to change the tab/window title.
-    func promptTabTitle() {
-        guard let window else { return }
-
-        let alert = NSAlert()
-        alert.messageText = "Change Tab Title"
-        alert.informativeText = "Leave blank to restore the default."
-        alert.alertStyle = .informational
-
-        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 250, height: 24))
-        textField.stringValue = titleOverride ?? window.title
-        alert.accessoryView = textField
-
-        alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Cancel")
-
-        alert.window.initialFirstResponder = textField
-
-        alert.beginSheetModal(for: window) { [weak self] response in
-            guard let self else { return }
-            guard response == .alertFirstButtonReturn else { return }
-
-            let newTitle = textField.stringValue
-            if newTitle.isEmpty {
-                self.titleOverride = nil
-            } else {
-                self.titleOverride = newTitle
-            }
-        }
-    }
-
     /// Close a surface from a view.
     func closeSurface(
         _ view: Ghostty.SurfaceView,
@@ -640,12 +602,6 @@ class BaseTerminalController: NSWindowController,
 
         // Update our derived config
         self.derivedConfig = DerivedConfig(config)
-    }
-
-    @objc private func ghosttyCommandPaletteDidToggle(_ notification: Notification) {
-        guard let surfaceView = notification.object as? Ghostty.SurfaceView else { return }
-        guard surfaceTree.contains(surfaceView) else { return }
-        toggleCommandPalette(nil)
     }
 
     @objc private func ghosttyMaximizeDidToggle(_ notification: Notification) {
@@ -1043,15 +999,6 @@ class BaseTerminalController: NSWindowController,
             moveFocusFrom: focusedSurface)
     }
 
-    func performAction(_ action: String, on surfaceView: Ghostty.SurfaceView) {
-        guard let surface = surfaceView.surface else { return }
-        let len = action.utf8CString.count
-        if len == 0 { return }
-        _ = action.withCString { cString in
-            ghostty_surface_binding_action(surface, cString, UInt(len - 1))
-        }
-    }
-
     // MARK: Appearance
 
     /// Toggle the background opacity between transparent and opaque states.
@@ -1135,17 +1082,6 @@ class BaseTerminalController: NSWindowController,
     }
 
     func fullscreenDidChange() {
-        guard let fullscreenStyle else { return }
-
-        // When we enter fullscreen, we want to show the update overlay so that it
-        // is easily visible. For native fullscreen this is visible by showing the
-        // menubar but we don't want to rely on that.
-        if fullscreenStyle.isFullscreen {
-            updateOverlayIsVisible = true
-        } else {
-            updateOverlayIsVisible = defaultUpdateOverlayVisibility()
-        }
-
         // Always resync our appearance
         syncAppearance()
     }
@@ -1167,28 +1103,6 @@ class BaseTerminalController: NSWindowController,
             fullscreenStyle = NativeFullscreen(window)
             fullscreenStyle?.delegate = self
         }
-
-        // Set our update overlay state
-        updateOverlayIsVisible = defaultUpdateOverlayVisibility()
-    }
-
-    func defaultUpdateOverlayVisibility() -> Bool {
-        guard let window else { return true }
-
-        // No titlebar we always show the update overlay because it can't support
-        // updates in the titlebar
-        guard window.styleMask.contains(.titled) else {
-            return true
-        }
-
-        // If it's a non terminal window we can't trust it has an update accessory,
-        // so we always want to show the overlay.
-        guard let window = window as? TerminalWindow else {
-            return true
-        }
-
-        // Show the overlay if the window isn't.
-        return !window.supportsUpdateAccessory
     }
 
     // MARK: NSWindowDelegate
@@ -1317,21 +1231,6 @@ class BaseTerminalController: NSWindowController,
         window.performClose(sender)
     }
 
-    @IBAction func changeTabTitle(_ sender: Any) {
-        if let targetWindow = window {
-            let inlineHostWindow =
-                targetWindow.tabbedWindows?
-                    .first(where: { $0.tabBarView != nil }) as? TerminalWindow
-                ?? (targetWindow as? TerminalWindow)
-
-            if let inlineHostWindow, inlineHostWindow.beginInlineTabTitleEdit(for: targetWindow) {
-                return
-            }
-        }
-
-        promptTabTitle()
-    }
-
     @IBAction func splitRight(_ sender: Any) {
         guard let surface = focusedSurface?.surface else { return }
         ghostty.split(surface: surface, direction: GHOSTTY_SPLIT_DIRECTION_RIGHT)
@@ -1424,25 +1323,6 @@ class BaseTerminalController: NSWindowController,
     @IBAction func resetFontSize(_ sender: Any) {
         guard let surface = focusedSurface?.surface else { return }
         ghostty.changeFontSize(surface: surface, .reset)
-    }
-
-    @IBAction func toggleCommandPalette(_ sender: Any?) {
-        commandPaletteIsShowing.toggle()
-        if commandPaletteIsShowing {
-            // Fix the incorrect focus when toggling from InlineTitleEditor
-            // When toggling the command palette from the inline title editor,
-            // the first responder state of the surface is changed quickly from true to false.
-
-            // `makeFirstResponder:` is called by the title editor when finishing,
-            // but it happens **after** the command palette is shown,
-            // so the `focused` is set to `true` while the command palette is shown.
-            // (Could be an AppKit issue as well, since the resign is not called after but the command palette is receiving `keyDown`).
-
-            // Since `performKeyEquivalent(with:)` is called on all of the subviews
-            // until one of the return `true` so the paste action is consumed by the surface
-            // instead of the first responder (command palette).
-            _ = focusedSurface?.resignFirstResponder()
-        }
     }
 
     @IBAction func find(_ sender: Any) {

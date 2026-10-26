@@ -15,9 +15,6 @@ protocol TerminalViewDelegate: AnyObject {
     /// The cell size changed.
     func cellSizeDidChange(to: NSSize)
 
-    /// Perform an action. At the time of writing this is only triggered by the command palette.
-    func performAction(_ action: String, on: Ghostty.SurfaceView)
-
     /// A split tree operation
     func performSplitAction(_ action: TerminalSplitOperation)
 }
@@ -29,12 +26,6 @@ protocol TerminalViewModel: ObservableObject {
     /// The tree of terminal surfaces (splits) within the view. This is mutated by TerminalView
     /// and children. This should be @Published.
     var surfaceTree: SplitTree<Ghostty.SurfaceView> { get set }
-
-    /// The command palette state.
-    var commandPaletteIsShowing: Bool { get set }
-
-    /// The update overlay should be visible.
-    var updateOverlayIsVisible: Bool { get }
 }
 
 /// The main terminal view. This terminal view supports splits.
@@ -106,40 +97,8 @@ struct TerminalView<ViewModel: TerminalViewModel>: View {
                 }
                 // Ignore safe area to extend up in to the titlebar region if we have the "hidden" titlebar style
                 .ignoresSafeArea(.container, edges: ghostty.config.macosTitlebarStyle == .hidden ? .top : [])
-
-                if let surfaceView = lastFocusedSurface?.value {
-                    TerminalCommandPaletteView(
-                        surfaceView: surfaceView,
-                        isPresented: $viewModel.commandPaletteIsShowing,
-                        ghosttyConfig: ghostty.config,
-                        updateViewModel: (NSApp.delegate as? AppDelegate)?.updateViewModel) { action in
-                        self.delegate?.performAction(action, on: surfaceView)
-                    }
-                }
-
-                // Show update information above all else.
-                if viewModel.updateOverlayIsVisible {
-                    UpdateOverlay()
-                }
             }
             .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
-        }
-    }
-}
-
-private struct UpdateOverlay: View {
-    var body: some View {
-        if let appDelegate = NSApp.delegate as? AppDelegate {
-            VStack {
-                Spacer()
-
-                HStack {
-                    Spacer()
-                    UpdatePill(model: appDelegate.updateViewModel)
-                        .padding(.bottom, 9)
-                        .padding(.trailing, 9)
-                }
-            }
         }
     }
 }

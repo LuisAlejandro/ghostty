@@ -69,11 +69,8 @@ struct TerminalEntity: AppEntity {
         }
 
         // Determine the kind based on the window controller type
-        if view.window?.windowController is QuickTerminalController {
-            self.kind = .quick
-        } else {
-            self.kind = .normal
-        }
+        // Mash ships no quick terminal, so every surface is a normal one.
+        self.kind = .normal
     }
 
     /// Wait for the surface to be updated then create an entity
@@ -122,11 +119,8 @@ struct TerminalEntity: AppEntity {
         // Wait for the title and pwd then get latest pid and screenshots.
         // This should gave SurfaceView enough time to layout in the window and we can get the most recent process's PID
         // Determine the kind based on the window controller type
-        if view.window?.windowController is QuickTerminalController {
-            self.kind = .quick
-        } else {
-            self.kind = .normal
-        }
+        // Mash ships no quick terminal, so every surface is a normal one.
+        self.kind = .normal
 
         self.pid = view.surfaceModel?.foregroundPID
         if let nsImage = ImageRenderer(content: view.screenshot()).nsImage {
