@@ -77,7 +77,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                            <menuItem title="Settings…" id="BOF-NM-1cW">
                                 <connections>
                                     <action selector="openConfig:" target="bbz-4X-AYv" id="X65-fg-iWU"/>
                                 </connections>
@@ -195,9 +195,7 @@
                                     <action selector="selectAll:" target="-1" id="0CH-Tp-7Ud"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="VYS-RG-uZD"/>
 
-                            <menuItem isSeparatorItem="YES" id="Xbz-ms-irt"/>
                         </items>
                     </menu>
                 </menuItem>

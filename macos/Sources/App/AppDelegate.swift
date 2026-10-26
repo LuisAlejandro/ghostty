@@ -257,6 +257,10 @@ class AppDelegate: NSObject,
 
         // Setup our menu
         setupMenuImages()
+        if let mainMenu = NSApp.mainMenu {
+            MashMenus.install(into: mainMenu, target: self)
+            installMashAppMenuItems(into: mainMenu)
+        }
 
         // Setup signal handlers
         setupSignals()
@@ -831,12 +835,44 @@ class AppDelegate: NSObject,
 
     // MARK: - IB Actions
 
+    /// Settings opens Herdr's settings: Ghostty's own config is managed by
+    /// Mash and edited as a file.
     @IBAction func openConfig(_ sender: Any?) {
-        ghostty.openConfig()
+        MashMenus.send(MashMenus.settingsChord)
     }
 
+    /// Reloads everything Mash can reload in place: Ghostty here, and Herdr
+    /// through its own reload chord. Fresh is left alone; it has no config
+    /// reload, only a script re-run that drops its timers and commands.
     @IBAction func reloadConfig(_ sender: Any?) {
         ghostty.reloadConfig()
+        MashMenus.send(MashMenus.reloadChord)
+    }
+
+    /// Detach ends this window's Herdr client; the window then closes and its
+    /// Mash instance is released, as with Close Window.
+    @IBAction func detachHerdr(_ sender: Any?) {
+        MashMenus.send(MashMenus.detachChord)
+    }
+
+    /// Target of every Mash menu item; the item carries its chord.
+    @IBAction func sendMashChord(_ sender: NSMenuItem) {
+        guard let chord = sender.representedObject as? String else { return }
+        MashMenus.send(chord)
+    }
+
+    /// The app menu's Mash entries: Settings and Reload show Herdr's chords,
+    /// and Detach sits after them.
+    @MainActor private func installMashAppMenuItems(into mainMenu: NSMenu) {
+        guard let appMenu = mainMenu.items.first?.submenu else { return }
+        if let settings = menuOpenConfig { MashMenus.applyShortcut(MashMenus.settingsChord, to: settings) }
+        if let reload = menuReloadConfig {
+            MashMenus.applyShortcut(MashMenus.reloadChord, to: reload)
+            let detach = NSMenuItem(title: "Detach", action: #selector(detachHerdr(_:)), keyEquivalent: "")
+            detach.target = self
+            MashMenus.applyShortcut(MashMenus.detachChord, to: detach)
+            appMenu.insertItem(detach, at: appMenu.index(of: reload) + 1)
+        }
     }
 
     @IBAction func newWindow(_ sender: Any?) {
@@ -999,8 +1035,6 @@ extension AppDelegate {
 
         menuShortcutManager.reset()
 
-        syncMenuShortcut(config, action: "open_config", menuItem: self.menuOpenConfig)
-        syncMenuShortcut(config, action: "reload_config", menuItem: self.menuReloadConfig)
         syncMenuShortcut(config, action: "quit", menuItem: self.menuQuit)
 
         syncMenuShortcut(config, action: "new_window", menuItem: self.menuNewWindow)
