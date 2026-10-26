@@ -21,10 +21,8 @@ template $GhosttyWindow: Adw.ApplicationWindow {
   handle-menubar-accel: false;
 
   content: Adw.TabOverview tab_overview {
-    create-tab => $overview_create_tab();
     notify::open => $overview_notify_open();
     view: tab_view;
-    enable-new-tab: true;
     // Disable the title buttons (close, maximize, minimize, ...)
     // *inside* the tab overview if CSDs are disabled.
     // We do spare the search button, though.
@@ -53,17 +51,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
             ) as <string>;
         };
 
-        [start]
-        Adw.SplitButton {
-          clicked => $new_tab();
-          icon-name: "tab-new-symbolic";
-          tooltip-text: _("New Tab");
-          dropdown-tooltip: _("New Split");
-          menu-model: split_menu;
-          can-focus: false;
-          focus-on-click: false;
-        }
-
         [end]
         Gtk.Box {
           Gtk.ToggleButton {
@@ -85,71 +72,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
       }
 
       [top]
-      Adw.TabBar tab_bar {
-        autohide: bind template.tabs-autohide;
-        expand-tabs: bind template.tabs-wide;
-        view: tab_view;
-        visible: bind template.tabs-visible;
-
-        [start]
-        Gtk.Box {
-          orientation: horizontal;
-          visible: bind $titlebar_style_is_tabs(template.titlebar-style) as <bool>;
-
-          Gtk.WindowControls {
-            side: start;
-          }
-
-          Adw.SplitButton {
-            styles [
-              "flat",
-            ]
-
-            clicked => $new_tab();
-            icon-name: "tab-new-symbolic";
-            tooltip-text: _("New Tab");
-            dropdown-tooltip: _("New Split");
-            menu-model: split_menu;
-            can-focus: false;
-            focus-on-click: false;
-          }
-        }
-
-        [end]
-        Gtk.Box {
-          orientation: horizontal;
-          visible: bind $titlebar_style_is_tabs(template.titlebar-style) as <bool>;
-
-          Gtk.ToggleButton {
-            styles [
-              "flat",
-            ]
-
-            icon-name: "view-grid-symbolic";
-            tooltip-text: _("View Open Tabs");
-            active: bind tab_overview.open bidirectional;
-            can-focus: false;
-            focus-on-click: false;
-          }
-
-          Gtk.MenuButton {
-            styles [
-              "flat",
-            ]
-
-            notify::active => $notify_menu_active();
-            icon-name: "open-menu-symbolic";
-            menu-model: main_menu;
-            tooltip-text: _("Main Menu");
-            can-focus: false;
-          }
-
-          Gtk.WindowControls {
-            side: end;
-          }
-        }
-      }
-
       Box {
         orientation: vertical;
 
@@ -173,28 +95,6 @@ template $GhosttyWindow: Adw.ApplicationWindow {
       }
     }
   };
-}
-
-menu split_menu {
-  item {
-    label: _("Split Up");
-    action: "win.split-up";
-  }
-
-  item {
-    label: _("Split Down");
-    action: "win.split-down";
-  }
-
-  item {
-    label: _("Split Left");
-    action: "win.split-left";
-  }
-
-  item {
-    label: _("Split Right");
-    action: "win.split-right";
-  }
 }
 
 menu main_menu {
@@ -228,52 +128,15 @@ menu main_menu {
   }
 
   section {
-    item {
-      label: _("Change Tab Title…");
-      action: "win.prompt-tab-title";
-    }
-
-    item {
-      label: _("New Tab");
-      action: "win.new-tab";
-    }
-
-    item {
-      label: _("Close Tab");
-      action: "win.close-tab";
-      target: "this";
-    }
   }
 
   section {
-    submenu {
-      label: _("Split");
+        item {
+          label: _("Change Title…");
+          action: "win.prompt-surface-title";
+        }
 
-      item {
-        label: _("Change Title…");
-        action: "win.prompt-surface-title";
-      }
-
-      item {
-        label: _("Split Up");
-        action: "win.split-up";
-      }
-
-      item {
-        label: _("Split Down");
-        action: "win.split-down";
-      }
-
-      item {
-        label: _("Split Left");
-        action: "win.split-left";
-      }
-
-      item {
-        label: _("Split Right");
-        action: "win.split-right";
-      }
-    }
+    
   }
 
   section {
@@ -289,16 +152,6 @@ menu main_menu {
   }
 
   section {
-    item {
-      label: _("Command Palette");
-      action: "win.toggle-command-palette";
-    }
-
-    item {
-      label: _("Terminal Inspector");
-      action: "win.toggle-inspector";
-    }
-
     submenu {
       label: _("Config");
 

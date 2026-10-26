@@ -336,64 +336,12 @@ menu context_menu_model {
   }
 
   section {
-    submenu {
-      label: _("Split");
+        item {
+          label: _("Change Title…");
+          action: "surface.prompt-title";
+        }
 
-      item {
-        label: _("Change Title…");
-        action: "surface.prompt-title";
-      }
-
-      item {
-        label: _("Split Up");
-        action: "split-tree.new-split";
-        target: "up";
-      }
-
-      item {
-        label: _("Split Down");
-        action: "split-tree.new-split";
-        target: "down";
-      }
-
-      item {
-        label: _("Split Left");
-        action: "split-tree.new-split";
-        target: "left";
-      }
-
-      item {
-        label: _("Split Right");
-        action: "split-tree.new-split";
-        target: "right";
-      }
-
-      item {
-        label: _("Close Split");
-        action: "split-tree.close-split";
-      }
-    }
-
-    submenu {
-      label: _("Tab");
-
-      item {
-        label: _("Change Tab Title…");
-        action: "tab.prompt-tab-title";
-      }
-
-      item {
-        label: _("New Tab");
-        action: "win.new-tab";
-      }
-
-      item {
-        label: _("Close Tab");
-        action: "tab.close";
-        target: "this";
-      }
-    }
-
+    
     submenu {
       label: _("Window");
 
