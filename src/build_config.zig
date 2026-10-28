@@ -55,7 +55,18 @@ pub const i18n: bool = config.i18n;
 /// There are many places that don't use this variable so simply swapping
 /// this variable is NOT ENOUGH to change the bundle ID. I just wanted to
 /// avoid it in Zig coe as much as possible.
-pub const bundle_id = "com.mitchellh.ghostty";
+// Keep macOS's cache ID; Mash renames the nested .app bundle separately.
+pub const bundle_id = if (builtin.target.os.tag == .macos)
+    "com.mitchellh.ghostty"
+else
+    "app.mash.Mash";
+
+test "Mash GTK identity keeps the macOS bundle ID" {
+    try std.testing.expectEqualStrings(
+        if (builtin.target.os.tag == .macos) "com.mitchellh.ghostty" else "app.mash.Mash",
+        bundle_id,
+    );
+}
 
 /// Mash: true when this Ghostty is nested inside Mash.app and is reached only
 /// through Mash's launcher (`packaging/mash`), which passes -e herdr-pane and

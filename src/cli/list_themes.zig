@@ -876,9 +876,9 @@ const Preview = struct {
                     "",
                     "config-file = ?auto/theme.ghostty",
                     "",
-                    "For more details on configuration and themes, visit the Ghostty documentation:",
+                    "For more information about Mash, visit:",
                     "",
-                    "https://ghostty.org/docs/config/reference",
+                    "https://letsma.sh",
                 };
 
                 for (save_instructions, 0..) |instruction, captured_i| {

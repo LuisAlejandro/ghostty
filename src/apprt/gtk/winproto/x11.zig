@@ -42,9 +42,9 @@ pub const App = struct {
         const x11_program_name: [:0]const u8 = if (config.@"x11-instance-name") |pn|
             pn
         else if (builtin.mode == .Debug)
-            "ghostty-debug"
+            "mash-terminal-debug"
         else
-            "ghostty";
+            "mash-terminal";
 
         // Set the X11 window class property (WM_CLASS) if we are on an X11
         // display.

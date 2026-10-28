@@ -1305,7 +1305,7 @@ pub const Window = extern struct {
     ) callconv(.c) ?[*:0]const u8 {
         if (title_override_) |v| return glib.ext.dupeZ(u8, std.mem.span(v));
         if (title_) |v| return glib.ext.dupeZ(u8, std.mem.span(v));
-        return glib.ext.dupeZ(u8, "Ghostty");
+        return glib.ext.dupeZ(u8, "Mash Terminal");
     }
 
     fn closureSubtitle(
@@ -1876,9 +1876,9 @@ pub const Window = extern struct {
         _: ?*glib.Variant,
         self: *Self,
     ) callconv(.c) void {
-        const name = "Ghostty";
-        const icon = "com.mitchellh.ghostty";
-        const website = "https://ghostty.org";
+        const name = "Mash Terminal";
+        const icon = "app.mash.Mash";
+        const website = "https://letsma.sh";
 
         if (adw_version.supportsDialogs()) {
             adw.showAboutDialog(
@@ -1886,13 +1886,13 @@ pub const Window = extern struct {
                 "application-name",
                 name,
                 "developer-name",
-                i18n._("Ghostty Developers"),
+                i18n._("Mash"),
                 "application-icon",
                 icon,
                 "version",
                 build_config.version_string.ptr,
                 "issue-url",
-                "https://github.com/ghostty-org/ghostty/issues",
+                "https://github.com/LuisAlejandro/mash/issues",
                 "website",
                 website,
                 @as(?*anyopaque, null),
