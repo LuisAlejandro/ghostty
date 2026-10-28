@@ -84,7 +84,7 @@ const ThemeListElement = struct {
 /// configuration directory. This is `$XDG_CONFIG_HOME/ghostty/themes` or
 /// `~/.config/ghostty/themes`.
 ///
-/// The second directory is the `themes` subdirectory of the Ghostty resources
+/// The second directory is the `themes` subdirectory of the Mash Terminal resources
 /// directory. Ghostty ships with a multitude of themes that will be installed
 /// into this directory. On macOS, this directory is the
 /// `Ghostty.app/Contents/Resources/ghostty/themes`. On Linux, this directory
@@ -127,8 +127,8 @@ pub fn run(gpa_alloc: std.mem.Allocator) !u8 {
 
     const resources_dir = global.resourcesDir().app();
     if (resources_dir == null)
-        try stderr.print("Could not find the Ghostty resources directory. Please ensure " ++
-            "that Ghostty is installed correctly.\n", .{});
+        try stderr.print("Could not find the Mash Terminal resources directory. Please ensure " ++
+            "that Mash Terminal is installed correctly.\n", .{});
 
     var count: usize = 0;
 
@@ -309,7 +309,7 @@ const Preview = struct {
 
         const writer = self.tty.writer();
         try self.vx.enterAltScreen(writer);
-        try self.vx.setTitle(writer, "👻 Ghostty Theme Preview 👻");
+        try self.vx.setTitle(writer, "Mash Terminal Theme Preview");
         try self.vx.queryTerminal(writer, .fromSeconds(1));
         try self.vx.setMouseMode(writer, true);
         if (self.vx.caps.color_scheme_updates)
@@ -865,14 +865,14 @@ const Preview = struct {
                 child.fill(.{ .style = self.ui_standard() });
 
                 const save_instructions = [_][]const u8{
-                    "To apply this theme, add the following line to your Ghostty configuration:",
+                    "To apply this theme, add the following line to your Mash Terminal configuration:",
                     "",
                     try std.fmt.allocPrint(alloc, "theme = {s}", .{theme.theme}),
                     "",
                     "Save the configuration file and then reload it to apply the new theme.",
                     "",
                     "Or press 'w' to write an auto theme file to your system's preferred default config path.",
-                    "Then add the following line to your Ghostty configuration and reload:",
+                    "Then add the following line to your Mash Terminal configuration and reload:",
                     "",
                     "config-file = ?auto/theme.ghostty",
                     "",
@@ -1677,14 +1677,14 @@ const Preview = struct {
                 }
                 _ = child.print(
                     &.{
-                        .{ .text = "ghostty ", .style = color6 },
+                        .{ .text = "mash-terminal ", .style = color6 },
                         .{ .text = "on ", .style = standard },
                         .{ .text = " main ", .style = color4 },
                         .{ .text = "[+] ", .style = color1 },
                         .{ .text = "via ", .style = standard },
                         .{ .text = " v0.16.0 ", .style = color3 },
                         .{ .text = "via ", .style = standard },
-                        .{ .text = "  impure (ghostty-env)", .style = color4 },
+                        .{ .text = "  impure (mash-terminal-env)", .style = color4 },
                     },
                     .{
                         .row_offset = 26,

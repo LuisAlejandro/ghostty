@@ -69,7 +69,7 @@
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
-				<string>New $(INFOPLIST_KEY_CFBundleDisplayName) Window Here</string>
+				<string>New Mash Terminal Window Here</string>
 			</dict>
 			<key>NSMessage</key>
 			<string>openWindow</string>
@@ -91,7 +91,7 @@
 			<key>UTTypeIdentifier</key>
 			<string>com.mitchellh.ghosttySurfaceId</string>
 			<key>UTTypeDescription</key>
-			<string>Ghostty Surface Identifier</string>
+			<string>Mash Terminal Surface Identifier</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.data</string>

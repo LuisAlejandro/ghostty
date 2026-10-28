@@ -1905,7 +1905,7 @@ pub const Window = extern struct {
                 "logo-icon-name",
                 icon,
                 "title",
-                i18n._("About Ghostty"),
+                i18n._("About Mash Terminal"),
                 "version",
                 build_config.version_string.ptr,
                 "website",

@@ -265,7 +265,7 @@ fn addLinuxAppResources(
     // Background:
     // https://developer.gnome.org/documentation/guidelines/maintainer/integrating.html
 
-    const name = b.fmt("Ghostty{s}", .{
+    const name = b.fmt("Mash Terminal{s}", .{
         switch (cfg.optimize) {
             .Debug, .ReleaseSafe => " (Debug)",
             .ReleaseFast, .ReleaseSmall => "",
@@ -280,7 +280,7 @@ fn addLinuxAppResources(
     });
 
     const exe_abs_path = b.fmt(
-        "{s}/bin/ghostty",
+        "{s}/bin/mash-terminal",
         .{b.install_prefix},
     );
 

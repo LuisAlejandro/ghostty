@@ -2066,7 +2066,7 @@ const Action = struct {
         );
         const chooser = dialog.as(gtk.FileChooser);
         chooser.setCreateFolders(1);
-        chooser.setCurrentName("ghostty-terminal-io.txt");
+        chooser.setCurrentName("mash-terminal-io.txt");
 
         _ = gtk.NativeDialog.signals.response.connect(
             dialog,

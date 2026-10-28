@@ -5,11 +5,9 @@ struct AboutView: View {
 
     private let githubURL = URL(string: "https://github.com/LuisAlejandro/mash")
     private let docsURL = URL(string: "https://letsma.sh")
-    private let ghosttyURL = URL(string: "https://github.com/LuisAlejandro/ghostty")
 
     /// Read the commit from the bundle.
     private var build: String? { Bundle.main.infoDictionary?["CFBundleVersion"] as? String }
-    private var commit: String? { Bundle.main.infoDictionary?["GhosttyCommit"] as? String }
     private var version: String? { Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String }
 
     private enum VersionConfig {
@@ -103,10 +101,6 @@ struct AboutView: View {
                     }
                     if let build {
                         PropertyRow(label: "Build", text: build)
-                    }
-                    if let commit, commit != "",
-                       let url = ghosttyURL?.appendingPathComponent("commit/\(commit)") {
-                        PropertyRow(label: "Ghostty Commit", text: commit, url: url)
                     }
                 }
                 .frame(maxWidth: .infinity)
