@@ -3,8 +3,9 @@ import SwiftUI
 struct AboutView: View {
     @Environment(\.openURL) var openURL
 
-    private let githubURL = URL(string: "https://github.com/ghostty-org/ghostty")
-    private let docsURL = URL(string: "https://ghostty.org/docs")
+    private let githubURL = URL(string: "https://github.com/LuisAlejandro/mash")
+    private let docsURL = URL(string: "https://letsma.sh")
+    private let ghosttyURL = URL(string: "https://github.com/LuisAlejandro/ghostty")
 
     /// Read the commit from the bundle.
     private var build: String? { Bundle.main.infoDictionary?["CFBundleVersion"] as? String }
@@ -33,8 +34,7 @@ struct AboutView: View {
         var url: URL? {
             switch self {
             case .stable(let version):
-                let slug = version.replacingOccurrences(of: ".", with: "-")
-                return URL(string: "https://ghostty.org/docs/install/release-notes/\(slug)")
+                return URL(string: "https://github.com/LuisAlejandro/mash/releases/tag/\(version)")
             default:
                 return nil
             }
@@ -105,8 +105,8 @@ struct AboutView: View {
                         PropertyRow(label: "Build", text: build)
                     }
                     if let commit, commit != "",
-                       let url = githubURL?.appendingPathComponent("/commits/\(commit)") {
-                        PropertyRow(label: "Commit", text: commit, url: url)
+                       let url = ghosttyURL?.appendingPathComponent("commit/\(commit)") {
+                        PropertyRow(label: "Ghostty Commit", text: commit, url: url)
                     }
                 }
                 .frame(maxWidth: .infinity)
