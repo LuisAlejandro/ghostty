@@ -161,6 +161,16 @@ extension Ghostty {
             return NotifyOnCommandFinish(rawValue: String(cString: ptr)) ?? .never
         }
 
+        /// Mash: "native" when Mash seeded the Native keymap, else "cursor".
+        var mashKeybindings: String {
+            guard let config = self.config else { return "cursor" }
+            var v: UnsafePointer<Int8>?
+            let key = "mash-keybindings"
+            guard ghostty_config_get(config, &v, key, UInt(key.lengthOfBytes(using: .utf8))) else { return "cursor" }
+            guard let ptr = v else { return "cursor" }
+            return String(cString: ptr)
+        }
+
         var notifyOnCommandFinishAction: NotifyOnCommandFinishAction {
             let defaultValue = NotifyOnCommandFinishAction.bell
             guard let config = self.config else { return defaultValue }

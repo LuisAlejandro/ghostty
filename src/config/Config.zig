@@ -4008,6 +4008,22 @@ term: []const u8 = "xterm-ghostty",
 /// This only works on macOS since only macOS has an auto-update feature.
 @"auto-update-channel": ?build_config.ReleaseChannel = null,
 
+/// Mash: which keymap Mash's menus drive. Every Mash menu item replays the
+/// keys a user would type into Herdr (see `mash_send_key`), and those keys
+/// depend on the keybinding mode chosen in Mash's first-launch wizard, so the
+/// menus need to know it. Mash's seeder writes this; nothing else sets it.
+///
+/// Valid values are:
+///
+///  * `cursor` - Mash's Cursor-style chords (the default).
+///  * `native` - Herdr's stock Ctrl+B prefix keymap and Mash's extra commands
+///    on prefix keys.
+///
+/// Changing this configuration and reloading rebuilds the menus in place,
+/// which is what Mash's first-launch wizard relies on: it chooses the mode
+/// inside a window that is already open.
+@"mash-keybindings": MashKeybindings = .cursor,
+
 /// This is set by the CLI parser for deinit.
 _arena: ?ArenaAllocator = null,
 
@@ -9934,6 +9950,12 @@ pub const AsyncBackend = enum {
     auto,
     epoll,
     io_uring,
+};
+
+/// See mash-keybindings
+pub const MashKeybindings = enum {
+    cursor,
+    native,
 };
 
 /// See auto-updates
