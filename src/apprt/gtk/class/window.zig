@@ -256,6 +256,9 @@ pub const Window = extern struct {
         tab_view: *adw.TabView,
         toolbar: *adw.ToolbarView,
         toast_overlay: *adw.ToastOverlay,
+        main_menu_button: *gtk.MenuButton,
+        main_menu: *gio.Menu,
+        main_menu_native: *gio.Menu,
 
         pub var offset: c_int = 0;
     };
@@ -318,6 +321,12 @@ pub const Window = extern struct {
 
         // Initialize our actions
         self.initActionMap();
+
+        // Mash: the menu drives Herdr through the keymap Mash seeded, so the
+        // Native keymap gets its own menu (window.blp, main_menu_native).
+        if (config.@"mash-keybindings" == .native) {
+            priv.main_menu_button.setMenuModel(priv.main_menu_native.as(gio.MenuModel));
+        }
 
         // Start states based on config.
         if (config.maximize) self.as(gtk.Window).maximize();
@@ -1132,6 +1141,14 @@ pub const Window = extern struct {
             if (config.@"app-notifications".@"config-reload") {
                 self.addToast(i18n._("Reloaded the configuration"));
             }
+
+            // Mash: the first-launch wizard picks the keybinding mode after
+            // this window already built its menu, then reloads the config.
+            // Follow the reloaded mode so the menu shows the chords that work.
+            priv.main_menu_button.setMenuModel(switch (config.@"mash-keybindings") {
+                .native => priv.main_menu_native.as(gio.MenuModel),
+                .cursor => priv.main_menu.as(gio.MenuModel),
+            });
         }
 
         self.syncAppearance();
@@ -1985,7 +2002,13 @@ pub const Window = extern struct {
         self: *Window,
     ) callconv(.c) void {
         _ = self.as(gtk.Widget).activateAction("app.reload-config", null);
-        self.performBindingAction(.{ .mash_send_key = "ctrl+alt+shift+k" });
+        const native = if (self.private().config) |v|
+            v.get().@"mash-keybindings" == .native
+        else
+            false;
+        self.performBindingAction(.{
+            .mash_send_key = if (native) "ctrl+b>shift+r" else "ctrl+shift+,",
+        });
     }
 
     fn actionRingBell(
@@ -2059,6 +2082,9 @@ pub const Window = extern struct {
             class.bindTemplateChildPrivate("tab_view", .{});
             class.bindTemplateChildPrivate("toolbar", .{});
             class.bindTemplateChildPrivate("toast_overlay", .{});
+            class.bindTemplateChildPrivate("main_menu_button", .{});
+            class.bindTemplateChildPrivate("main_menu", .{});
+            class.bindTemplateChildPrivate("main_menu_native", .{});
 
             // Template Callbacks
             class.bindTemplateCallback("realize", &windowRealize);

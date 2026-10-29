@@ -52,7 +52,7 @@ template $GhosttyWindow: Adw.ApplicationWindow {
 
         [end]
         Gtk.Box {
-          Gtk.MenuButton {
+          Gtk.MenuButton main_menu_button {
             notify::active => $notify_menu_active();
             icon-name: "open-menu-symbolic";
             menu-model: main_menu;
@@ -322,15 +322,15 @@ menu main_menu {
         item {
           label: _("Previous Tab");
           action: "win.mash-send-key";
-          target: "ctrl+shift+bracket_left";
-          accel: "<Control><Shift>bracketleft";
+          target: "ctrl+shift+tab";
+          accel: "<Control><Shift>Tab";
         }
 
         item {
           label: _("Next Tab");
           action: "win.mash-send-key";
-          target: "ctrl+shift+bracket_right";
-          accel: "<Control><Shift>bracketright";
+          target: "ctrl+tab";
+          accel: "<Control>Tab";
         }
 
         item {
@@ -441,14 +441,14 @@ menu main_menu {
     item {
       label: _("Settings…");
       action: "win.mash-send-key";
-      target: "ctrl+alt+i";
-      accel: "<Control><Alt>i";
+      target: "ctrl+,";
+      accel: "<Control>comma";
     }
 
     item {
       label: _("Reload Configuration");
       action: "win.mash-reload";
-      accel: "<Control><Alt><Shift>k";
+      accel: "<Control><Shift>comma";
     }
 
     item {
@@ -465,6 +465,338 @@ menu main_menu {
       action: "win.mash-send-key";
       target: "ctrl+shift+i";
       accel: "<Control><Shift>i";
+    }
+
+    item {
+      label: _("About Mash Terminal");
+      action: "win.about";
+    }
+
+    item {
+      label: _("Quit");
+      action: "app.quit";
+    }
+  }
+}
+
+// Mash: the same menu for the Native keymap; window.zig picks one from the
+// mash-keybindings config.
+menu main_menu_native {
+  section {
+    item {
+      label: _("Copy");
+      action: "win.copy";
+    }
+
+    item {
+      label: _("Paste");
+      action: "win.paste";
+    }
+  }
+
+  section {
+    item {
+      label: _("New Window");
+      action: "win.new-window";
+    }
+
+    item {
+      label: _("Close Window");
+      action: "win.close";
+    }
+  }
+
+  section {
+    item {
+      label: _("Clear");
+      action: "win.clear";
+    }
+
+    item {
+      label: _("Reset");
+      action: "win.reset";
+    }
+  }
+
+  // Mash: Herdr commands in the Native keymap. Each item sends Herdr's stock
+  // Ctrl+B prefix key, or Mash's keys.native.toml prefix key, as a sequence
+  // (mash_send_key "ctrl+b>n"). A GTK accel holds one chord, so the sequence
+  // is shown at the end of the label instead. Items for actions Herdr has no
+  // stock key for (workspace and agent cycling, removing a worktree) are left
+  // out rather than shown with a key that does nothing.
+  section {
+    submenu {
+      label: _("File");
+
+      section {
+        item {
+          label: _("New Dev Tab  ·  Ctrl+B t");
+          action: "win.mash-send-key";
+          target: "ctrl+b>t";
+        }
+
+        item {
+          label: _("New Agent Tab  ·  Ctrl+B a");
+          action: "win.mash-send-key";
+          target: "ctrl+b>a";
+        }
+
+        item {
+          label: _("New Review Tab  ·  Ctrl+B V");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+v";
+        }
+
+        item {
+          label: _("New Shell Tab  ·  Ctrl+B C");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+c";
+        }
+      }
+
+      section {
+        item {
+          label: _("New Workspace…  ·  Ctrl+B N");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+n";
+        }
+
+        item {
+          label: _("New Worktree…  ·  Ctrl+B G");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+g";
+        }
+
+        item {
+          label: _("Workspace Picker…  ·  Ctrl+B F");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+f";
+        }
+      }
+
+      section {
+        item {
+          label: _("Close Pane  ·  Ctrl+B x");
+          action: "win.mash-send-key";
+          target: "ctrl+b>x";
+        }
+
+        item {
+          label: _("Close Tab  ·  Ctrl+B X");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+x";
+        }
+
+        item {
+          label: _("Close Workspace  ·  Ctrl+B D");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+d";
+        }
+
+      }
+    }
+
+    submenu {
+      label: _("Edit");
+
+      section {
+        item {
+          label: _("Annotate Selection  ·  Ctrl+B i");
+          action: "win.mash-send-key";
+          target: "ctrl+b>i";
+        }
+
+        item {
+          label: _("Paste Annotations into Agent  ·  Ctrl+B I");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+i";
+        }
+
+        item {
+          label: _("Manage Annotations  ·  Ctrl+B m");
+          action: "win.mash-send-key";
+          target: "ctrl+b>m";
+        }
+      }
+
+      section {
+        item {
+          label: _("Pick Link or ID  ·  Ctrl+B u");
+          action: "win.mash-send-key";
+          target: "ctrl+b>u";
+        }
+      }
+    }
+
+    submenu {
+      label: _("View");
+
+      section {
+        item {
+          label: _("Toggle Sidebar  ·  Ctrl+B b");
+          action: "win.mash-send-key";
+          target: "ctrl+b>b";
+        }
+
+        item {
+          label: _("Zoom Pane  ·  Ctrl+B z");
+          action: "win.mash-send-key";
+          target: "ctrl+b>z";
+        }
+      }
+
+      section {
+        item {
+          label: _("Split Pane Right  ·  Ctrl+B v");
+          action: "win.mash-send-key";
+          target: "ctrl+b>v";
+        }
+
+        item {
+          label: _("Split Pane Down  ·  Ctrl+B -");
+          action: "win.mash-send-key";
+          target: "ctrl+b>minus";
+        }
+
+        item {
+          label: _("Resize Mode  ·  Ctrl+B r");
+          action: "win.mash-send-key";
+          target: "ctrl+b>r";
+        }
+      }
+    }
+
+    submenu {
+      label: _("Go");
+
+      section {
+        item {
+          label: _("Goto…  ·  Ctrl+B g");
+          action: "win.mash-send-key";
+          target: "ctrl+b>g";
+        }
+      }
+
+      section {
+
+
+        item {
+          label: _("Previous Tab  ·  Ctrl+B p");
+          action: "win.mash-send-key";
+          target: "ctrl+b>p";
+        }
+
+        item {
+          label: _("Next Tab  ·  Ctrl+B n");
+          action: "win.mash-send-key";
+          target: "ctrl+b>n";
+        }
+
+        item {
+          label: _("Previous Pane  ·  Ctrl+B Shift+Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+tab";
+        }
+
+        item {
+          label: _("Next Pane  ·  Ctrl+B Tab");
+          action: "win.mash-send-key";
+          target: "ctrl+b>tab";
+        }
+
+
+      }
+
+      section {
+        item {
+          label: _("Open Notification Target  ·  Ctrl+B o");
+          action: "win.mash-send-key";
+          target: "ctrl+b>o";
+        }
+      }
+    }
+
+    submenu {
+      label: _("Tools");
+
+      section {
+        item {
+          label: _("Command Palette…  ·  Ctrl+B ;");
+          action: "win.mash-send-key";
+          target: "ctrl+b>semicolon";
+        }
+
+        item {
+          label: _("File Finder…  ·  Ctrl+B f");
+          action: "win.mash-send-key";
+          target: "ctrl+b>f";
+        }
+
+        item {
+          label: _("Source Control  ·  Ctrl+B y");
+          action: "win.mash-send-key";
+          target: "ctrl+b>y";
+        }
+
+        item {
+          label: _("Session Search…  ·  Ctrl+B E");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+e";
+        }
+
+        item {
+          label: _("Snippets…  ·  Ctrl+B S");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+s";
+        }
+
+        item {
+          label: _("Container Status  ·  Ctrl+B O");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+o";
+        }
+
+        item {
+          label: _("Plugin Manager  ·  Ctrl+B U");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+u";
+        }
+      }
+
+      section {
+        item {
+          label: _("Fork Agent from Message…  ·  Ctrl+B Y");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+y";
+        }
+      }
+    }
+  }
+
+  section {
+    item {
+      label: _("Settings…  ·  Ctrl+B s");
+      action: "win.mash-send-key";
+      target: "ctrl+b>s";
+    }
+
+    item {
+      label: _("Reload Configuration  ·  Ctrl+B R");
+      action: "win.mash-reload";
+    }
+
+    item {
+      label: _("Detach  ·  Ctrl+B q");
+      action: "win.mash-send-key";
+      target: "ctrl+b>q";
+    }
+  }
+
+  section {
+    item {
+      label: _("Mash Help  ·  Ctrl+B ?");
+      action: "win.mash-send-key";
+      target: "ctrl+b>shift+slash";
     }
 
     item {

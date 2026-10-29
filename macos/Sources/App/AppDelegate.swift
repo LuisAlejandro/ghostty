@@ -258,7 +258,7 @@ class AppDelegate: NSObject,
         // Setup our menu
         setupMenuImages()
         if let mainMenu = NSApp.mainMenu {
-            MashMenus.install(into: mainMenu, target: self)
+            MashMenus.install(into: mainMenu, target: self, native: ghostty.config.mashKeybindings == "native")
             installMashAppMenuItems(into: mainMenu)
         }
 
@@ -712,6 +712,14 @@ class AppDelegate: NSObject,
 
         // Config could change keybindings, so update everything that depends on that
         DispatchQueue.main.async {
+            // The Mash first-launch wizard picks the keybinding mode after this
+            // app has already built its menus, then reloads the config. Rebuild
+            // Mash's menus so the chosen mode's chords are the ones shown.
+            let native = config.mashKeybindings == "native"
+            if native != MashMenus.native, let mainMenu = NSApp.mainMenu {
+                MashMenus.install(into: mainMenu, target: self, native: native)
+                self.installMashAppMenuItems(into: mainMenu)
+            }
             self.syncMenuShortcuts(config)
         }
         TerminalController.all.forEach { $0.relabelTabs() }
@@ -862,12 +870,17 @@ class AppDelegate: NSObject,
     }
 
     /// The app menu's Mash entries: Settings and Reload show Herdr's chords,
-    /// and Detach sits after them.
+    /// and Detach sits after them. Safe to call again after a config reload:
+    /// the first-launch wizard can change the keybinding mode after these items
+    /// exist, so the old Detach item is dropped before the new one goes in.
     @MainActor private func installMashAppMenuItems(into mainMenu: NSMenu) {
         guard let appMenu = mainMenu.items.first?.submenu else { return }
         if let settings = menuOpenConfig { MashMenus.applyShortcut(MashMenus.settingsChord, to: settings) }
         if let reload = menuReloadConfig {
             MashMenus.applyShortcut(MashMenus.reloadChord, to: reload)
+            for item in appMenu.items where item.action == #selector(detachHerdr(_:)) {
+                appMenu.removeItem(item)
+            }
             let detach = NSMenuItem(title: "Detach", action: #selector(detachHerdr(_:)), keyEquivalent: "")
             detach.target = self
             MashMenus.applyShortcut(MashMenus.detachChord, to: detach)
