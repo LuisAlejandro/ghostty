@@ -4971,6 +4971,105 @@ pub const mash_removed_ui: std.EnumSet(std.meta.Tag(input.Binding.Action)) = .in
     .set_surface_title,
 });
 
+const MashChord = struct { key: input.Key, mods: input.Mods };
+
+/// One chord of a `mash_send_key` argument, or null when it is not a chord
+/// with a physical key.
+fn mashChord(text: []const u8) ?MashChord {
+    const trigger = input.Binding.Trigger.parse(text) catch return null;
+    const key: input.Key = switch (trigger.key) {
+        .physical => |k| k,
+        .unicode => |cp| if (cp < 128)
+            input.Key.fromASCII(@intCast(cp)) orelse .unidentified
+        else
+            .unidentified,
+        .catch_all => .unidentified,
+    };
+    if (key == .unidentified) return null;
+    return .{ .key = key, .mods = trigger.mods };
+}
+
+test "mash_send_key parses individual sequence chords" {
+    const testing = std.testing;
+    const ctrl_b = mashChord("ctrl+b").?;
+    try testing.expectEqual(input.Key.key_b, ctrl_b.key);
+    try testing.expect(ctrl_b.mods.ctrl);
+    const help = mashChord("shift+slash").?;
+    try testing.expectEqual(input.Key.slash, help.key);
+    try testing.expect(help.mods.shift);
+    try testing.expectEqual(input.Key.semicolon, mashChord("semicolon").?.key);
+    try testing.expectEqual(input.Key.minus, mashChord("minus").?.key);
+    try testing.expect(mashChord("") == null);
+    try testing.expect(mashChord("é") == null);
+}
+
+test "mash_send_key native suffix encodes without Kitty; Cursor single chords stay unchanged" {
+    const testing = std.testing;
+    var text: [1]u8 = undefined;
+    const single = mashChordPress(mashChord("n").?, false, &text);
+    try testing.expectEqualStrings("", single.utf8);
+
+    var buf: [64]u8 = undefined;
+    var writer: std.Io.Writer = .fixed(&buf);
+    try input.key_encode.encode(&writer, mashChordPress(mashChord("ctrl+b").?, true, &text), .default);
+    try input.key_encode.encode(&writer, mashChordPress(mashChord("n").?, true, &text), .default);
+    try testing.expectEqualStrings("\x02n", writer.buffered());
+
+    var help_writer: std.Io.Writer = .fixed(&buf);
+    const help = mashChordPress(mashChord("shift+slash").?, true, &text);
+    try testing.expectEqualStrings("?", help.utf8);
+    try input.key_encode.encode(&help_writer, help, .{
+        .kitty_flags = .{
+            .disambiguate = true,
+            .report_all = true,
+            .report_alternates = true,
+        },
+    });
+    try testing.expectEqualStrings("\x1b[47:63;2u", help_writer.buffered());
+}
+
+/// Build a synthetic press. A native menu sends a prefix followed by a key;
+/// its printable text is needed by the legacy encoder, and for Kitty's shifted
+/// alternate (e.g. Shift+Slash -> '?'). A single-chord Cursor-style menu keeps
+/// its previous event bytes, including its empty utf8 field.
+fn mashChordPress(chord: MashChord, sequence: bool, text: *[1]u8) input.KeyEvent {
+    const unshifted = chord.key.codepoint() orelse 0;
+    var press: input.KeyEvent = .{
+        .key = chord.key,
+        .mods = chord.mods,
+        .unshifted_codepoint = unshifted,
+    };
+    if (sequence and unshifted >= ' ' and unshifted <= '~') {
+        const ch: u8 = @intCast(unshifted);
+        text[0] = if (chord.mods.shift) switch (ch) {
+            'a'...'z' => std.ascii.toUpper(ch),
+            '/' => '?',
+            ';' => ':',
+            else => ch,
+        } else ch;
+        press.utf8 = text[0..1];
+    }
+    return press;
+}
+
+/// Write one chord's press and release to the pty, using the negotiated
+/// terminal keyboard protocol.
+fn mashSendChord(self: *Surface, chord: MashChord, sequence: bool) !void {
+    var text: [1]u8 = undefined;
+    const press = mashChordPress(chord, sequence, &text);
+    var release = press;
+    release.action = .release;
+    for ([_]input.KeyEvent{ press, release }) |event| {
+        if (try self.encodeKey(event, null)) |req| {
+            self.queueIo(switch (req) {
+                .small => |v| .{ .write_small = v },
+                .stable => |v| .{ .write_stable = v },
+                .alloc => |v| .{ .write_alloc = v },
+            }, .unlocked);
+        }
+    }
+}
+
 /// Perform a binding action. A binding is a keybinding. This function
 /// must be called from the GUI thread.
 ///
@@ -5047,49 +5146,25 @@ pub fn performBindingAction(self: *Surface, action: input.Binding.Action) !bool 
         },
 
         .mash_send_key => |data| {
-            const trigger = input.Binding.Trigger.parse(data) catch |err| {
-                log.warn("invalid mash_send_key chord={s} err={}", .{ data, err });
-                return true;
-            };
-            const key: input.Key = switch (trigger.key) {
-                .physical => |k| k,
-                .unicode => |cp| if (cp < 128)
-                    input.Key.fromASCII(@intCast(cp)) orelse .unidentified
-                else
-                    .unidentified,
-                .catch_all => .unidentified,
-            };
-            if (key == .unidentified) {
-                log.warn("mash_send_key has no physical key chord={s}", .{data});
-                return true;
+            // `ctrl+b>n` is a sequence: each chord is pressed and released in
+            // order, as a person would type a Herdr prefix and then its key.
+            // Every chord is parsed before anything is written, so a malformed
+            // sequence sends nothing rather than half a prefix.
+            var chords: [8]MashChord = undefined;
+            var count: usize = 0;
+            var parts = std.mem.splitScalar(u8, data, '>');
+            while (parts.next()) |part| {
+                if (count == chords.len) {
+                    log.warn("mash_send_key sequence too long chord={s}", .{data});
+                    return true;
+                }
+                chords[count] = mashChord(part) orelse {
+                    log.warn("invalid mash_send_key chord={s}", .{data});
+                    return true;
+                };
+                count += 1;
             }
-
-            // A real press reports the unshifted codepoint and no text for a
-            // modified chord; the encoder derives the bytes Herdr expects from
-            // the key, its codepoint and the mods, in whatever keyboard
-            // protocol the terminal has negotiated.
-            const press: input.KeyEvent = .{
-                .action = .press,
-                .key = key,
-                .mods = trigger.mods,
-                .unshifted_codepoint = key.codepoint() orelse 0,
-            };
-            if (try self.encodeKey(press, null)) |req| {
-                self.queueIo(switch (req) {
-                    .small => |v| .{ .write_small = v },
-                    .stable => |v| .{ .write_stable = v },
-                    .alloc => |v| .{ .write_alloc = v },
-                }, .unlocked);
-            }
-            var release = press;
-            release.action = .release;
-            if (try self.encodeKey(release, null)) |req| {
-                self.queueIo(switch (req) {
-                    .small => |v| .{ .write_small = v },
-                    .stable => |v| .{ .write_stable = v },
-                    .alloc => |v| .{ .write_alloc = v },
-                }, .unlocked);
-            }
+            for (chords[0..count]) |chord| try self.mashSendChord(chord, count > 1);
         },
 
         .text => |data| {

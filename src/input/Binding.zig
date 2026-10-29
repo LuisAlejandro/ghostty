@@ -337,7 +337,9 @@ pub const Action = union(enum) {
     /// trigger in keybind syntax. It skips Ghostty's own keybind table and goes
     /// straight to the terminal's key encoder, so the program in the terminal
     /// (Herdr) sees the same bytes a physical press would produce. Mash's menus
-    /// use it to invoke Herdr commands by their shortcut.
+    /// use it to invoke Herdr commands by their shortcut. Chords joined with
+    /// `>` are sent one after another, e.g. `mash_send_key:ctrl+b>n` for a
+    /// Herdr prefix key.
     mash_send_key: []const u8,
 
     /// Send data to the pty depending on whether cursor key mode is enabled
