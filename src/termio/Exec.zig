@@ -821,6 +821,15 @@ const Subprocess = struct {
             );
         }
 
+        // The Mash first-launch wizard runs inside this terminal. It selects
+        // the keybinding mode after the terminal has already read its config;
+        // pass the exact owning process so herdr-pane can request the existing
+        // SIGUSR2 config reload without signaling another Mash window.
+        if (comptime builtin.os.tag == .linux or builtin.os.tag == .macos) {
+            const pid = try std.fmt.allocPrint(alloc, "{d}", .{std.c.getpid()});
+            try env.put("MASH_TERMINAL_PID", pid);
+        }
+
         // Build our args list
         const args: []const [:0]const u8 = execCommand(
             alloc,
