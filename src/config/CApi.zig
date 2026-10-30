@@ -53,16 +53,17 @@ export fn ghostty_config_clone(self: *Config) ?*Config {
 
 /// Mash: refuse to open unless the launcher brought us here.
 export fn ghostty_config_mash_guard() void {
-    // Mash: refuse to open unless the launcher brought us here.
+    // Mash: refuse to open without Mash's setup.
     //
-    // This binary is nested inside Mash.app, which is reached only through
-    // Mash's launcher (`packaging/mash`): it passes -e herdr-pane and the
-    // isolated environment. macOS does not know that, so a Dock icon, Finder,
-    // Spotlight or `open -a` can start this binary on its own. Without the
-    // launcher there is no -e, no herdr-pane and no ZDOTDIR, so the terminal
-    // came up running the owner's own shell with the owner's own ~/.zshrc: a
-    // working window that looked like an unconfigured Mash but could not run
-    // Mash at all.
+    // Mash's launcher seeds ~/.mash and exports the isolated environment, then
+    // starts this terminal. Without it there is no herdr-pane and no ZDOTDIR,
+    // so the terminal would come up running the owner's own shell with the
+    // owner's own ~/.zshrc: a window that looks like Mash but cannot run it.
+    //
+    // On macOS this is now unreachable from the app: main.swift hands every
+    // launch to the setup before Ghostty initializes, and shows an alert if
+    // the setup fails. It still covers the Linux binary run by hand, outside
+    // its launcher, where stdout is the terminal it was run from.
     //
     // The launcher exports MASH_BIN and is the only caller that does, so its
     // absence means this window is not Mash. build_config.mash_nested marks
