@@ -24,7 +24,6 @@ class AppDelegate: NSObject,
     @IBOutlet private var menuSecureInput: NSMenuItem?
     @IBOutlet private var menuQuit: NSMenuItem?
 
-    @IBOutlet private var menuNewWindow: NSMenuItem?
     @IBOutlet private var menuNewTab: NSMenuItem?
     @IBOutlet private var menuSplitRight: NSMenuItem?
     @IBOutlet private var menuSplitLeft: NSMenuItem?
@@ -999,10 +998,8 @@ extension AppDelegate {
     }
 
     private func reloadDockMenu() {
-        let newWindow = NSMenuItem(title: "New Window", action: #selector(newWindow), keyEquivalent: "")
-
+        // Mash has one window, so the Dock menu offers no New Window.
         dockMenu.removeAllItems()
-        dockMenu.addItem(newWindow)
     }
 
     /// Setup all the images for our menu items.
@@ -1013,7 +1010,6 @@ extension AppDelegate {
         self.menuOpenConfig?.setImageIfDesired(systemSymbolName: "gear")
         self.menuReloadConfig?.setImageIfDesired(systemSymbolName: "arrow.trianglehead.2.clockwise.rotate.90")
         self.menuSecureInput?.setImageIfDesired(systemSymbolName: "lock.display")
-        self.menuNewWindow?.setImageIfDesired(systemSymbolName: "macwindow.badge.plus")
         self.menuNewTab?.setImageIfDesired(systemSymbolName: "macwindow")
         self.menuSplitRight?.setImageIfDesired(systemSymbolName: "rectangle.righthalf.inset.filled")
         self.menuSplitLeft?.setImageIfDesired(systemSymbolName: "rectangle.leadinghalf.inset.filled")
@@ -1050,7 +1046,6 @@ extension AppDelegate {
 
         syncMenuShortcut(config, action: "quit", menuItem: self.menuQuit)
 
-        syncMenuShortcut(config, action: "new_window", menuItem: self.menuNewWindow)
         syncMenuShortcut(config, action: "new_tab", menuItem: self.menuNewTab)
         syncMenuShortcut(config, action: "close_surface", menuItem: self.menuClose)
         syncMenuShortcut(config, action: "close_tab", menuItem: self.menuCloseTab)

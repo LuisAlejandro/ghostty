@@ -251,6 +251,18 @@ class TerminalController: BaseTerminalController, TabGroupCloseCoordinator.Contr
         withBaseConfig baseConfig: Ghostty.SurfaceConfiguration? = nil,
         withParent explicitParent: NSWindow? = nil
     ) -> TerminalController {
+        // Mash: one window. It hosts one Herdr client, and Herdr already gives
+        // that window every workspace and tab, so a second window would only be
+        // a second view of the same server. Every way of asking for a window
+        // reaches this method -- the menu, the Dock menu, a reopen, Services,
+        // AppleScript, App Intents, a dropped folder -- and each one now brings
+        // the existing window forward instead.
+        if let existing = all.first {
+            NSApp.activate(ignoringOtherApps: true)
+            existing.window?.makeKeyAndOrderFront(nil)
+            return existing
+        }
+
         let c = TerminalController.init(ghostty, withBaseConfig: baseConfig)
 
         // Get our parent. Our parent is the one explicitly given to us,
@@ -352,6 +364,14 @@ class TerminalController: BaseTerminalController, TabGroupCloseCoordinator.Contr
         confirmUndo: Bool = true,
         inheritBackgroundOpacity: Bool? = nil
     ) -> TerminalController {
+        // Mash: one window. Mash rejects new_split, so there is never a split to
+        // drag out of the window; this keeps the rule true regardless.
+        if let existing = all.first {
+            NSApp.activate(ignoringOtherApps: true)
+            existing.window?.makeKeyAndOrderFront(nil)
+            return existing
+        }
+
         // Calculate the target frame based on the tree's view bounds
         // before moving into the new window
         let treeSize: CGSize? = tree.root?.viewBounds()

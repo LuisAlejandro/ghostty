@@ -1528,6 +1528,20 @@ pub const Application = extern struct {
     fn activate(self: *Self) callconv(.c) void {
         log.debug("activate", .{});
 
+        // Mash: one window. Mash runs as a single GTK instance, so opening Mash
+        // again (the desktop entry, the dock) activates this process instead of
+        // starting a second one. Bring the window forward rather than open
+        // another: it hosts one Herdr client that already holds every
+        // workspace.
+        if (self.as(gtk.Application).getActiveWindow()) |win| {
+            win.present();
+            gio.Application.virtual_methods.activate.call(
+                Class.parent,
+                self.as(Parent),
+            );
+            return;
+        }
+
         // Queue a new window
         const priv = self.private();
         _ = priv.core_app.mailbox.push(global.io(), .{
@@ -2465,6 +2479,13 @@ const Action = struct {
     }
 
     pub fn newWindow(self: *Application, parent: ?*CoreSurface, overrides: Overrides) !void {
+        // Mash: one window. Every new_window request -- a keybind, the menu, a
+        // D-Bus action -- brings the existing window forward instead.
+        if (self.as(gtk.Application).getActiveWindow()) |win| {
+            win.present();
+            return;
+        }
+
         // Note that we've requested a window at least once. This is used
         // to trigger quit on no windows. Note I'm not sure if this is REALLY
         // necessary, but I don't want to risk a bug where on a slow machine
