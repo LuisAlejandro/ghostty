@@ -463,6 +463,13 @@ menu main_menu {
     }
 
     item {
+      label: _("Check for Updates…");
+      action: "win.mash-send-key";
+      target: "ctrl+alt+shift+u";
+      accel: "<Control><Alt><Shift>u";
+    }
+
+    item {
       label: _("About Mash Terminal");
       action: "win.about";
     }
@@ -787,6 +794,12 @@ menu main_menu_native {
       label: _("Mash Help  ·  Ctrl+B ?");
       action: "win.mash-send-key";
       target: "ctrl+b>shift+slash";
+    }
+
+    item {
+      label: _("Check for Updates…  ·  Ctrl+B Z");
+      action: "win.mash-send-key";
+      target: "ctrl+b>shift+z";
     }
 
     item {

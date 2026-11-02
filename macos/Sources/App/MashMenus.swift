@@ -90,6 +90,7 @@ enum MashMenus {
 
     static let help: [Entry] = [
         .item("Mash Help", "cmd+shift+i"),
+        .item("Check for Updates…", "cmd+shift+u"),
     ]
 
     /// Herdr's own settings, reload and detach chords, used by the app menu.
@@ -156,6 +157,7 @@ enum MashMenus {
 
     static let nativeHelp: [Entry] = [
         .item("Mash Help", "ctrl+b>shift+slash"),
+        .item("Check for Updates…", "ctrl+b>shift+z"),
     ]
 
     /// Whether Mash seeded the Native keymap. Set at menu install. The
