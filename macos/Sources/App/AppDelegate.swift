@@ -263,6 +263,7 @@ class AppDelegate: NSObject,
 
         // Setup signal handlers
         setupSignals()
+        mashUpdateObserveReadiness()
 
         switch Ghostty.launchSource {
         case .app:
