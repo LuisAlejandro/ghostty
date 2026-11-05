@@ -339,6 +339,20 @@
 			knownRegions = (
 				en,
 				Base,
+				bg,
+				cs,
+				de,
+				es,
+				fr,
+				it,
+				ja,
+				ko,
+				pt-BR,
+				ru,
+				th,
+				uk,
+				vi,
+				zh-CN,
 			);
 			mainGroup = A5B30528299BEAAA0047F10C;
 			productRefGroup = A5B30532299BEAAA0047F10C /* Products */;
