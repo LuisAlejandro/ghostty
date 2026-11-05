@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "Soubor";
+"menu.edit" = "Úpravy";
+"menu.view" = "Zobrazení";
+"menu.go" = "Přejít";
+"menu.tools" = "Nástroje";
+"menu.help" = "Nápověda";
+"menu.window" = "Okno";

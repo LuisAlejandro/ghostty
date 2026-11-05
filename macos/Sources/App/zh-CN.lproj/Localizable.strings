@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "文件";
+"menu.edit" = "编辑";
+"menu.view" = "显示";
+"menu.go" = "前往";
+"menu.tools" = "工具";
+"menu.help" = "帮助";
+"menu.window" = "窗口";

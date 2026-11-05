@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "Файл";
+"menu.edit" = "Правка";
+"menu.view" = "Вид";
+"menu.go" = "Переход";
+"menu.tools" = "Инструменты";
+"menu.help" = "Справка";
+"menu.window" = "Окно";

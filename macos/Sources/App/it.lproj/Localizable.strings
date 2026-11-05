@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "File";
+"menu.edit" = "Modifica";
+"menu.view" = "Vista";
+"menu.go" = "Vai";
+"menu.tools" = "Strumenti";
+"menu.help" = "Aiuto";
+"menu.window" = "Finestra";

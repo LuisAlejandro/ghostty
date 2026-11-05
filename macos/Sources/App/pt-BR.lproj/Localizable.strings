@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "Arquivo";
+"menu.edit" = "Editar";
+"menu.view" = "Visualizar";
+"menu.go" = "Ir";
+"menu.tools" = "Ferramentas";
+"menu.help" = "Ajuda";
+"menu.window" = "Janela";

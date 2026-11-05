@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "ファイル";
+"menu.edit" = "編集";
+"menu.view" = "表示";
+"menu.go" = "移動";
+"menu.tools" = "ツール";
+"menu.help" = "ヘルプ";
+"menu.window" = "ウインドウ";

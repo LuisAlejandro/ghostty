@@ -160,6 +160,29 @@ enum MashMenus {
         .item("Check for Updates…", "ctrl+b>shift+z"),
     ]
 
+    private static let fileMenuTitle = String(localized: "menu.file", defaultValue: "File", comment: "File menu title")
+    private static let editMenuTitle = String(localized: "menu.edit", defaultValue: "Edit", comment: "Edit menu title")
+    private static let viewMenuTitle = String(localized: "menu.view", defaultValue: "View", comment: "View menu title")
+    private static let goMenuTitle = String(localized: "menu.go", defaultValue: "Go", comment: "Go menu title")
+    private static let toolsMenuTitle = String(
+        localized: "menu.tools",
+        defaultValue: "Tools",
+        comment: "Tools menu title"
+    )
+    private static let helpMenuTitle = String(localized: "menu.help", defaultValue: "Help", comment: "Help menu title")
+    private static let windowMenuTitle = String(
+        localized: "menu.window",
+        defaultValue: "Window",
+        comment: "Window menu title"
+    )
+
+    // MainMenu.xib order: application menu, File, Edit, View, Window.
+    private static let fileMenuIndex = 1
+    private static let editMenuIndex = 2
+    private static let viewMenuIndex = 3
+    private static let windowMenuIndex = 4
+    private static let menuIdentifierPrefix = "mash.menu."
+
     /// Whether Mash seeded the Native keymap. Set at menu install. The
     /// first-launch wizard runs inside an already-open window and then reloads
     /// the config, so this can flip once and the menus are rebuilt.
@@ -173,45 +196,49 @@ enum MashMenus {
     /// were first built. Previously inserted Mash items are removed first.
     static func install(into mainMenu: NSMenu, target: AppDelegate, native: Bool) {
         self.native = native
-        for (title, entries) in [("File", file), ("Edit", edit), ("View", view)] {
-            let menu = submenu(named: title, in: mainMenu)
-            remove(entries + nativeEntries(for: title), from: menu)
-            append(native ? nativeEntries(for: title) : entries, to: menu, target: target)
+        for (index, title, entries, nativeEntries) in [
+            (fileMenuIndex, fileMenuTitle, file, nativeFile),
+            (editMenuIndex, editMenuTitle, edit, nativeEdit),
+            (viewMenuIndex, viewMenuTitle, view, nativeView),
+        ] {
+            guard let item = mainMenu.item(at: index), let menu = item.submenu else { continue }
+            item.title = title
+            menu.title = title
+            remove(entries + nativeEntries, from: menu)
+            append(native ? nativeEntries : entries, to: menu, target: target)
         }
 
-        for title in ["Go", "Tools", "Help"] {
-            let index = mainMenu.indexOfItem(withTitle: title)
-            if index >= 0 { mainMenu.removeItem(at: index) }
+        for index in mainMenu.items.indices.reversed() {
+            guard let item = mainMenu.item(at: index),
+                  item.identifier?.rawValue.hasPrefix(menuIdentifierPrefix) == true else { continue }
+            mainMenu.removeItem(at: index)
         }
 
-        let windowIndex = mainMenu.indexOfItem(withTitle: "Window")
-        let insertAt = windowIndex >= 0 ? windowIndex : mainMenu.numberOfItems
+        if let windowItem = mainMenu.item(at: windowMenuIndex) {
+            windowItem.title = windowMenuTitle
+            windowItem.submenu?.title = windowMenuTitle
+        }
+
+        let insertAt = windowMenuIndex
         let menus = native
-            ? [("Go", nativeGo), ("Tools", nativeTools)]
-            : [("Go", go), ("Tools", tools)]
-        for (offset, (title, entries)) in menus.enumerated() {
+            ? [("go", goMenuTitle, nativeGo), ("tools", toolsMenuTitle, nativeTools)]
+            : [("go", goMenuTitle, go), ("tools", toolsMenuTitle, tools)]
+        for (offset, (identifier, title, entries)) in menus.enumerated() {
             let menu = NSMenu(title: title)
             append(entries, to: menu, target: target)
             let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+            item.identifier = NSUserInterfaceItemIdentifier(menuIdentifierPrefix + identifier)
             item.submenu = menu
             mainMenu.insertItem(item, at: insertAt + offset)
         }
 
-        let helpMenu = NSMenu(title: "Help")
+        let helpMenu = NSMenu(title: helpMenuTitle)
         append(native ? nativeHelp : help, to: helpMenu, target: target)
-        let helpItem = NSMenuItem(title: "Help", action: nil, keyEquivalent: "")
+        let helpItem = NSMenuItem(title: helpMenuTitle, action: nil, keyEquivalent: "")
+        helpItem.identifier = NSUserInterfaceItemIdentifier(menuIdentifierPrefix + "help")
         helpItem.submenu = helpMenu
         mainMenu.addItem(helpItem)
         NSApp.helpMenu = helpMenu
-    }
-
-    /// The Native counterpart of one of the three appended system menus.
-    private static func nativeEntries(for title: String) -> [Entry] {
-        switch title {
-        case "File": return nativeFile
-        case "Edit": return nativeEdit
-        default: return nativeView
-        }
     }
 
     /// Drop items a previous install() appended, so a mode change does not
@@ -307,10 +334,6 @@ enum MashMenus {
         case "arrow_down": return String(UnicodeScalar(NSDownArrowFunctionKey)!)
         default: return name
         }
-    }
-
-    private static func submenu(named title: String, in mainMenu: NSMenu) -> NSMenu? {
-        mainMenu.item(withTitle: title)?.submenu
     }
 
     private static func append(_ entries: [Entry], to menu: NSMenu?, target: AppDelegate) {

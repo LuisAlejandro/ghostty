@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "파일";
+"menu.edit" = "편집";
+"menu.view" = "보기";
+"menu.go" = "이동";
+"menu.tools" = "도구";
+"menu.help" = "도움말";
+"menu.window" = "윈도우";

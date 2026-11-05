@@ -1,0 +1,8 @@
+/* Mash menu titles. */
+"menu.file" = "Tệp";
+"menu.edit" = "Chỉnh sửa";
+"menu.view" = "Hiển thị";
+"menu.go" = "Đi";
+"menu.tools" = "Công cụ";
+"menu.help" = "Trợ giúp";
+"menu.window" = "Cửa sổ";
