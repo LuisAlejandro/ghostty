@@ -41,6 +41,7 @@ pub const locales = [_][:0]const u8{
     "mk",
     "tr",
     "id",
+    "es",
     "es_BO",
     "es_AR",
     "es_ES",
@@ -62,4 +63,6 @@ pub const locales = [_][:0]const u8{
     "da",
     "sr",
     "sr@latin",
+    "cs",
+    "th",
 };

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.mitchellh.ghostty\n"
 "Report-Msgid-Bugs-To: m@mitchellh.com\n"
-"POT-Creation-Date: 2026-08-10 10:06-0500\n"
+"POT-Creation-Date: 2026-11-06 16:12-0400\n"
 "PO-Revision-Date: 2026-08-19 19:34+0100\n"
 "Last-Translator: Volodymyr Chernetskyi "
 "<19735328+chernetskyi@users.noreply.github.com>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: dist/linux/ghostty_nautilus.py:53
-msgid "Open in Ghostty"
-msgstr "Відкрити в Ghostty"
+msgid "Open in Mash Terminal"
+msgstr "Відкрити в Mash Terminal"
 
 #: src/apprt/gtk/ui/1.0/clipboard-confirmation-dialog.blp:12
 #: src/apprt/gtk/ui/1.4/clipboard-confirmation-dialog.blp:12
@@ -49,13 +49,11 @@ msgid "Reload configuration to show this prompt again"
 msgstr "Перезавантажте налаштування, щоб показати це повідомлення знову"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:8
-#: src/apprt/gtk/class/application.zig:2263
+#: src/apprt/gtk/class/application.zig:2079
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:8
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:90
 #: src/apprt/gtk/ui/1.3/surface-child-exited.blp:17
 msgid "Close"
 msgstr "Закрити"
@@ -77,42 +75,28 @@ msgid "Ignore"
 msgstr "Ігнорувати"
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13
-#: src/apprt/gtk/ui/1.2/surface.blp:439 src/apprt/gtk/ui/1.5/window.blp:318
+#: src/apprt/gtk/ui/1.2/surface.blp:356 src/apprt/gtk/ui/1.5/window.blp:444
 msgid "Reload Configuration"
 msgstr "Перезавантажити налаштування"
 
 #: src/apprt/gtk/ui/1.2/debug-warning.blp:7
 #: src/apprt/gtk/ui/1.3/debug-warning.blp:6
 msgid ""
-"⚠️ You're running a debug build of Ghostty! Performance will be degraded."
+"⚠️ You're running a debug build of Mash Terminal! Performance will be "
+"degraded."
 msgstr ""
-"⚠️ Ви використовуєте збірку Ghostty для налагодження! Швидкодія буде нижчою."
+"⚠️ Ви використовуєте налагоджувальну збірку Mash Terminal! Продуктивність "
+"буде знижена."
 
-#: src/apprt/gtk/ui/1.5/inspector-window.blp:5
-msgid "Ghostty: Terminal Inspector"
-msgstr "Ghostty: Інспектор терміналу"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:29
-msgid "Find…"
-msgstr "Знайти…"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:69
-msgid "Previous Match"
-msgstr "Попередній збіг"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:79
-msgid "Next Match"
-msgstr "Наступний збіг"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:7
+#: src/apprt/gtk/ui/1.2/surface.blp:6
 msgid "Oh, no."
 msgstr "Халепа."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:8
+#: src/apprt/gtk/ui/1.2/surface.blp:7
 msgid "Unable to acquire an OpenGL context for rendering."
 msgstr "Не вдалося отримати контекст OpenGL для відображення."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:101
+#: src/apprt/gtk/ui/1.2/surface.blp:96
 msgid ""
 "This terminal is in read-only mode. You can still view, select, and scroll "
 "through the content, but no input events will be sent to the running "
@@ -122,173 +106,430 @@ msgstr ""
 "прокручувати вміст, але події введення не передаватимуться до запущеної "
 "програми."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:112
+#: src/apprt/gtk/ui/1.2/surface.blp:107
 msgid "Read-only"
 msgstr "Лише читання"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:316 src/apprt/gtk/ui/1.5/window.blp:203
+#: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
+#: src/apprt/gtk/ui/1.5/window.blp:489
 msgid "Copy"
 msgstr "Скопіювати"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:321 src/apprt/gtk/ui/1.5/window.blp:208
+#: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
+#: src/apprt/gtk/ui/1.5/window.blp:494
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:326
+#: src/apprt/gtk/ui/1.2/surface.blp:311
 msgid "Notify on Next Command Finish"
 msgstr "Сповістити про завершення наступної команди"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:281
+#: src/apprt/gtk/ui/1.2/surface.blp:318 src/apprt/gtk/ui/1.5/window.blp:110
+#: src/apprt/gtk/ui/1.5/window.blp:508
 msgid "Clear"
 msgstr "Очистити"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:338 src/apprt/gtk/ui/1.5/window.blp:286
+#: src/apprt/gtk/ui/1.2/surface.blp:323 src/apprt/gtk/ui/1.5/window.blp:115
+#: src/apprt/gtk/ui/1.5/window.blp:513
 msgid "Reset"
 msgstr "Скинути"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:345 src/apprt/gtk/ui/1.5/window.blp:250
-msgid "Split"
-msgstr "Панель"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:348 src/apprt/gtk/ui/1.5/window.blp:253
-msgid "Change Title…"
-msgstr "Змінити заголовок…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:353 src/apprt/gtk/ui/1.5/window.blp:180
-#: src/apprt/gtk/ui/1.5/window.blp:258 src/input/command.zig:487
-msgid "Split Up"
-msgstr "Нова панель зверху"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:359 src/apprt/gtk/ui/1.5/window.blp:185
-#: src/apprt/gtk/ui/1.5/window.blp:263 src/input/command.zig:492
-msgid "Split Down"
-msgstr "Нова панель знизу"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:365 src/apprt/gtk/ui/1.5/window.blp:190
-#: src/apprt/gtk/ui/1.5/window.blp:268 src/input/command.zig:477
-msgid "Split Left"
-msgstr "Нова панель ліворуч"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:371 src/apprt/gtk/ui/1.5/window.blp:195
-#: src/apprt/gtk/ui/1.5/window.blp:273 src/input/command.zig:482
-msgid "Split Right"
-msgstr "Нова панель праворуч"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:377
-msgid "Close Split"
-msgstr "Закрити панель"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:383
-msgid "Tab"
-msgstr "Вкладка"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:386 src/apprt/gtk/ui/1.5/window.blp:232
-#: src/apprt/gtk/ui/1.5/window.blp:339 src/input/command.zig:464
-msgid "Change Tab Title…"
-msgstr "Змінити заголовок вкладки…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:391 src/apprt/gtk/ui/1.5/window.blp:60
-#: src/apprt/gtk/ui/1.5/window.blp:110 src/apprt/gtk/ui/1.5/window.blp:237
-#: src/input/command.zig:427
-msgid "New Tab"
-msgstr "Нова вкладка"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:396 src/apprt/gtk/ui/1.5/window.blp:242
-#: src/input/command.zig:613
-msgid "Close Tab"
-msgstr "Закрити вкладку"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:403
+#: src/apprt/gtk/ui/1.2/surface.blp:330
 msgid "Window"
 msgstr "Вікно"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:406 src/apprt/gtk/ui/1.5/window.blp:215
-msgid "Change Window Title…"
-msgstr "Змінити заголовок вікна…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:411 src/apprt/gtk/ui/1.5/window.blp:220
-#: src/input/command.zig:421
-msgid "New Window"
-msgstr "Нове вікно"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:416 src/apprt/gtk/ui/1.5/window.blp:225
-#: src/input/command.zig:630
+#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:103
+#: src/apprt/gtk/ui/1.5/window.blp:501 src/input/command.zig:630
 msgid "Close Window"
 msgstr "Закрити вікно"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:424 src/apprt/gtk/ui/1.5/window.blp:303
+#: src/apprt/gtk/ui/1.2/surface.blp:341
 msgid "Config"
 msgstr "Налаштування"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:427 src/apprt/gtk/ui/1.5/window.blp:306
+#: src/apprt/gtk/ui/1.2/surface.blp:344
 msgid "Open Configuration in OS Editor"
 msgstr "Відкрити налаштування в системному редакторі"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:433 src/apprt/gtk/ui/1.5/window.blp:312
+#: src/apprt/gtk/ui/1.2/surface.blp:350
 msgid "Open Configuration in New Window"
 msgstr "Відкрити налаштування в новому вікні"
 
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:5
-msgid "Leave blank to restore the default title."
-msgstr "Залиште порожнім, щоб відновити заголовок за замовчуванням."
-
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:9
-msgid "OK"
-msgstr "ОК"
-
-#: src/apprt/gtk/ui/1.5/window.blp:61 src/apprt/gtk/ui/1.5/window.blp:111
-msgid "New Split"
-msgstr "Нова панель"
-
-#: src/apprt/gtk/ui/1.5/window.blp:71 src/apprt/gtk/ui/1.5/window.blp:129
-msgid "View Open Tabs"
-msgstr "Переглянути відкриті вкладки"
-
-#: src/apprt/gtk/ui/1.5/window.blp:81 src/apprt/gtk/ui/1.5/window.blp:143
+#: src/apprt/gtk/ui/1.5/window.blp:59
 msgid "Main Menu"
 msgstr "Головне меню"
 
-#: src/apprt/gtk/ui/1.5/window.blp:293
-msgid "Command Palette"
-msgstr "Палітра команд"
+#: src/apprt/gtk/ui/1.5/window.blp:125 src/apprt/gtk/ui/1.5/window.blp:526
+msgid "File"
+msgstr "Файл"
 
-#: src/apprt/gtk/ui/1.5/window.blp:298
-msgid "Terminal Inspector"
-msgstr "Інспектор терміналу"
+#: src/apprt/gtk/ui/1.5/window.blp:129
+msgid "New Dev Tab"
+msgstr "Нова вкладка розробки"
 
-#: src/apprt/gtk/ui/1.5/window.blp:326 src/apprt/gtk/class/window.zig:1991
-msgid "About Ghostty"
-msgstr "Про Ghostty"
+#: src/apprt/gtk/ui/1.5/window.blp:136
+msgid "New Agent Tab"
+msgstr "Нова вкладка агента"
 
-#: src/apprt/gtk/ui/1.5/window.blp:331 src/input/command.zig:702
+#: src/apprt/gtk/ui/1.5/window.blp:143
+msgid "New Review Tab"
+msgstr "Нова вкладка огляду"
+
+#: src/apprt/gtk/ui/1.5/window.blp:150
+msgid "New Shell Tab"
+msgstr "Нова вкладка оболонки"
+
+#: src/apprt/gtk/ui/1.5/window.blp:159
+msgid "New Workspace…"
+msgstr "Новий робочий простір…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:166
+msgid "New Worktree…"
+msgstr "Нове робоче дерево…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:173
+msgid "Workspace Picker…"
+msgstr "Вибір робочого простору…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:182
+msgid "Close Pane"
+msgstr "Закрити панель"
+
+#: src/apprt/gtk/ui/1.5/window.blp:189 src/input/command.zig:613
+msgid "Close Tab"
+msgstr "Закрити вкладку"
+
+#: src/apprt/gtk/ui/1.5/window.blp:196
+msgid "Close Workspace"
+msgstr "Закрити робочий простір"
+
+#: src/apprt/gtk/ui/1.5/window.blp:203
+msgid "Remove Worktree"
+msgstr "Видалити робоче дерево"
+
+#: src/apprt/gtk/ui/1.5/window.blp:212 src/apprt/gtk/ui/1.5/window.blp:597
+msgid "Edit"
+msgstr "Редагування"
+
+#: src/apprt/gtk/ui/1.5/window.blp:216
+msgid "Annotate Selection"
+msgstr "Анотувати виділене"
+
+#: src/apprt/gtk/ui/1.5/window.blp:223
+msgid "Paste Annotations into Agent"
+msgstr "Вставити анотації в агента"
+
+#: src/apprt/gtk/ui/1.5/window.blp:230
+msgid "Manage Annotations"
+msgstr "Керувати анотаціями"
+
+#: src/apprt/gtk/ui/1.5/window.blp:239
+msgid "Pick Link or ID"
+msgstr "Вибрати посилання або ID"
+
+#: src/apprt/gtk/ui/1.5/window.blp:248 src/apprt/gtk/ui/1.5/window.blp:629
+msgid "View"
+msgstr "Вигляд"
+
+#: src/apprt/gtk/ui/1.5/window.blp:252
+msgid "Toggle Sidebar"
+msgstr "Перемкнути бічну панель"
+
+#: src/apprt/gtk/ui/1.5/window.blp:259
+msgid "Zoom Pane"
+msgstr "Розгорнути панель"
+
+#: src/apprt/gtk/ui/1.5/window.blp:268
+msgid "Split Pane Right"
+msgstr "Розділити панель праворуч"
+
+#: src/apprt/gtk/ui/1.5/window.blp:275
+msgid "Split Pane Down"
+msgstr "Розділити панель вниз"
+
+#: src/apprt/gtk/ui/1.5/window.blp:282
+msgid "Resize Mode"
+msgstr "Режим зміни розміру"
+
+#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:667
+msgid "Go"
+msgstr "Перейти"
+
+#: src/apprt/gtk/ui/1.5/window.blp:295
+msgid "Goto…"
+msgstr "Перейти…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:304
+msgid "Previous Workspace"
+msgstr "Попередній робочий простір"
+
+#: src/apprt/gtk/ui/1.5/window.blp:311
+msgid "Next Workspace"
+msgstr "Наступний робочий простір"
+
+#: src/apprt/gtk/ui/1.5/window.blp:318
+msgid "Previous Tab"
+msgstr "Попередня вкладка"
+
+#: src/apprt/gtk/ui/1.5/window.blp:325
+msgid "Next Tab"
+msgstr "Наступна вкладка"
+
+#: src/apprt/gtk/ui/1.5/window.blp:332
+msgid "Previous Pane"
+msgstr "Попередня панель"
+
+#: src/apprt/gtk/ui/1.5/window.blp:339
+msgid "Next Pane"
+msgstr "Наступна панель"
+
+#: src/apprt/gtk/ui/1.5/window.blp:346
+msgid "Previous Agent"
+msgstr "Попередній агент"
+
+#: src/apprt/gtk/ui/1.5/window.blp:353
+msgid "Next Agent"
+msgstr "Наступний агент"
+
+#: src/apprt/gtk/ui/1.5/window.blp:362
+msgid "Open Notification Target"
+msgstr "Відкрити ціль сповіщення"
+
+#: src/apprt/gtk/ui/1.5/window.blp:371 src/apprt/gtk/ui/1.5/window.blp:717
+msgid "Tools"
+msgstr "Інструменти"
+
+#: src/apprt/gtk/ui/1.5/window.blp:375
+msgid "Command Palette…"
+msgstr "Палітра команд…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:382
+msgid "File Finder…"
+msgstr "Пошук файлів…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:389
+msgid "Source Control"
+msgstr "Контроль версій"
+
+#: src/apprt/gtk/ui/1.5/window.blp:396
+msgid "Session Search…"
+msgstr "Пошук сеансу…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:403
+msgid "Snippets…"
+msgstr "Фрагменти…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:410
+msgid "Container Status"
+msgstr "Стан контейнера"
+
+#: src/apprt/gtk/ui/1.5/window.blp:417
+msgid "Plugin Manager"
+msgstr "Менеджер плагінів"
+
+#: src/apprt/gtk/ui/1.5/window.blp:426
+msgid "Fork Agent from Message…"
+msgstr "Створити агента з повідомлення…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:437
+msgid "Settings…"
+msgstr "Налаштування…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:450
+msgid "Detach"
+msgstr "Від'єднати"
+
+#: src/apprt/gtk/ui/1.5/window.blp:459
+msgid "Mash Help"
+msgstr "Довідка Mash"
+
+#: src/apprt/gtk/ui/1.5/window.blp:466
+msgid "Check for Updates…"
+msgstr "Перевірити оновлення…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:473 src/apprt/gtk/ui/1.5/window.blp:806
+#: src/apprt/gtk/class/window.zig:1925
+msgid "About Mash Terminal"
+msgstr "Про Mash Terminal"
+
+#: src/apprt/gtk/ui/1.5/window.blp:478 src/apprt/gtk/ui/1.5/window.blp:811
+#: src/input/command.zig:702
 msgid "Quit"
 msgstr "Вийти"
 
-#: src/apprt/gtk/ui/1.5/command-palette.blp:17
-msgid "Execute a command…"
-msgstr "Виконати команду…"
+#: src/apprt/gtk/ui/1.5/window.blp:530
+msgid "New Dev Tab  ·  Ctrl+B t"
+msgstr "Нова вкладка розробки  ·  Ctrl+B t"
 
-#: src/apprt/gtk/class/application.zig:1767
+#: src/apprt/gtk/ui/1.5/window.blp:536
+msgid "New Agent Tab  ·  Ctrl+B a"
+msgstr "Нова вкладка агента  ·  Ctrl+B a"
+
+#: src/apprt/gtk/ui/1.5/window.blp:542
+msgid "New Review Tab  ·  Ctrl+B V"
+msgstr "Нова вкладка огляду  ·  Ctrl+B V"
+
+#: src/apprt/gtk/ui/1.5/window.blp:548
+msgid "New Shell Tab  ·  Ctrl+B C"
+msgstr "Нова вкладка оболонки  ·  Ctrl+B C"
+
+#: src/apprt/gtk/ui/1.5/window.blp:556
+msgid "New Workspace…  ·  Ctrl+B N"
+msgstr "Новий робочий простір…  ·  Ctrl+B N"
+
+#: src/apprt/gtk/ui/1.5/window.blp:562
+msgid "New Worktree…  ·  Ctrl+B G"
+msgstr "Нове робоче дерево…  ·  Ctrl+B G"
+
+#: src/apprt/gtk/ui/1.5/window.blp:568
+msgid "Workspace Picker…  ·  Ctrl+B F"
+msgstr "Вибір робочого простору…  ·  Ctrl+B F"
+
+#: src/apprt/gtk/ui/1.5/window.blp:576
+msgid "Close Pane  ·  Ctrl+B x"
+msgstr "Закрити панель  ·  Ctrl+B x"
+
+#: src/apprt/gtk/ui/1.5/window.blp:582
+msgid "Close Tab  ·  Ctrl+B X"
+msgstr "Закрити вкладку  ·  Ctrl+B X"
+
+#: src/apprt/gtk/ui/1.5/window.blp:588
+msgid "Close Workspace  ·  Ctrl+B D"
+msgstr "Закрити робочий простір  ·  Ctrl+B D"
+
+#: src/apprt/gtk/ui/1.5/window.blp:601
+msgid "Annotate Selection  ·  Ctrl+B i"
+msgstr "Анотувати виділене  ·  Ctrl+B i"
+
+#: src/apprt/gtk/ui/1.5/window.blp:607
+msgid "Paste Annotations into Agent  ·  Ctrl+B I"
+msgstr "Вставити анотації в агента  ·  Ctrl+B I"
+
+#: src/apprt/gtk/ui/1.5/window.blp:613
+msgid "Manage Annotations  ·  Ctrl+B m"
+msgstr "Керувати анотаціями  ·  Ctrl+B m"
+
+#: src/apprt/gtk/ui/1.5/window.blp:621
+msgid "Pick Link or ID  ·  Ctrl+B u"
+msgstr "Вибрати посилання або ID  ·  Ctrl+B u"
+
+#: src/apprt/gtk/ui/1.5/window.blp:633
+msgid "Toggle Sidebar  ·  Ctrl+B b"
+msgstr "Перемкнути бічну панель  ·  Ctrl+B b"
+
+#: src/apprt/gtk/ui/1.5/window.blp:639
+msgid "Zoom Pane  ·  Ctrl+B z"
+msgstr "Розгорнути панель  ·  Ctrl+B z"
+
+#: src/apprt/gtk/ui/1.5/window.blp:647
+msgid "Split Pane Right  ·  Ctrl+B v"
+msgstr "Розділити панель праворуч  ·  Ctrl+B v"
+
+#: src/apprt/gtk/ui/1.5/window.blp:653
+msgid "Split Pane Down  ·  Ctrl+B -"
+msgstr "Розділити панель вниз  ·  Ctrl+B -"
+
+#: src/apprt/gtk/ui/1.5/window.blp:659
+msgid "Resize Mode  ·  Ctrl+B r"
+msgstr "Режим зміни розміру  ·  Ctrl+B r"
+
+#: src/apprt/gtk/ui/1.5/window.blp:671
+msgid "Goto…  ·  Ctrl+B g"
+msgstr "Перейти…  ·  Ctrl+B g"
+
+#: src/apprt/gtk/ui/1.5/window.blp:681
+msgid "Previous Tab  ·  Ctrl+B p"
+msgstr "Попередня вкладка  ·  Ctrl+B p"
+
+#: src/apprt/gtk/ui/1.5/window.blp:687
+msgid "Next Tab  ·  Ctrl+B n"
+msgstr "Наступна вкладка  ·  Ctrl+B n"
+
+#: src/apprt/gtk/ui/1.5/window.blp:693
+msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
+msgstr "Попередня панель  ·  Ctrl+B Shift+Tab"
+
+#: src/apprt/gtk/ui/1.5/window.blp:699
+msgid "Next Pane  ·  Ctrl+B Tab"
+msgstr "Наступна панель  ·  Ctrl+B Tab"
+
+#: src/apprt/gtk/ui/1.5/window.blp:709
+msgid "Open Notification Target  ·  Ctrl+B o"
+msgstr "Відкрити ціль сповіщення  ·  Ctrl+B o"
+
+#: src/apprt/gtk/ui/1.5/window.blp:721
+msgid "Command Palette…  ·  Ctrl+B ;"
+msgstr "Палітра команд…  ·  Ctrl+B ;"
+
+#: src/apprt/gtk/ui/1.5/window.blp:727
+msgid "File Finder…  ·  Ctrl+B f"
+msgstr "Пошук файлів…  ·  Ctrl+B f"
+
+#: src/apprt/gtk/ui/1.5/window.blp:733
+msgid "Source Control  ·  Ctrl+B y"
+msgstr "Контроль версій  ·  Ctrl+B y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:739
+msgid "Session Search…  ·  Ctrl+B E"
+msgstr "Пошук сеансу…  ·  Ctrl+B E"
+
+#: src/apprt/gtk/ui/1.5/window.blp:745
+msgid "Snippets…  ·  Ctrl+B S"
+msgstr "Фрагменти…  ·  Ctrl+B S"
+
+#: src/apprt/gtk/ui/1.5/window.blp:751
+msgid "Container Status  ·  Ctrl+B O"
+msgstr "Стан контейнера  ·  Ctrl+B O"
+
+#: src/apprt/gtk/ui/1.5/window.blp:757
+msgid "Plugin Manager  ·  Ctrl+B U"
+msgstr "Менеджер плагінів  ·  Ctrl+B U"
+
+#: src/apprt/gtk/ui/1.5/window.blp:765
+msgid "Fork Agent from Message…  ·  Ctrl+B Y"
+msgstr "Створити агента з повідомлення…  ·  Ctrl+B Y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:775
+msgid "Settings…  ·  Ctrl+B s"
+msgstr "Налаштування…  ·  Ctrl+B s"
+
+#: src/apprt/gtk/ui/1.5/window.blp:781
+msgid "Reload Configuration  ·  Ctrl+B R"
+msgstr "Перезавантажити налаштування  ·  Ctrl+B R"
+
+#: src/apprt/gtk/ui/1.5/window.blp:786
+msgid "Detach  ·  Ctrl+B q"
+msgstr "Від'єднати  ·  Ctrl+B q"
+
+#: src/apprt/gtk/ui/1.5/window.blp:794
+msgid "Mash Help  ·  Ctrl+B ?"
+msgstr "Довідка Mash  ·  Ctrl+B ?"
+
+#: src/apprt/gtk/ui/1.5/window.blp:800
+msgid "Check for Updates…  ·  Ctrl+B Z"
+msgstr "Перевірити оновлення…  ·  Ctrl+B Z"
+
+#: src/apprt/gtk/class/application.zig:1770
 msgid "The keybind was revoked by the system."
 msgstr "Дана привʼязка клавіш відкликана системою."
 
-#: src/apprt/gtk/class/application.zig:1769
+#: src/apprt/gtk/class/application.zig:1772
 msgid "The keybind was denied by the system."
 msgstr "Дана привʼязка клавіш відхилена системою."
 
-#: src/apprt/gtk/class/application.zig:1780
+#: src/apprt/gtk/class/application.zig:1783
 msgid "Global keybind unavailable"
 msgstr "Глобальна привʼязка клавіш недоступна"
 
-#: src/apprt/gtk/class/application.zig:2259
+#: src/apprt/gtk/class/application.zig:2075
 msgid "Export Terminal IO Events"
 msgstr "Експортувати події введення/виведення терміналу"
 
-#: src/apprt/gtk/class/application.zig:2262
+#: src/apprt/gtk/class/application.zig:2078
 msgid "Export"
 msgstr "Експортувати"
 
-#: src/apprt/gtk/class/application.zig:2783
+#: src/apprt/gtk/class/application.zig:2584
 msgid "Editing configuration file"
 msgstr "Редагування файлу налаштувань"
 
@@ -321,8 +562,8 @@ msgstr ""
 "можуть бути виконані деякі команди."
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:184
-msgid "Quit Ghostty?"
-msgstr "Вийти з Ghostty?"
+msgid "Quit Mash Terminal?"
+msgstr "Вийти з Mash Terminal?"
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:185
 msgid "Close Tab?"
@@ -352,47 +593,35 @@ msgstr "Всі сесії терміналу в цьому вікні будут
 msgid "The currently running process in this split will be terminated."
 msgstr "Процес, що виконується в цій панелі, буде завершено."
 
-#: src/apprt/gtk/class/surface.zig:1181
+#: src/apprt/gtk/class/surface.zig:1134
 msgid "Command Finished"
 msgstr "Команда завершилась"
 
-#: src/apprt/gtk/class/surface.zig:1182
+#: src/apprt/gtk/class/surface.zig:1135
 #: src/apprt/gtk/class/surface_child_exited.zig:109
 msgid "Command Succeeded"
 msgstr "Команда завершилась успішно"
 
-#: src/apprt/gtk/class/surface.zig:1183
+#: src/apprt/gtk/class/surface.zig:1136
 #: src/apprt/gtk/class/surface_child_exited.zig:113
 msgid "Command Failed"
 msgstr "Команда завершилась з помилкою"
 
-#: src/apprt/gtk/class/title_dialog.zig:227
-msgid "Change Terminal Title"
-msgstr "Змінити заголовок терміналу"
-
-#: src/apprt/gtk/class/title_dialog.zig:228
-msgid "Change Tab Title"
-msgstr "Змінити заголовок вкладки"
-
-#: src/apprt/gtk/class/title_dialog.zig:229
-msgid "Change Window Title"
-msgstr "Змінити заголовок вікна"
-
-#: src/apprt/gtk/class/window.zig:1153
+#: src/apprt/gtk/class/window.zig:1142
 msgid "Reloaded the configuration"
 msgstr "Налаштування перезавантажено"
 
-#: src/apprt/gtk/class/window.zig:1830
+#: src/apprt/gtk/class/window.zig:1764
 msgid "Copied to clipboard"
 msgstr "Скопійовано до буфера обміну"
 
-#: src/apprt/gtk/class/window.zig:1832
+#: src/apprt/gtk/class/window.zig:1766
 msgid "Cleared clipboard"
 msgstr "Буфер обміну очищено"
 
-#: src/apprt/gtk/class/window.zig:1972
-msgid "Ghostty Developers"
-msgstr "Розробники Ghostty"
+#: src/apprt/gtk/class/window.zig:1906
+msgid "Mash"
+msgstr "Mash"
 
 #: src/input/command.zig:149
 msgid "Reset Terminal"
@@ -612,8 +841,7 @@ msgstr "Зберегти екран до файлу і вставити шлях
 #: src/input/command.zig:292
 msgid ""
 "Copy the screen contents to a temporary file and paste the path to the file."
-msgstr ""
-"Зберегти вміст екрана до тимчасового файлу і вставити шлях до файлу."
+msgstr "Зберегти вміст екрана до тимчасового файлу і вставити шлях до файлу."
 
 #: src/input/command.zig:296
 msgid "Copy Screen to Temporary File and Open"
@@ -789,9 +1017,17 @@ msgid ""
 msgstr ""
 "Зберегти виділене як ANSI-послідовності до тимчасового файлу і відкрити файл."
 
+#: src/input/command.zig:421
+msgid "New Window"
+msgstr "Нове вікно"
+
 #: src/input/command.zig:422
 msgid "Open a new window."
 msgstr "Створити нове вікно."
+
+#: src/input/command.zig:427
+msgid "New Tab"
+msgstr "Нова вкладка"
 
 #: src/input/command.zig:428
 msgid "Open a new tab."
@@ -837,21 +1073,41 @@ msgstr "Змінити заголовок терміналу…"
 msgid "Prompt for a new title for the current terminal."
 msgstr "Спитати новий заголовок для поточного терміналу."
 
+#: src/input/command.zig:464
+msgid "Change Tab Title…"
+msgstr "Змінити заголовок вкладки…"
+
 #: src/input/command.zig:465
 msgid "Prompt for a new title for the current tab."
 msgstr "Спитати новий заголовок для поточної вкладки."
+
+#: src/input/command.zig:477
+msgid "Split Left"
+msgstr "Нова панель ліворуч"
 
 #: src/input/command.zig:478
 msgid "Split the terminal to the left."
 msgstr "Створити нову панель ліворуч."
 
+#: src/input/command.zig:482
+msgid "Split Right"
+msgstr "Нова панель праворуч"
+
 #: src/input/command.zig:483
 msgid "Split the terminal to the right."
 msgstr "Створити нову панель праворуч."
 
+#: src/input/command.zig:487
+msgid "Split Up"
+msgstr "Нова панель зверху"
+
 #: src/input/command.zig:488
 msgid "Split the terminal up."
 msgstr "Створити нову панель зверху."
+
+#: src/input/command.zig:492
+msgid "Split Down"
+msgstr "Нова панель знизу"
 
 #: src/input/command.zig:493
 msgid "Split the terminal down."
@@ -1096,8 +1352,7 @@ msgstr "Перемкнути непрозорість фону"
 
 #: src/input/command.zig:679
 msgid "Toggle the background opacity of a window that started transparent."
-msgstr ""
-"Перемкнути непрозорість фону вікна, фон якого спочатку був прозорим."
+msgstr "Перемкнути непрозорість фону вікна, фон якого спочатку був прозорим."
 
 #: src/input/command.zig:684
 msgid "Check for Updates"
@@ -1134,3 +1389,78 @@ msgstr "Привид Ghostty"
 #: src/input/command.zig:709
 msgid "Put a little Ghostty in your terminal."
 msgstr "Вставити маленького Ghostty у ваш термінал."
+
+#~ msgid "Open in Ghostty"
+#~ msgstr "Відкрити в Ghostty"
+
+#~ msgid ""
+#~ "⚠️ You're running a debug build of Ghostty! Performance will be degraded."
+#~ msgstr ""
+#~ "⚠️ Ви використовуєте збірку Ghostty для налагодження! Швидкодія буде "
+#~ "нижчою."
+
+#~ msgid "Ghostty: Terminal Inspector"
+#~ msgstr "Ghostty: Інспектор терміналу"
+
+#~ msgid "Find…"
+#~ msgstr "Знайти…"
+
+#~ msgid "Previous Match"
+#~ msgstr "Попередній збіг"
+
+#~ msgid "Next Match"
+#~ msgstr "Наступний збіг"
+
+#~ msgid "Split"
+#~ msgstr "Панель"
+
+#~ msgid "Change Title…"
+#~ msgstr "Змінити заголовок…"
+
+#~ msgid "Close Split"
+#~ msgstr "Закрити панель"
+
+#~ msgid "Tab"
+#~ msgstr "Вкладка"
+
+#~ msgid "Change Window Title…"
+#~ msgstr "Змінити заголовок вікна…"
+
+#~ msgid "Leave blank to restore the default title."
+#~ msgstr "Залиште порожнім, щоб відновити заголовок за замовчуванням."
+
+#~ msgid "OK"
+#~ msgstr "ОК"
+
+#~ msgid "New Split"
+#~ msgstr "Нова панель"
+
+#~ msgid "View Open Tabs"
+#~ msgstr "Переглянути відкриті вкладки"
+
+#~ msgid "Command Palette"
+#~ msgstr "Палітра команд"
+
+#~ msgid "Terminal Inspector"
+#~ msgstr "Інспектор терміналу"
+
+#~ msgid "About Ghostty"
+#~ msgstr "Про Ghostty"
+
+#~ msgid "Execute a command…"
+#~ msgstr "Виконати команду…"
+
+#~ msgid "Quit Ghostty?"
+#~ msgstr "Вийти з Ghostty?"
+
+#~ msgid "Change Terminal Title"
+#~ msgstr "Змінити заголовок терміналу"
+
+#~ msgid "Change Tab Title"
+#~ msgstr "Змінити заголовок вкладки"
+
+#~ msgid "Change Window Title"
+#~ msgstr "Змінити заголовок вікна"
+
+#~ msgid "Ghostty Developers"
+#~ msgstr "Розробники Ghostty"

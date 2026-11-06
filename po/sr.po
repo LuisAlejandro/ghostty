@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.mitchellh.ghostty\n"
 "Report-Msgid-Bugs-To: m@mitchellh.com\n"
-"POT-Creation-Date: 2026-08-10 10:06-0500\n"
+"POT-Creation-Date: 2026-11-06 16:12-0400\n"
 "PO-Revision-Date: 2026-08-31 21:45+0200\n"
 "Last-Translator: Марко Костић <marko.m.kostic@gmail.com>\n"
 "Language-Team: Language SR\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: dist/linux/ghostty_nautilus.py:53
-msgid "Open in Ghostty"
-msgstr "Отвори у Ghostty-ју"
+msgid "Open in Mash Terminal"
+msgstr ""
 
 #: src/apprt/gtk/ui/1.0/clipboard-confirmation-dialog.blp:12
 #: src/apprt/gtk/ui/1.4/clipboard-confirmation-dialog.blp:12
@@ -45,12 +45,12 @@ msgstr "Запамти избор за ову разделу"
 msgid "Reload configuration to show this prompt again"
 msgstr "Поново учитај подешавања да би се овај упит поново приказао"
 
-#: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7 src/apprt/gtk/ui/1.5/title-dialog.blp:8
-#: src/apprt/gtk/class/application.zig:2263
+#: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7
+#: src/apprt/gtk/class/application.zig:2079
 msgid "Cancel"
 msgstr "Откажи"
 
-#: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:8 src/apprt/gtk/ui/1.2/search-overlay.blp:90
+#: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:8
 #: src/apprt/gtk/ui/1.3/surface-child-exited.blp:17
 msgid "Close"
 msgstr "Затвори"
@@ -61,244 +61,502 @@ msgstr "Грешке у подешавањима"
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:8
 msgid ""
-"One or more configuration errors were found. Please review the errors below, and either reload your "
-"configuration or ignore these errors."
+"One or more configuration errors were found. Please review the errors below, "
+"and either reload your configuration or ignore these errors."
 msgstr ""
-"Пронађена је једна или више грешака у подешавањима. Прегледај грешке испод, и поново учитај своја "
-"подешавања или занемари ове грешке."
+"Пронађена је једна или више грешака у подешавањима. Прегледај грешке испод, "
+"и поново учитај своја подешавања или занемари ове грешке."
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:12
 msgid "Ignore"
 msgstr "Занемари"
 
-#: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13 src/apprt/gtk/ui/1.2/surface.blp:439
-#: src/apprt/gtk/ui/1.5/window.blp:318
+#: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13
+#: src/apprt/gtk/ui/1.2/surface.blp:356 src/apprt/gtk/ui/1.5/window.blp:444
 msgid "Reload Configuration"
 msgstr "Поново учитај подешавања"
 
-#: src/apprt/gtk/ui/1.2/debug-warning.blp:7 src/apprt/gtk/ui/1.3/debug-warning.blp:6
-msgid "⚠️ You're running a debug build of Ghostty! Performance will be degraded."
-msgstr "⚠️ Покрећеш издање Ghostty-ја за отклањање грешака! Перформансе биће смањене."
+#: src/apprt/gtk/ui/1.2/debug-warning.blp:7
+#: src/apprt/gtk/ui/1.3/debug-warning.blp:6
+msgid ""
+"⚠️ You're running a debug build of Mash Terminal! Performance will be "
+"degraded."
+msgstr ""
 
-#: src/apprt/gtk/ui/1.5/inspector-window.blp:5
-msgid "Ghostty: Terminal Inspector"
-msgstr "Ghostty: инспектор терминала"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:29
-msgid "Find…"
-msgstr "Нађи…"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:69
-msgid "Previous Match"
-msgstr "Претходно поклапање"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:79
-msgid "Next Match"
-msgstr "Следеће поклапање"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:7
+#: src/apprt/gtk/ui/1.2/surface.blp:6
 msgid "Oh, no."
 msgstr "О, не."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:8
+#: src/apprt/gtk/ui/1.2/surface.blp:7
 msgid "Unable to acquire an OpenGL context for rendering."
 msgstr "Није било могуће обезбедити OpenGL контекст за исцртавање."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:101
+#: src/apprt/gtk/ui/1.2/surface.blp:96
 msgid ""
-"This terminal is in read-only mode. You can still view, select, and scroll through the content, but no "
-"input events will be sent to the running application."
+"This terminal is in read-only mode. You can still view, select, and scroll "
+"through the content, but no input events will be sent to the running "
+"application."
 msgstr ""
-"Овај терминал је у режиму само за читање. И даље можеш прегледати, бирати и помицати садржај, али "
-"догађаји уноса неће бити послати покренутом програму."
+"Овај терминал је у режиму само за читање. И даље можеш прегледати, бирати и "
+"помицати садржај, али догађаји уноса неће бити послати покренутом програму."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:112
+#: src/apprt/gtk/ui/1.2/surface.blp:107
 msgid "Read-only"
 msgstr "Само за читање"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:316 src/apprt/gtk/ui/1.5/window.blp:203
+#: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
+#: src/apprt/gtk/ui/1.5/window.blp:489
 msgid "Copy"
 msgstr "Копирај"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:321 src/apprt/gtk/ui/1.5/window.blp:208
+#: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
+#: src/apprt/gtk/ui/1.5/window.blp:494
 msgid "Paste"
 msgstr "Убаци"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:326
+#: src/apprt/gtk/ui/1.2/surface.blp:311
 msgid "Notify on Next Command Finish"
 msgstr "Обавести када се следећа наредба заврши"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:281
+#: src/apprt/gtk/ui/1.2/surface.blp:318 src/apprt/gtk/ui/1.5/window.blp:110
+#: src/apprt/gtk/ui/1.5/window.blp:508
 msgid "Clear"
 msgstr "Очисти"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:338 src/apprt/gtk/ui/1.5/window.blp:286
+#: src/apprt/gtk/ui/1.2/surface.blp:323 src/apprt/gtk/ui/1.5/window.blp:115
+#: src/apprt/gtk/ui/1.5/window.blp:513
 msgid "Reset"
 msgstr "Врати"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:345 src/apprt/gtk/ui/1.5/window.blp:250
-msgid "Split"
-msgstr "Раздели"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:348 src/apprt/gtk/ui/1.5/window.blp:253
-msgid "Change Title…"
-msgstr "Промени наслов…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:353 src/apprt/gtk/ui/1.5/window.blp:180
-#: src/apprt/gtk/ui/1.5/window.blp:258 src/input/command.zig:487
-msgid "Split Up"
-msgstr "Раздели нагоре"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:359 src/apprt/gtk/ui/1.5/window.blp:185
-#: src/apprt/gtk/ui/1.5/window.blp:263 src/input/command.zig:492
-msgid "Split Down"
-msgstr "Раздели доле"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:365 src/apprt/gtk/ui/1.5/window.blp:190
-#: src/apprt/gtk/ui/1.5/window.blp:268 src/input/command.zig:477
-msgid "Split Left"
-msgstr "Раздели улево"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:371 src/apprt/gtk/ui/1.5/window.blp:195
-#: src/apprt/gtk/ui/1.5/window.blp:273 src/input/command.zig:482
-msgid "Split Right"
-msgstr "Раздели удесно"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:377
-msgid "Close Split"
-msgstr "Затвори разделу"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:383
-msgid "Tab"
-msgstr "Језичак"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:386 src/apprt/gtk/ui/1.5/window.blp:232
-#: src/apprt/gtk/ui/1.5/window.blp:339 src/input/command.zig:464
-msgid "Change Tab Title…"
-msgstr "Промени наслов језичка…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:391 src/apprt/gtk/ui/1.5/window.blp:60
-#: src/apprt/gtk/ui/1.5/window.blp:110 src/apprt/gtk/ui/1.5/window.blp:237 src/input/command.zig:427
-msgid "New Tab"
-msgstr "Нови језичак"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:396 src/apprt/gtk/ui/1.5/window.blp:242 src/input/command.zig:613
-msgid "Close Tab"
-msgstr "Затвори језичак"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:403
+#: src/apprt/gtk/ui/1.2/surface.blp:330
 msgid "Window"
 msgstr "Прозор"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:406 src/apprt/gtk/ui/1.5/window.blp:215
-msgid "Change Window Title…"
-msgstr "Промени наслов прозора…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:411 src/apprt/gtk/ui/1.5/window.blp:220 src/input/command.zig:421
-msgid "New Window"
-msgstr "Нови прозор"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:416 src/apprt/gtk/ui/1.5/window.blp:225 src/input/command.zig:630
+#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:103
+#: src/apprt/gtk/ui/1.5/window.blp:501 src/input/command.zig:630
 msgid "Close Window"
 msgstr "Затвори прозор"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:424 src/apprt/gtk/ui/1.5/window.blp:303
+#: src/apprt/gtk/ui/1.2/surface.blp:341
 msgid "Config"
 msgstr "Подешавања"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:427 src/apprt/gtk/ui/1.5/window.blp:306
+#: src/apprt/gtk/ui/1.2/surface.blp:344
 msgid "Open Configuration in OS Editor"
 msgstr "Отвори подешавања у уређивачу ОС-а"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:433 src/apprt/gtk/ui/1.5/window.blp:312
+#: src/apprt/gtk/ui/1.2/surface.blp:350
 msgid "Open Configuration in New Window"
 msgstr "Отвори подешавања у новом прозору"
 
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:5
-msgid "Leave blank to restore the default title."
-msgstr "Остави празно да вратиш подразумевани наслов."
-
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:9
-msgid "OK"
-msgstr "У реду"
-
-#: src/apprt/gtk/ui/1.5/window.blp:61 src/apprt/gtk/ui/1.5/window.blp:111
-msgid "New Split"
-msgstr "Нова раздела"
-
-#: src/apprt/gtk/ui/1.5/window.blp:71 src/apprt/gtk/ui/1.5/window.blp:129
-msgid "View Open Tabs"
-msgstr "Прикажи отворене језичке"
-
-#: src/apprt/gtk/ui/1.5/window.blp:81 src/apprt/gtk/ui/1.5/window.blp:143
+#: src/apprt/gtk/ui/1.5/window.blp:59
 msgid "Main Menu"
 msgstr "Главни мени"
 
-#: src/apprt/gtk/ui/1.5/window.blp:293
-msgid "Command Palette"
-msgstr "Палета наредби"
+#: src/apprt/gtk/ui/1.5/window.blp:125 src/apprt/gtk/ui/1.5/window.blp:526
+msgid "File"
+msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:298
-msgid "Terminal Inspector"
-msgstr "Инспектор терминала"
+#: src/apprt/gtk/ui/1.5/window.blp:129
+msgid "New Dev Tab"
+msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:326 src/apprt/gtk/class/window.zig:1991
-msgid "About Ghostty"
-msgstr "О програму Ghostty"
+#: src/apprt/gtk/ui/1.5/window.blp:136
+msgid "New Agent Tab"
+msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:331 src/input/command.zig:702
+#: src/apprt/gtk/ui/1.5/window.blp:143
+msgid "New Review Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:150
+msgid "New Shell Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:159
+msgid "New Workspace…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:166
+msgid "New Worktree…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:173
+msgid "Workspace Picker…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:182
+msgid "Close Pane"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:189 src/input/command.zig:613
+msgid "Close Tab"
+msgstr "Затвори језичак"
+
+#: src/apprt/gtk/ui/1.5/window.blp:196
+msgid "Close Workspace"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:203
+msgid "Remove Worktree"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:212 src/apprt/gtk/ui/1.5/window.blp:597
+msgid "Edit"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:216
+msgid "Annotate Selection"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:223
+msgid "Paste Annotations into Agent"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:230
+msgid "Manage Annotations"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:239
+msgid "Pick Link or ID"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:248 src/apprt/gtk/ui/1.5/window.blp:629
+msgid "View"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:252
+msgid "Toggle Sidebar"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:259
+msgid "Zoom Pane"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:268
+msgid "Split Pane Right"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:275
+msgid "Split Pane Down"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:282
+msgid "Resize Mode"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:667
+msgid "Go"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:295
+msgid "Goto…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:304
+msgid "Previous Workspace"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:311
+msgid "Next Workspace"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:318
+msgid "Previous Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:325
+msgid "Next Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:332
+msgid "Previous Pane"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:339
+msgid "Next Pane"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:346
+msgid "Previous Agent"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:353
+msgid "Next Agent"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:362
+msgid "Open Notification Target"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:371 src/apprt/gtk/ui/1.5/window.blp:717
+msgid "Tools"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:375
+msgid "Command Palette…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:382
+msgid "File Finder…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:389
+msgid "Source Control"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:396
+msgid "Session Search…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:403
+msgid "Snippets…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:410
+msgid "Container Status"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:417
+msgid "Plugin Manager"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:426
+msgid "Fork Agent from Message…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:437
+msgid "Settings…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:450
+msgid "Detach"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:459
+msgid "Mash Help"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:466
+msgid "Check for Updates…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:473 src/apprt/gtk/ui/1.5/window.blp:806
+#: src/apprt/gtk/class/window.zig:1925
+msgid "About Mash Terminal"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:478 src/apprt/gtk/ui/1.5/window.blp:811
+#: src/input/command.zig:702
 msgid "Quit"
 msgstr "Изађи"
 
-#: src/apprt/gtk/ui/1.5/command-palette.blp:17
-msgid "Execute a command…"
-msgstr "Изврши наредбу…"
+#: src/apprt/gtk/ui/1.5/window.blp:530
+msgid "New Dev Tab  ·  Ctrl+B t"
+msgstr ""
 
-#: src/apprt/gtk/class/application.zig:1767
+#: src/apprt/gtk/ui/1.5/window.blp:536
+msgid "New Agent Tab  ·  Ctrl+B a"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:542
+msgid "New Review Tab  ·  Ctrl+B V"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:548
+msgid "New Shell Tab  ·  Ctrl+B C"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:556
+msgid "New Workspace…  ·  Ctrl+B N"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:562
+msgid "New Worktree…  ·  Ctrl+B G"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:568
+msgid "Workspace Picker…  ·  Ctrl+B F"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:576
+msgid "Close Pane  ·  Ctrl+B x"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:582
+msgid "Close Tab  ·  Ctrl+B X"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:588
+msgid "Close Workspace  ·  Ctrl+B D"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:601
+msgid "Annotate Selection  ·  Ctrl+B i"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:607
+msgid "Paste Annotations into Agent  ·  Ctrl+B I"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:613
+msgid "Manage Annotations  ·  Ctrl+B m"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:621
+msgid "Pick Link or ID  ·  Ctrl+B u"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:633
+msgid "Toggle Sidebar  ·  Ctrl+B b"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:639
+msgid "Zoom Pane  ·  Ctrl+B z"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:647
+msgid "Split Pane Right  ·  Ctrl+B v"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:653
+msgid "Split Pane Down  ·  Ctrl+B -"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:659
+msgid "Resize Mode  ·  Ctrl+B r"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:671
+msgid "Goto…  ·  Ctrl+B g"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:681
+msgid "Previous Tab  ·  Ctrl+B p"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:687
+msgid "Next Tab  ·  Ctrl+B n"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:693
+msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:699
+msgid "Next Pane  ·  Ctrl+B Tab"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:709
+msgid "Open Notification Target  ·  Ctrl+B o"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:721
+msgid "Command Palette…  ·  Ctrl+B ;"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:727
+msgid "File Finder…  ·  Ctrl+B f"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:733
+msgid "Source Control  ·  Ctrl+B y"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:739
+msgid "Session Search…  ·  Ctrl+B E"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:745
+msgid "Snippets…  ·  Ctrl+B S"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:751
+msgid "Container Status  ·  Ctrl+B O"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:757
+msgid "Plugin Manager  ·  Ctrl+B U"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:765
+msgid "Fork Agent from Message…  ·  Ctrl+B Y"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:775
+msgid "Settings…  ·  Ctrl+B s"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:781
+msgid "Reload Configuration  ·  Ctrl+B R"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:786
+msgid "Detach  ·  Ctrl+B q"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:794
+msgid "Mash Help  ·  Ctrl+B ?"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:800
+msgid "Check for Updates…  ·  Ctrl+B Z"
+msgstr ""
+
+#: src/apprt/gtk/class/application.zig:1770
 msgid "The keybind was revoked by the system."
 msgstr "Систем је опозвао пречицу."
 
-#: src/apprt/gtk/class/application.zig:1769
+#: src/apprt/gtk/class/application.zig:1772
 msgid "The keybind was denied by the system."
 msgstr "Систем је одбио пречицу."
 
-#: src/apprt/gtk/class/application.zig:1780
+#: src/apprt/gtk/class/application.zig:1783
 msgid "Global keybind unavailable"
 msgstr "Глобална пречица није доступна"
 
-#: src/apprt/gtk/class/application.zig:2259
+#: src/apprt/gtk/class/application.zig:2075
 msgid "Export Terminal IO Events"
 msgstr "Извези догађаје улаза/излаза терминала"
 
-#: src/apprt/gtk/class/application.zig:2262
+#: src/apprt/gtk/class/application.zig:2078
 msgid "Export"
 msgstr "Извези"
 
-#: src/apprt/gtk/class/application.zig:2783
+#: src/apprt/gtk/class/application.zig:2584
 msgid "Editing configuration file"
 msgstr "Уређивање датотеке са подешавањима"
 
 #: src/apprt/gtk/class/clipboard_confirmation_dialog.zig:198
 msgid ""
-"An application is attempting to write to the clipboard. The current clipboard contents are shown below."
-msgstr "Програм покушава да пише у оставу. Тренутни садржај оставе је приказан испод."
+"An application is attempting to write to the clipboard. The current "
+"clipboard contents are shown below."
+msgstr ""
+"Програм покушава да пише у оставу. Тренутни садржај оставе је приказан испод."
 
 #: src/apprt/gtk/class/clipboard_confirmation_dialog.zig:202
 msgid ""
-"An application is attempting to read from the clipboard. The current clipboard contents are shown below."
-msgstr "Програм покушава да чита из оставе. Тренутни садржај оставе је приказан испод."
+"An application is attempting to read from the clipboard. The current "
+"clipboard contents are shown below."
+msgstr ""
+"Програм покушава да чита из оставе. Тренутни садржај оставе је приказан "
+"испод."
 
 #: src/apprt/gtk/class/clipboard_confirmation_dialog.zig:205
 msgid "Warning: Potentially Unsafe Paste"
 msgstr "Упозорење: потенцијално небезбедно убацивање"
 
 #: src/apprt/gtk/class/clipboard_confirmation_dialog.zig:206
-msgid "Pasting this text into the terminal may be dangerous as it looks like some commands may be executed."
-msgstr "Убацивање овог текста у терминал може бити опасно јер изгледа као да се неке наредбе могу извршити."
+msgid ""
+"Pasting this text into the terminal may be dangerous as it looks like some "
+"commands may be executed."
+msgstr ""
+"Убацивање овог текста у терминал може бити опасно јер изгледа као да се неке "
+"наредбе могу извршити."
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:184
-msgid "Quit Ghostty?"
-msgstr "Изаћи из Ghostty-ја?"
+msgid "Quit Mash Terminal?"
+msgstr ""
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:185
 msgid "Close Tab?"
@@ -328,45 +586,35 @@ msgstr "Све сесије терминала у овом прозору бић
 msgid "The currently running process in this split will be terminated."
 msgstr "Тренутно покренут процес у овој раздели биће прекинут."
 
-#: src/apprt/gtk/class/surface.zig:1181
+#: src/apprt/gtk/class/surface.zig:1134
 msgid "Command Finished"
 msgstr "Наредба је завршена"
 
-#: src/apprt/gtk/class/surface.zig:1182 src/apprt/gtk/class/surface_child_exited.zig:109
+#: src/apprt/gtk/class/surface.zig:1135
+#: src/apprt/gtk/class/surface_child_exited.zig:109
 msgid "Command Succeeded"
 msgstr "Наредба је успешно извршена"
 
-#: src/apprt/gtk/class/surface.zig:1183 src/apprt/gtk/class/surface_child_exited.zig:113
+#: src/apprt/gtk/class/surface.zig:1136
+#: src/apprt/gtk/class/surface_child_exited.zig:113
 msgid "Command Failed"
 msgstr "Наредба није успела"
 
-#: src/apprt/gtk/class/title_dialog.zig:227
-msgid "Change Terminal Title"
-msgstr "Промени наслов терминала"
-
-#: src/apprt/gtk/class/title_dialog.zig:228
-msgid "Change Tab Title"
-msgstr "Промени наслов језичка"
-
-#: src/apprt/gtk/class/title_dialog.zig:229
-msgid "Change Window Title"
-msgstr "Промени наслов прозора"
-
-#: src/apprt/gtk/class/window.zig:1153
+#: src/apprt/gtk/class/window.zig:1142
 msgid "Reloaded the configuration"
 msgstr "Поново учитана подешавања"
 
-#: src/apprt/gtk/class/window.zig:1830
+#: src/apprt/gtk/class/window.zig:1764
 msgid "Copied to clipboard"
 msgstr "Копирано у оставу"
 
-#: src/apprt/gtk/class/window.zig:1832
+#: src/apprt/gtk/class/window.zig:1766
 msgid "Cleared clipboard"
 msgstr "Остава очишћена"
 
-#: src/apprt/gtk/class/window.zig:1972
-msgid "Ghostty Developers"
-msgstr "Програмери Ghostty-ја"
+#: src/apprt/gtk/class/window.zig:1906
+msgid "Mash"
+msgstr ""
 
 #: src/input/command.zig:149
 msgid "Reset Terminal"
@@ -381,7 +629,8 @@ msgid "Copy to Clipboard"
 msgstr "Копирај у оставу"
 
 #: src/input/command.zig:156
-msgid "Copy the selected text to the clipboard in both plain and styled formats."
+msgid ""
+"Copy the selected text to the clipboard in both plain and styled formats."
 msgstr "Копирај изабрани текст у оставу у обичном и обликованом формату."
 
 #: src/input/command.zig:159
@@ -421,8 +670,12 @@ msgid "Copy Terminal Title to Clipboard"
 msgstr "Копирај наслов терминала у оставу"
 
 #: src/input/command.zig:180
-msgid "Copy the terminal title to the clipboard. If the terminal title is not set this has no effect."
-msgstr "Копирај наслов терминала у оставу. Ако наслов терминала није постављен, ово неће имати дејства."
+msgid ""
+"Copy the terminal title to the clipboard. If the terminal title is not set "
+"this has no effect."
+msgstr ""
+"Копирај наслов терминала у оставу. Ако наслов терминала није постављен, ово "
+"неће имати дејства."
 
 #: src/input/command.zig:185
 msgid "Paste from Clipboard"
@@ -565,16 +818,21 @@ msgid "Copy Screen to Temporary File and Copy Path"
 msgstr "Копирај екран у привремену датотеку и копирај путању"
 
 #: src/input/command.zig:287
-msgid "Copy the screen contents to a temporary file and copy the path to the clipboard."
-msgstr "Копирај садржај екрана у привремену датотеку и копирај путању у оставу."
+msgid ""
+"Copy the screen contents to a temporary file and copy the path to the "
+"clipboard."
+msgstr ""
+"Копирај садржај екрана у привремену датотеку и копирај путању у оставу."
 
 #: src/input/command.zig:291
 msgid "Copy Screen to Temporary File and Paste Path"
 msgstr "Копирај екран у привремену датотеку и убаци путању"
 
 #: src/input/command.zig:292
-msgid "Copy the screen contents to a temporary file and paste the path to the file."
-msgstr "Копирај садржај екрана у привремену датотеку и убаци путању до те датотеке."
+msgid ""
+"Copy the screen contents to a temporary file and paste the path to the file."
+msgstr ""
+"Копирај садржај екрана у привремену датотеку и убаци путању до те датотеке."
 
 #: src/input/command.zig:296
 msgid "Copy Screen to Temporary File and Open"
@@ -589,16 +847,24 @@ msgid "Copy Screen as HTML to Temporary File and Copy Path"
 msgstr "Копирај екран као HTML у привремену датотеку и копирај путању"
 
 #: src/input/command.zig:306
-msgid "Copy the screen contents as HTML to a temporary file and copy the path to the clipboard."
-msgstr "Копирај садржај екрана као HTML у привремену датотеку и копирај путању у оставу."
+msgid ""
+"Copy the screen contents as HTML to a temporary file and copy the path to "
+"the clipboard."
+msgstr ""
+"Копирај садржај екрана као HTML у привремену датотеку и копирај путању у "
+"оставу."
 
 #: src/input/command.zig:313
 msgid "Copy Screen as HTML to Temporary File and Paste Path"
 msgstr "Копирај екран као HTML у привремену датотеку и убаци путању"
 
 #: src/input/command.zig:314
-msgid "Copy the screen contents as HTML to a temporary file and paste the path to the file."
-msgstr "Копирај садржај екрана као HTML у привремену датотеку и убаци путању до те датотеке."
+msgid ""
+"Copy the screen contents as HTML to a temporary file and paste the path to "
+"the file."
+msgstr ""
+"Копирај садржај екрана као HTML у привремену датотеку и убаци путању до те "
+"датотеке."
 
 #: src/input/command.zig:321
 msgid "Copy Screen as HTML to Temporary File and Open"
@@ -614,8 +880,11 @@ msgstr "Копирај екран као ANSI секвенце у приврем
 
 #: src/input/command.zig:331
 msgid ""
-"Copy the screen contents as ANSI escape sequences to a temporary file and copy the path to the clipboard."
-msgstr "Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и копирај путању у оставу."
+"Copy the screen contents as ANSI escape sequences to a temporary file and "
+"copy the path to the clipboard."
+msgstr ""
+"Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и "
+"копирај путању у оставу."
 
 #: src/input/command.zig:338
 msgid "Copy Screen as ANSI Sequences to Temporary File and Paste Path"
@@ -623,32 +892,45 @@ msgstr "Копирај екран као ANSI секвенце у приврем
 
 #: src/input/command.zig:339
 msgid ""
-"Copy the screen contents as ANSI escape sequences to a temporary file and paste the path to the file."
-msgstr "Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и убаци путању до датотеке."
+"Copy the screen contents as ANSI escape sequences to a temporary file and "
+"paste the path to the file."
+msgstr ""
+"Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и "
+"убаци путању до датотеке."
 
 #: src/input/command.zig:346
 msgid "Copy Screen as ANSI Sequences to Temporary File and Open"
 msgstr "Копирај екран као ANSI секвенце у привремену датотеку и отвори"
 
 #: src/input/command.zig:347
-msgid "Copy the screen contents as ANSI escape sequences to a temporary file and open it."
-msgstr "Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и отвори је."
+msgid ""
+"Copy the screen contents as ANSI escape sequences to a temporary file and "
+"open it."
+msgstr ""
+"Копирај садржај екрана као излазне ANSI секвенце у привремену датотеку и "
+"отвори је."
 
 #: src/input/command.zig:354
 msgid "Copy Selection to Temporary File and Copy Path"
 msgstr "Копирај изабрано у привремену датотеку и копирај путању"
 
 #: src/input/command.zig:355
-msgid "Copy the selection contents to a temporary file and copy the path to the clipboard."
-msgstr "Копирај садржај изабраног у привремену датотеку и копирај путању у оставу."
+msgid ""
+"Copy the selection contents to a temporary file and copy the path to the "
+"clipboard."
+msgstr ""
+"Копирај садржај изабраног у привремену датотеку и копирај путању у оставу."
 
 #: src/input/command.zig:359
 msgid "Copy Selection to Temporary File and Paste Path"
 msgstr "Копирај изабрано у привремену датотеку и убаци путању"
 
 #: src/input/command.zig:360
-msgid "Copy the selection contents to a temporary file and paste the path to the file."
-msgstr "Копирај садржај изабраног у привремену датотеку и убаци путању до датотеке."
+msgid ""
+"Copy the selection contents to a temporary file and paste the path to the "
+"file."
+msgstr ""
+"Копирај садржај изабраног у привремену датотеку и убаци путању до датотеке."
 
 #: src/input/command.zig:364
 msgid "Copy Selection to Temporary File and Open"
@@ -663,16 +945,24 @@ msgid "Copy Selection as HTML to Temporary File and Copy Path"
 msgstr "Копирај изабрано као HTML у привремену датотеку и копирај путању"
 
 #: src/input/command.zig:374
-msgid "Copy the selection contents as HTML to a temporary file and copy the path to the clipboard."
-msgstr "Копирај садржај изабраног као HTML у привремену датотеку и копирај путању у оставу."
+msgid ""
+"Copy the selection contents as HTML to a temporary file and copy the path to "
+"the clipboard."
+msgstr ""
+"Копирај садржај изабраног као HTML у привремену датотеку и копирај путању у "
+"оставу."
 
 #: src/input/command.zig:381
 msgid "Copy Selection as HTML to Temporary File and Paste Path"
 msgstr "Копирај изабрано као HTML у привремену датотеку и убаци путању"
 
 #: src/input/command.zig:382
-msgid "Copy the selection contents as HTML to a temporary file and paste the path to the file."
-msgstr "Копирај садржај изабраног као HTML у привремену датотеку и убаци путању до датотеке."
+msgid ""
+"Copy the selection contents as HTML to a temporary file and paste the path "
+"to the file."
+msgstr ""
+"Копирај садржај изабраног као HTML у привремену датотеку и убаци путању до "
+"датотеке."
 
 #: src/input/command.zig:389
 msgid "Copy Selection as HTML to Temporary File and Open"
@@ -684,34 +974,53 @@ msgstr "Копирај садржај изабраног као HTML у прив
 
 #: src/input/command.zig:398
 msgid "Copy Selection as ANSI Sequences to Temporary File and Copy Path"
-msgstr "Копирај изабрано као ANSI секвенце у привремену датотеку и копирај путању"
+msgstr ""
+"Копирај изабрано као ANSI секвенце у привремену датотеку и копирај путању"
 
 #: src/input/command.zig:399
 msgid ""
-"Copy the selection contents as ANSI escape sequences to a temporary file and copy the path to the "
-"clipboard."
-msgstr "Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и копирај путању у оставу."
+"Copy the selection contents as ANSI escape sequences to a temporary file and "
+"copy the path to the clipboard."
+msgstr ""
+"Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и "
+"копирај путању у оставу."
 
 #: src/input/command.zig:406
 msgid "Copy Selection as ANSI Sequences to Temporary File and Paste Path"
-msgstr "Копирај изабрано као ANSI секвенце у привремену датотеку и убаци путању"
+msgstr ""
+"Копирај изабрано као ANSI секвенце у привремену датотеку и убаци путању"
 
 #: src/input/command.zig:407
 msgid ""
-"Copy the selection contents as ANSI escape sequences to a temporary file and paste the path to the file."
-msgstr "Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и убаци путању до те датотеке."
+"Copy the selection contents as ANSI escape sequences to a temporary file and "
+"paste the path to the file."
+msgstr ""
+"Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и "
+"убаци путању до те датотеке."
 
 #: src/input/command.zig:414
 msgid "Copy Selection as ANSI Sequences to Temporary File and Open"
 msgstr "Копирај изабрано као ANSI секвенце у привремену датотеку и отвори"
 
 #: src/input/command.zig:415
-msgid "Copy the selection contents as ANSI escape sequences to a temporary file and open it."
-msgstr "Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и отвори је."
+msgid ""
+"Copy the selection contents as ANSI escape sequences to a temporary file and "
+"open it."
+msgstr ""
+"Копирај садржај избора као излазне ANSI секвенце у привремену датотеку и "
+"отвори је."
+
+#: src/input/command.zig:421
+msgid "New Window"
+msgstr "Нови прозор"
 
 #: src/input/command.zig:422
 msgid "Open a new window."
 msgstr "Отвори нови прозор."
+
+#: src/input/command.zig:427
+msgid "New Tab"
+msgstr "Нови језичак"
 
 #: src/input/command.zig:428
 msgid "Open a new tab."
@@ -757,21 +1066,41 @@ msgstr "Промени наслов терминала…"
 msgid "Prompt for a new title for the current terminal."
 msgstr "Затражи унос новог наслова за тренутни терминал."
 
+#: src/input/command.zig:464
+msgid "Change Tab Title…"
+msgstr "Промени наслов језичка…"
+
 #: src/input/command.zig:465
 msgid "Prompt for a new title for the current tab."
 msgstr "Затражи унос новог наслова за тренутни језичак."
+
+#: src/input/command.zig:477
+msgid "Split Left"
+msgstr "Раздели улево"
 
 #: src/input/command.zig:478
 msgid "Split the terminal to the left."
 msgstr "Раздели терминал улево."
 
+#: src/input/command.zig:482
+msgid "Split Right"
+msgstr "Раздели удесно"
+
 #: src/input/command.zig:483
 msgid "Split the terminal to the right."
 msgstr "Раздели терминал удесно."
 
+#: src/input/command.zig:487
+msgid "Split Up"
+msgstr "Раздели нагоре"
+
 #: src/input/command.zig:488
 msgid "Split the terminal up."
 msgstr "Раздели терминал горе."
+
+#: src/input/command.zig:492
+msgid "Split Down"
+msgstr "Раздели доле"
 
 #: src/input/command.zig:493
 msgid "Split the terminal down."
@@ -1052,3 +1381,78 @@ msgstr "Ghostty"
 #: src/input/command.zig:709
 msgid "Put a little Ghostty in your terminal."
 msgstr "Убаци мало Ghostty-ја у свој терминал."
+
+#~ msgid "Open in Ghostty"
+#~ msgstr "Отвори у Ghostty-ју"
+
+#~ msgid ""
+#~ "⚠️ You're running a debug build of Ghostty! Performance will be degraded."
+#~ msgstr ""
+#~ "⚠️ Покрећеш издање Ghostty-ја за отклањање грешака! Перформансе биће "
+#~ "смањене."
+
+#~ msgid "Ghostty: Terminal Inspector"
+#~ msgstr "Ghostty: инспектор терминала"
+
+#~ msgid "Find…"
+#~ msgstr "Нађи…"
+
+#~ msgid "Previous Match"
+#~ msgstr "Претходно поклапање"
+
+#~ msgid "Next Match"
+#~ msgstr "Следеће поклапање"
+
+#~ msgid "Split"
+#~ msgstr "Раздели"
+
+#~ msgid "Change Title…"
+#~ msgstr "Промени наслов…"
+
+#~ msgid "Close Split"
+#~ msgstr "Затвори разделу"
+
+#~ msgid "Tab"
+#~ msgstr "Језичак"
+
+#~ msgid "Change Window Title…"
+#~ msgstr "Промени наслов прозора…"
+
+#~ msgid "Leave blank to restore the default title."
+#~ msgstr "Остави празно да вратиш подразумевани наслов."
+
+#~ msgid "OK"
+#~ msgstr "У реду"
+
+#~ msgid "New Split"
+#~ msgstr "Нова раздела"
+
+#~ msgid "View Open Tabs"
+#~ msgstr "Прикажи отворене језичке"
+
+#~ msgid "Command Palette"
+#~ msgstr "Палета наредби"
+
+#~ msgid "Terminal Inspector"
+#~ msgstr "Инспектор терминала"
+
+#~ msgid "About Ghostty"
+#~ msgstr "О програму Ghostty"
+
+#~ msgid "Execute a command…"
+#~ msgstr "Изврши наредбу…"
+
+#~ msgid "Quit Ghostty?"
+#~ msgstr "Изаћи из Ghostty-ја?"
+
+#~ msgid "Change Terminal Title"
+#~ msgstr "Промени наслов терминала"
+
+#~ msgid "Change Tab Title"
+#~ msgstr "Промени наслов језичка"
+
+#~ msgid "Change Window Title"
+#~ msgstr "Промени наслов прозора"
+
+#~ msgid "Ghostty Developers"
+#~ msgstr "Програмери Ghostty-ја"

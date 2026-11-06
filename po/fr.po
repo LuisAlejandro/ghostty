@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.mitchellh.ghostty\n"
 "Report-Msgid-Bugs-To: m@mitchellh.com\n"
-"POT-Creation-Date: 2026-08-10 10:06-0500\n"
+"POT-Creation-Date: 2026-11-06 16:12-0400\n"
 "PO-Revision-Date: 2026-08-22 11:30+0200\n"
 "Last-Translator: flou <flou@proton.me>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: dist/linux/ghostty_nautilus.py:53
-msgid "Open in Ghostty"
-msgstr "Ouvrir dans Ghostty"
+msgid "Open in Mash Terminal"
+msgstr "Ouvrir dans Mash Terminal"
 
 #: src/apprt/gtk/ui/1.0/clipboard-confirmation-dialog.blp:12
 #: src/apprt/gtk/ui/1.4/clipboard-confirmation-dialog.blp:12
@@ -50,13 +50,11 @@ msgid "Reload configuration to show this prompt again"
 msgstr "Recharger la configuration pour afficher à nouveau ce message"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:8
-#: src/apprt/gtk/class/application.zig:2263
+#: src/apprt/gtk/class/application.zig:2079
 msgid "Cancel"
 msgstr "Annuler"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:8
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:90
 #: src/apprt/gtk/ui/1.3/surface-child-exited.blp:17
 msgid "Close"
 msgstr "Fermer"
@@ -70,51 +68,37 @@ msgid ""
 "One or more configuration errors were found. Please review the errors below, "
 "and either reload your configuration or ignore these errors."
 msgstr ""
-"Une ou plusieurs erreurs de configuration ont été détectées. Veuillez examiner "
-"les erreurs ci-dessous, puis recharger votre configuration ou ignorer ces erreurs."
+"Une ou plusieurs erreurs de configuration ont été détectées. Veuillez "
+"examiner les erreurs ci-dessous, puis recharger votre configuration ou "
+"ignorer ces erreurs."
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:12
 msgid "Ignore"
 msgstr "Ignorer"
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13
-#: src/apprt/gtk/ui/1.2/surface.blp:439 src/apprt/gtk/ui/1.5/window.blp:318
+#: src/apprt/gtk/ui/1.2/surface.blp:356 src/apprt/gtk/ui/1.5/window.blp:444
 msgid "Reload Configuration"
 msgstr "Recharger la configuration"
 
 #: src/apprt/gtk/ui/1.2/debug-warning.blp:7
 #: src/apprt/gtk/ui/1.3/debug-warning.blp:6
 msgid ""
-"⚠️ You're running a debug build of Ghostty! Performance will be degraded."
+"⚠️ You're running a debug build of Mash Terminal! Performance will be "
+"degraded."
 msgstr ""
-"⚠️ Vous utilisez une version de débogage de Ghostty ! Les performances seront "
-"dégradées."
+"⚠️ Vous utilisez une version de débogage de Mash Terminal ! Les performances "
+"seront dégradées."
 
-#: src/apprt/gtk/ui/1.5/inspector-window.blp:5
-msgid "Ghostty: Terminal Inspector"
-msgstr "Ghostty : Inspecteur de terminal"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:29
-msgid "Find…"
-msgstr "Rechercher…"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:69
-msgid "Previous Match"
-msgstr "Résultat précédent"
-
-#: src/apprt/gtk/ui/1.2/search-overlay.blp:79
-msgid "Next Match"
-msgstr "Résultat suivant"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:7
+#: src/apprt/gtk/ui/1.2/surface.blp:6
 msgid "Oh, no."
 msgstr "Oh, non."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:8
+#: src/apprt/gtk/ui/1.2/surface.blp:7
 msgid "Unable to acquire an OpenGL context for rendering."
 msgstr "Impossible d'obtenir un contexte OpenGL pour le rendu."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:101
+#: src/apprt/gtk/ui/1.2/surface.blp:96
 msgid ""
 "This terminal is in read-only mode. You can still view, select, and scroll "
 "through the content, but no input events will be sent to the running "
@@ -124,173 +108,430 @@ msgstr ""
 "sélectionner, et faire défiler son contenu, mais aucune entrée ne sera "
 "envoyée à l'application en cours."
 
-#: src/apprt/gtk/ui/1.2/surface.blp:112
+#: src/apprt/gtk/ui/1.2/surface.blp:107
 msgid "Read-only"
 msgstr "Lecture seule"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:316 src/apprt/gtk/ui/1.5/window.blp:203
+#: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
+#: src/apprt/gtk/ui/1.5/window.blp:489
 msgid "Copy"
 msgstr "Copier"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:321 src/apprt/gtk/ui/1.5/window.blp:208
+#: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
+#: src/apprt/gtk/ui/1.5/window.blp:494
 msgid "Paste"
 msgstr "Coller"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:326
+#: src/apprt/gtk/ui/1.2/surface.blp:311
 msgid "Notify on Next Command Finish"
 msgstr "Notifier à la fin de la prochaine commande"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:281
+#: src/apprt/gtk/ui/1.2/surface.blp:318 src/apprt/gtk/ui/1.5/window.blp:110
+#: src/apprt/gtk/ui/1.5/window.blp:508
 msgid "Clear"
 msgstr "Effacer"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:338 src/apprt/gtk/ui/1.5/window.blp:286
+#: src/apprt/gtk/ui/1.2/surface.blp:323 src/apprt/gtk/ui/1.5/window.blp:115
+#: src/apprt/gtk/ui/1.5/window.blp:513
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:345 src/apprt/gtk/ui/1.5/window.blp:250
-msgid "Split"
-msgstr "Créer un panneau"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:348 src/apprt/gtk/ui/1.5/window.blp:253
-msgid "Change Title…"
-msgstr "Changer le titre…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:353 src/apprt/gtk/ui/1.5/window.blp:180
-#: src/apprt/gtk/ui/1.5/window.blp:258 src/input/command.zig:487
-msgid "Split Up"
-msgstr "Diviser vers le haut"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:359 src/apprt/gtk/ui/1.5/window.blp:185
-#: src/apprt/gtk/ui/1.5/window.blp:263 src/input/command.zig:492
-msgid "Split Down"
-msgstr "Diviser vers le bas"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:365 src/apprt/gtk/ui/1.5/window.blp:190
-#: src/apprt/gtk/ui/1.5/window.blp:268 src/input/command.zig:477
-msgid "Split Left"
-msgstr "Diviser vers la gauche"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:371 src/apprt/gtk/ui/1.5/window.blp:195
-#: src/apprt/gtk/ui/1.5/window.blp:273 src/input/command.zig:482
-msgid "Split Right"
-msgstr "Diviser vers la droite"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:377
-msgid "Close Split"
-msgstr "Fermer le panneau"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:383
-msgid "Tab"
-msgstr "Onglet"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:386 src/apprt/gtk/ui/1.5/window.blp:232
-#: src/apprt/gtk/ui/1.5/window.blp:339 src/input/command.zig:464
-msgid "Change Tab Title…"
-msgstr "Changer le titre de l'onglet…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:391 src/apprt/gtk/ui/1.5/window.blp:60
-#: src/apprt/gtk/ui/1.5/window.blp:110 src/apprt/gtk/ui/1.5/window.blp:237
-#: src/input/command.zig:427
-msgid "New Tab"
-msgstr "Nouvel onglet"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:396 src/apprt/gtk/ui/1.5/window.blp:242
-#: src/input/command.zig:613
-msgid "Close Tab"
-msgstr "Fermer l'onglet"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:403
+#: src/apprt/gtk/ui/1.2/surface.blp:330
 msgid "Window"
 msgstr "Fenêtre"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:406 src/apprt/gtk/ui/1.5/window.blp:215
-msgid "Change Window Title…"
-msgstr "Changer le titre de la fenêtre…"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:411 src/apprt/gtk/ui/1.5/window.blp:220
-#: src/input/command.zig:421
-msgid "New Window"
-msgstr "Nouvelle fenêtre"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:416 src/apprt/gtk/ui/1.5/window.blp:225
-#: src/input/command.zig:630
+#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:103
+#: src/apprt/gtk/ui/1.5/window.blp:501 src/input/command.zig:630
 msgid "Close Window"
 msgstr "Fermer la fenêtre"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:424 src/apprt/gtk/ui/1.5/window.blp:303
+#: src/apprt/gtk/ui/1.2/surface.blp:341
 msgid "Config"
 msgstr "Config"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:427 src/apprt/gtk/ui/1.5/window.blp:306
+#: src/apprt/gtk/ui/1.2/surface.blp:344
 msgid "Open Configuration in OS Editor"
 msgstr "Ouvrir la configuration dans l'éditeur du système"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:433 src/apprt/gtk/ui/1.5/window.blp:312
+#: src/apprt/gtk/ui/1.2/surface.blp:350
 msgid "Open Configuration in New Window"
 msgstr "Ouvrir la configuration dans une nouvelle fenêtre"
 
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:5
-msgid "Leave blank to restore the default title."
-msgstr "Laisser vide pour restaurer le titre par défaut."
-
-#: src/apprt/gtk/ui/1.5/title-dialog.blp:9
-msgid "OK"
-msgstr "OK"
-
-#: src/apprt/gtk/ui/1.5/window.blp:61 src/apprt/gtk/ui/1.5/window.blp:111
-msgid "New Split"
-msgstr "Nouveau panneau"
-
-#: src/apprt/gtk/ui/1.5/window.blp:71 src/apprt/gtk/ui/1.5/window.blp:129
-msgid "View Open Tabs"
-msgstr "Voir les onglets ouverts"
-
-#: src/apprt/gtk/ui/1.5/window.blp:81 src/apprt/gtk/ui/1.5/window.blp:143
+#: src/apprt/gtk/ui/1.5/window.blp:59
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: src/apprt/gtk/ui/1.5/window.blp:293
-msgid "Command Palette"
-msgstr "Palette de commandes"
+#: src/apprt/gtk/ui/1.5/window.blp:125 src/apprt/gtk/ui/1.5/window.blp:526
+msgid "File"
+msgstr "Fichier"
 
-#: src/apprt/gtk/ui/1.5/window.blp:298
-msgid "Terminal Inspector"
-msgstr "Inspecteur de terminal"
+#: src/apprt/gtk/ui/1.5/window.blp:129
+msgid "New Dev Tab"
+msgstr "Nouvel onglet Dev"
 
-#: src/apprt/gtk/ui/1.5/window.blp:326 src/apprt/gtk/class/window.zig:1991
-msgid "About Ghostty"
-msgstr "À propos de Ghostty"
+#: src/apprt/gtk/ui/1.5/window.blp:136
+msgid "New Agent Tab"
+msgstr "Nouvel onglet Agent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:331 src/input/command.zig:702
+#: src/apprt/gtk/ui/1.5/window.blp:143
+msgid "New Review Tab"
+msgstr "Nouvel onglet Review"
+
+#: src/apprt/gtk/ui/1.5/window.blp:150
+msgid "New Shell Tab"
+msgstr "Nouvel onglet Shell"
+
+#: src/apprt/gtk/ui/1.5/window.blp:159
+msgid "New Workspace…"
+msgstr "Nouvel espace de travail…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:166
+msgid "New Worktree…"
+msgstr "Nouveau worktree…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:173
+msgid "Workspace Picker…"
+msgstr "Sélecteur d'espace de travail…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:182
+msgid "Close Pane"
+msgstr "Fermer le volet"
+
+#: src/apprt/gtk/ui/1.5/window.blp:189 src/input/command.zig:613
+msgid "Close Tab"
+msgstr "Fermer l'onglet"
+
+#: src/apprt/gtk/ui/1.5/window.blp:196
+msgid "Close Workspace"
+msgstr "Fermer l'espace de travail"
+
+#: src/apprt/gtk/ui/1.5/window.blp:203
+msgid "Remove Worktree"
+msgstr "Retirer le worktree"
+
+#: src/apprt/gtk/ui/1.5/window.blp:212 src/apprt/gtk/ui/1.5/window.blp:597
+msgid "Edit"
+msgstr "Édition"
+
+#: src/apprt/gtk/ui/1.5/window.blp:216
+msgid "Annotate Selection"
+msgstr "Annoter la sélection"
+
+#: src/apprt/gtk/ui/1.5/window.blp:223
+msgid "Paste Annotations into Agent"
+msgstr "Coller les annotations dans l'Agent"
+
+#: src/apprt/gtk/ui/1.5/window.blp:230
+msgid "Manage Annotations"
+msgstr "Gérer les annotations"
+
+#: src/apprt/gtk/ui/1.5/window.blp:239
+msgid "Pick Link or ID"
+msgstr "Choisir un lien ou un ID"
+
+#: src/apprt/gtk/ui/1.5/window.blp:248 src/apprt/gtk/ui/1.5/window.blp:629
+msgid "View"
+msgstr "Présentation"
+
+#: src/apprt/gtk/ui/1.5/window.blp:252
+msgid "Toggle Sidebar"
+msgstr "Basculer la barre latérale"
+
+#: src/apprt/gtk/ui/1.5/window.blp:259
+msgid "Zoom Pane"
+msgstr "Zoomer le volet"
+
+#: src/apprt/gtk/ui/1.5/window.blp:268
+msgid "Split Pane Right"
+msgstr "Diviser le volet à droite"
+
+#: src/apprt/gtk/ui/1.5/window.blp:275
+msgid "Split Pane Down"
+msgstr "Diviser le volet vers le bas"
+
+#: src/apprt/gtk/ui/1.5/window.blp:282
+msgid "Resize Mode"
+msgstr "Mode redimensionnement"
+
+#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:667
+msgid "Go"
+msgstr "Aller"
+
+#: src/apprt/gtk/ui/1.5/window.blp:295
+msgid "Goto…"
+msgstr "Aller à…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:304
+msgid "Previous Workspace"
+msgstr "Espace de travail précédent"
+
+#: src/apprt/gtk/ui/1.5/window.blp:311
+msgid "Next Workspace"
+msgstr "Espace de travail suivant"
+
+#: src/apprt/gtk/ui/1.5/window.blp:318
+msgid "Previous Tab"
+msgstr "Onglet précédent"
+
+#: src/apprt/gtk/ui/1.5/window.blp:325
+msgid "Next Tab"
+msgstr "Onglet suivant"
+
+#: src/apprt/gtk/ui/1.5/window.blp:332
+msgid "Previous Pane"
+msgstr "Volet précédent"
+
+#: src/apprt/gtk/ui/1.5/window.blp:339
+msgid "Next Pane"
+msgstr "Volet suivant"
+
+#: src/apprt/gtk/ui/1.5/window.blp:346
+msgid "Previous Agent"
+msgstr "Agent précédent"
+
+#: src/apprt/gtk/ui/1.5/window.blp:353
+msgid "Next Agent"
+msgstr "Agent suivant"
+
+#: src/apprt/gtk/ui/1.5/window.blp:362
+msgid "Open Notification Target"
+msgstr "Ouvrir la cible de notification"
+
+#: src/apprt/gtk/ui/1.5/window.blp:371 src/apprt/gtk/ui/1.5/window.blp:717
+msgid "Tools"
+msgstr "Outils"
+
+#: src/apprt/gtk/ui/1.5/window.blp:375
+msgid "Command Palette…"
+msgstr "Palette de commandes…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:382
+msgid "File Finder…"
+msgstr "Recherche de fichiers…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:389
+msgid "Source Control"
+msgstr "Contrôle de code source"
+
+#: src/apprt/gtk/ui/1.5/window.blp:396
+msgid "Session Search…"
+msgstr "Recherche de session…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:403
+msgid "Snippets…"
+msgstr "Extraits…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:410
+msgid "Container Status"
+msgstr "Statut du conteneur"
+
+#: src/apprt/gtk/ui/1.5/window.blp:417
+msgid "Plugin Manager"
+msgstr "Gestionnaire de plugins"
+
+#: src/apprt/gtk/ui/1.5/window.blp:426
+msgid "Fork Agent from Message…"
+msgstr "Dériver l'Agent du message…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:437
+msgid "Settings…"
+msgstr "Réglages…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:450
+msgid "Detach"
+msgstr "Détacher"
+
+#: src/apprt/gtk/ui/1.5/window.blp:459
+msgid "Mash Help"
+msgstr "Aide Mash"
+
+#: src/apprt/gtk/ui/1.5/window.blp:466
+msgid "Check for Updates…"
+msgstr "Vérifier les mises à jour…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:473 src/apprt/gtk/ui/1.5/window.blp:806
+#: src/apprt/gtk/class/window.zig:1925
+msgid "About Mash Terminal"
+msgstr "À propos de Mash Terminal"
+
+#: src/apprt/gtk/ui/1.5/window.blp:478 src/apprt/gtk/ui/1.5/window.blp:811
+#: src/input/command.zig:702
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/apprt/gtk/ui/1.5/command-palette.blp:17
-msgid "Execute a command…"
-msgstr "Exécuter une commande…"
+#: src/apprt/gtk/ui/1.5/window.blp:530
+msgid "New Dev Tab  ·  Ctrl+B t"
+msgstr "Nouvel onglet Dev  ·  Ctrl+B t"
 
-#: src/apprt/gtk/class/application.zig:1767
+#: src/apprt/gtk/ui/1.5/window.blp:536
+msgid "New Agent Tab  ·  Ctrl+B a"
+msgstr "Nouvel onglet Agent  ·  Ctrl+B a"
+
+#: src/apprt/gtk/ui/1.5/window.blp:542
+msgid "New Review Tab  ·  Ctrl+B V"
+msgstr "Nouvel onglet Review  ·  Ctrl+B V"
+
+#: src/apprt/gtk/ui/1.5/window.blp:548
+msgid "New Shell Tab  ·  Ctrl+B C"
+msgstr "Nouvel onglet Shell  ·  Ctrl+B C"
+
+#: src/apprt/gtk/ui/1.5/window.blp:556
+msgid "New Workspace…  ·  Ctrl+B N"
+msgstr "Nouvel espace de travail…  ·  Ctrl+B N"
+
+#: src/apprt/gtk/ui/1.5/window.blp:562
+msgid "New Worktree…  ·  Ctrl+B G"
+msgstr "Nouveau worktree…  ·  Ctrl+B G"
+
+#: src/apprt/gtk/ui/1.5/window.blp:568
+msgid "Workspace Picker…  ·  Ctrl+B F"
+msgstr "Sélecteur d'espace de travail…  ·  Ctrl+B F"
+
+#: src/apprt/gtk/ui/1.5/window.blp:576
+msgid "Close Pane  ·  Ctrl+B x"
+msgstr "Fermer le volet  ·  Ctrl+B x"
+
+#: src/apprt/gtk/ui/1.5/window.blp:582
+msgid "Close Tab  ·  Ctrl+B X"
+msgstr "Fermer l'onglet  ·  Ctrl+B X"
+
+#: src/apprt/gtk/ui/1.5/window.blp:588
+msgid "Close Workspace  ·  Ctrl+B D"
+msgstr "Fermer l'espace de travail  ·  Ctrl+B D"
+
+#: src/apprt/gtk/ui/1.5/window.blp:601
+msgid "Annotate Selection  ·  Ctrl+B i"
+msgstr "Annoter la sélection  ·  Ctrl+B i"
+
+#: src/apprt/gtk/ui/1.5/window.blp:607
+msgid "Paste Annotations into Agent  ·  Ctrl+B I"
+msgstr "Coller les annotations dans l'Agent  ·  Ctrl+B I"
+
+#: src/apprt/gtk/ui/1.5/window.blp:613
+msgid "Manage Annotations  ·  Ctrl+B m"
+msgstr "Gérer les annotations  ·  Ctrl+B m"
+
+#: src/apprt/gtk/ui/1.5/window.blp:621
+msgid "Pick Link or ID  ·  Ctrl+B u"
+msgstr "Choisir un lien ou un ID  ·  Ctrl+B u"
+
+#: src/apprt/gtk/ui/1.5/window.blp:633
+msgid "Toggle Sidebar  ·  Ctrl+B b"
+msgstr "Basculer la barre latérale  ·  Ctrl+B b"
+
+#: src/apprt/gtk/ui/1.5/window.blp:639
+msgid "Zoom Pane  ·  Ctrl+B z"
+msgstr "Zoomer le volet  ·  Ctrl+B z"
+
+#: src/apprt/gtk/ui/1.5/window.blp:647
+msgid "Split Pane Right  ·  Ctrl+B v"
+msgstr "Diviser le volet à droite  ·  Ctrl+B v"
+
+#: src/apprt/gtk/ui/1.5/window.blp:653
+msgid "Split Pane Down  ·  Ctrl+B -"
+msgstr "Diviser le volet vers le bas  ·  Ctrl+B -"
+
+#: src/apprt/gtk/ui/1.5/window.blp:659
+msgid "Resize Mode  ·  Ctrl+B r"
+msgstr "Mode redimensionnement  ·  Ctrl+B r"
+
+#: src/apprt/gtk/ui/1.5/window.blp:671
+msgid "Goto…  ·  Ctrl+B g"
+msgstr "Aller à…  ·  Ctrl+B g"
+
+#: src/apprt/gtk/ui/1.5/window.blp:681
+msgid "Previous Tab  ·  Ctrl+B p"
+msgstr "Onglet précédent  ·  Ctrl+B p"
+
+#: src/apprt/gtk/ui/1.5/window.blp:687
+msgid "Next Tab  ·  Ctrl+B n"
+msgstr "Onglet suivant  ·  Ctrl+B n"
+
+#: src/apprt/gtk/ui/1.5/window.blp:693
+msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
+msgstr "Volet précédent  ·  Ctrl+B Shift+Tab"
+
+#: src/apprt/gtk/ui/1.5/window.blp:699
+msgid "Next Pane  ·  Ctrl+B Tab"
+msgstr "Volet suivant  ·  Ctrl+B Tab"
+
+#: src/apprt/gtk/ui/1.5/window.blp:709
+msgid "Open Notification Target  ·  Ctrl+B o"
+msgstr "Ouvrir la cible de notification  ·  Ctrl+B o"
+
+#: src/apprt/gtk/ui/1.5/window.blp:721
+msgid "Command Palette…  ·  Ctrl+B ;"
+msgstr "Palette de commandes…  ·  Ctrl+B ;"
+
+#: src/apprt/gtk/ui/1.5/window.blp:727
+msgid "File Finder…  ·  Ctrl+B f"
+msgstr "Recherche de fichiers…  ·  Ctrl+B f"
+
+#: src/apprt/gtk/ui/1.5/window.blp:733
+msgid "Source Control  ·  Ctrl+B y"
+msgstr "Contrôle de code source  ·  Ctrl+B y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:739
+msgid "Session Search…  ·  Ctrl+B E"
+msgstr "Recherche de session…  ·  Ctrl+B E"
+
+#: src/apprt/gtk/ui/1.5/window.blp:745
+msgid "Snippets…  ·  Ctrl+B S"
+msgstr "Extraits…  ·  Ctrl+B S"
+
+#: src/apprt/gtk/ui/1.5/window.blp:751
+msgid "Container Status  ·  Ctrl+B O"
+msgstr "Statut du conteneur  ·  Ctrl+B O"
+
+#: src/apprt/gtk/ui/1.5/window.blp:757
+msgid "Plugin Manager  ·  Ctrl+B U"
+msgstr "Gestionnaire de plugins  ·  Ctrl+B U"
+
+#: src/apprt/gtk/ui/1.5/window.blp:765
+msgid "Fork Agent from Message…  ·  Ctrl+B Y"
+msgstr "Dériver l'Agent du message…  ·  Ctrl+B Y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:775
+msgid "Settings…  ·  Ctrl+B s"
+msgstr "Réglages…  ·  Ctrl+B s"
+
+#: src/apprt/gtk/ui/1.5/window.blp:781
+msgid "Reload Configuration  ·  Ctrl+B R"
+msgstr "Recharger la configuration  ·  Ctrl+B R"
+
+#: src/apprt/gtk/ui/1.5/window.blp:786
+msgid "Detach  ·  Ctrl+B q"
+msgstr "Détacher  ·  Ctrl+B q"
+
+#: src/apprt/gtk/ui/1.5/window.blp:794
+msgid "Mash Help  ·  Ctrl+B ?"
+msgstr "Aide Mash  ·  Ctrl+B ?"
+
+#: src/apprt/gtk/ui/1.5/window.blp:800
+msgid "Check for Updates…  ·  Ctrl+B Z"
+msgstr "Vérifier les mises à jour…  ·  Ctrl+B Z"
+
+#: src/apprt/gtk/class/application.zig:1770
 msgid "The keybind was revoked by the system."
 msgstr "Le raccourci clavier a été révoqué par le système."
 
-#: src/apprt/gtk/class/application.zig:1769
+#: src/apprt/gtk/class/application.zig:1772
 msgid "The keybind was denied by the system."
 msgstr "Le raccourci clavier a été refusé par le système."
 
-#: src/apprt/gtk/class/application.zig:1780
+#: src/apprt/gtk/class/application.zig:1783
 msgid "Global keybind unavailable"
 msgstr "Raccourci clavier global indisponible"
 
-#: src/apprt/gtk/class/application.zig:2259
+#: src/apprt/gtk/class/application.zig:2075
 msgid "Export Terminal IO Events"
 msgstr "Exporter les événements d'E/S du terminal"
 
-#: src/apprt/gtk/class/application.zig:2262
+#: src/apprt/gtk/class/application.zig:2078
 msgid "Export"
 msgstr "Exporter"
 
-#: src/apprt/gtk/class/application.zig:2783
+#: src/apprt/gtk/class/application.zig:2584
 msgid "Editing configuration file"
 msgstr "Modification du fichier de configuration"
 
@@ -323,8 +564,8 @@ msgstr ""
 "certaines commandes pourraient être exécutées."
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:184
-msgid "Quit Ghostty?"
-msgstr "Quitter Ghostty ?"
+msgid "Quit Mash Terminal?"
+msgstr "Quitter Mash Terminal ?"
 
 #: src/apprt/gtk/class/close_confirmation_dialog.zig:185
 msgid "Close Tab?"
@@ -354,47 +595,35 @@ msgstr "Toutes les sessions de cette fenêtre vont être arrêtées."
 msgid "The currently running process in this split will be terminated."
 msgstr "Le processus en cours dans ce panneau va être arrêté."
 
-#: src/apprt/gtk/class/surface.zig:1181
+#: src/apprt/gtk/class/surface.zig:1134
 msgid "Command Finished"
 msgstr "Commande terminée"
 
-#: src/apprt/gtk/class/surface.zig:1182
+#: src/apprt/gtk/class/surface.zig:1135
 #: src/apprt/gtk/class/surface_child_exited.zig:109
 msgid "Command Succeeded"
 msgstr "Commande exécutée avec succès"
 
-#: src/apprt/gtk/class/surface.zig:1183
+#: src/apprt/gtk/class/surface.zig:1136
 #: src/apprt/gtk/class/surface_child_exited.zig:113
 msgid "Command Failed"
 msgstr "Échec de la commande"
 
-#: src/apprt/gtk/class/title_dialog.zig:227
-msgid "Change Terminal Title"
-msgstr "Changer le titre du terminal"
-
-#: src/apprt/gtk/class/title_dialog.zig:228
-msgid "Change Tab Title"
-msgstr "Changer le titre de l'onglet"
-
-#: src/apprt/gtk/class/title_dialog.zig:229
-msgid "Change Window Title"
-msgstr "Changer le titre de la fenêtre"
-
-#: src/apprt/gtk/class/window.zig:1153
+#: src/apprt/gtk/class/window.zig:1142
 msgid "Reloaded the configuration"
 msgstr "Configuration rechargée"
 
-#: src/apprt/gtk/class/window.zig:1830
+#: src/apprt/gtk/class/window.zig:1764
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
-#: src/apprt/gtk/class/window.zig:1832
+#: src/apprt/gtk/class/window.zig:1766
 msgid "Cleared clipboard"
 msgstr "Presse-papiers vidé"
 
-#: src/apprt/gtk/class/window.zig:1972
-msgid "Ghostty Developers"
-msgstr "Les développeurs de Ghostty"
+#: src/apprt/gtk/class/window.zig:1906
+msgid "Mash"
+msgstr "Mash"
 
 #: src/input/command.zig:149
 msgid "Reset Terminal"
@@ -412,7 +641,8 @@ msgstr "Copier dans le presse-papiers"
 msgid ""
 "Copy the selected text to the clipboard in both plain and styled formats."
 msgstr ""
-"Copier le texte sélectionné dans le presse-papiers aux formats brut et mis en forme."
+"Copier le texte sélectionné dans le presse-papiers aux formats brut et mis "
+"en forme."
 
 #: src/input/command.zig:159
 msgid "Copy Selection as Plain Text to Clipboard"
@@ -428,7 +658,9 @@ msgstr "Copier la sélection en séquences ANSI dans le presse-papiers"
 
 #: src/input/command.zig:164
 msgid "Copy the selected text as ANSI escape sequences to the clipboard."
-msgstr "Copier le texte sélectionné en séquences d'échappement ANSI dans le presse-papiers."
+msgstr ""
+"Copier le texte sélectionné en séquences d'échappement ANSI dans le presse-"
+"papiers."
 
 #: src/input/command.zig:167
 msgid "Copy Selection as HTML to Clipboard"
@@ -496,7 +728,9 @@ msgstr "Terminer la recherche"
 
 #: src/input/command.zig:210
 msgid "End the current search if any and hide any GUI elements."
-msgstr "Terminer la recherche en cours s'il y en a une et masquer les éléments d'interface."
+msgstr ""
+"Terminer la recherche en cours s'il y en a une et masquer les éléments "
+"d'interface."
 
 #: src/input/command.zig:215
 msgid "Next Search Result"
@@ -655,11 +889,14 @@ msgstr "Copier l'écran en HTML dans un fichier temporaire et l'ouvrir"
 
 #: src/input/command.zig:322
 msgid "Copy the screen contents as HTML to a temporary file and open it."
-msgstr "Copier le contenu de l'écran en HTML dans un fichier temporaire et l'ouvrir."
+msgstr ""
+"Copier le contenu de l'écran en HTML dans un fichier temporaire et l'ouvrir."
 
 #: src/input/command.zig:330
 msgid "Copy Screen as ANSI Sequences to Temporary File and Copy Path"
-msgstr "Copier l'écran en séquences ANSI dans un fichier temporaire et copier le chemin"
+msgstr ""
+"Copier l'écran en séquences ANSI dans un fichier temporaire et copier le "
+"chemin"
 
 #: src/input/command.zig:331
 msgid ""
@@ -671,7 +908,9 @@ msgstr ""
 
 #: src/input/command.zig:338
 msgid "Copy Screen as ANSI Sequences to Temporary File and Paste Path"
-msgstr "Copier l'écran en séquences ANSI dans un fichier temporaire et coller le chemin"
+msgstr ""
+"Copier l'écran en séquences ANSI dans un fichier temporaire et coller le "
+"chemin"
 
 #: src/input/command.zig:339
 msgid ""
@@ -683,7 +922,8 @@ msgstr ""
 
 #: src/input/command.zig:346
 msgid "Copy Screen as ANSI Sequences to Temporary File and Open"
-msgstr "Copier l'écran en séquences ANSI dans un fichier temporaire et l'ouvrir"
+msgstr ""
+"Copier l'écran en séquences ANSI dans un fichier temporaire et l'ouvrir"
 
 #: src/input/command.zig:347
 msgid ""
@@ -723,11 +963,13 @@ msgstr "Copier la sélection dans un fichier temporaire et l'ouvrir"
 
 #: src/input/command.zig:365
 msgid "Copy the selection contents to a temporary file and open it."
-msgstr "Copier le contenu de la sélection dans un fichier temporaire et l'ouvrir."
+msgstr ""
+"Copier le contenu de la sélection dans un fichier temporaire et l'ouvrir."
 
 #: src/input/command.zig:373
 msgid "Copy Selection as HTML to Temporary File and Copy Path"
-msgstr "Copier la sélection en HTML dans un fichier temporaire et copier le chemin"
+msgstr ""
+"Copier la sélection en HTML dans un fichier temporaire et copier le chemin"
 
 #: src/input/command.zig:374
 msgid ""
@@ -739,7 +981,8 @@ msgstr ""
 
 #: src/input/command.zig:381
 msgid "Copy Selection as HTML to Temporary File and Paste Path"
-msgstr "Copier la sélection en HTML dans un fichier temporaire et coller le chemin"
+msgstr ""
+"Copier la sélection en HTML dans un fichier temporaire et coller le chemin"
 
 #: src/input/command.zig:382
 msgid ""
@@ -755,11 +998,15 @@ msgstr "Copier la sélection en HTML dans un fichier temporaire et l'ouvrir"
 
 #: src/input/command.zig:390
 msgid "Copy the selection contents as HTML to a temporary file and open it."
-msgstr "Copier le contenu de la sélection en HTML dans un fichier temporaire et l'ouvrir."
+msgstr ""
+"Copier le contenu de la sélection en HTML dans un fichier temporaire et "
+"l'ouvrir."
 
 #: src/input/command.zig:398
 msgid "Copy Selection as ANSI Sequences to Temporary File and Copy Path"
-msgstr "Copier la sélection en séquences ANSI dans un fichier temporaire et copier le chemin"
+msgstr ""
+"Copier la sélection en séquences ANSI dans un fichier temporaire et copier "
+"le chemin"
 
 #: src/input/command.zig:399
 msgid ""
@@ -771,7 +1018,9 @@ msgstr ""
 
 #: src/input/command.zig:406
 msgid "Copy Selection as ANSI Sequences to Temporary File and Paste Path"
-msgstr "Copier la sélection en séquences ANSI dans un fichier temporaire et coller le chemin"
+msgstr ""
+"Copier la sélection en séquences ANSI dans un fichier temporaire et coller "
+"le chemin"
 
 #: src/input/command.zig:407
 msgid ""
@@ -783,7 +1032,8 @@ msgstr ""
 
 #: src/input/command.zig:414
 msgid "Copy Selection as ANSI Sequences to Temporary File and Open"
-msgstr "Copier la sélection en séquences ANSI dans un fichier temporaire et l'ouvrir"
+msgstr ""
+"Copier la sélection en séquences ANSI dans un fichier temporaire et l'ouvrir"
 
 #: src/input/command.zig:415
 msgid ""
@@ -793,9 +1043,17 @@ msgstr ""
 "Copier le contenu de la sélection en séquences d'échappement ANSI dans un "
 "fichier temporaire et l'ouvrir."
 
+#: src/input/command.zig:421
+msgid "New Window"
+msgstr "Nouvelle fenêtre"
+
 #: src/input/command.zig:422
 msgid "Open a new window."
 msgstr "Ouvrir une nouvelle fenêtre."
+
+#: src/input/command.zig:427
+msgid "New Tab"
+msgstr "Nouvel onglet"
 
 #: src/input/command.zig:428
 msgid "Open a new tab."
@@ -841,21 +1099,41 @@ msgstr "Changer le titre du terminal…"
 msgid "Prompt for a new title for the current terminal."
 msgstr "Demander un nouveau titre pour le terminal actuel."
 
+#: src/input/command.zig:464
+msgid "Change Tab Title…"
+msgstr "Changer le titre de l'onglet…"
+
 #: src/input/command.zig:465
 msgid "Prompt for a new title for the current tab."
 msgstr "Demander un nouveau titre pour l'onglet actuel."
+
+#: src/input/command.zig:477
+msgid "Split Left"
+msgstr "Diviser vers la gauche"
 
 #: src/input/command.zig:478
 msgid "Split the terminal to the left."
 msgstr "Diviser le terminal vers la gauche."
 
+#: src/input/command.zig:482
+msgid "Split Right"
+msgstr "Diviser vers la droite"
+
 #: src/input/command.zig:483
 msgid "Split the terminal to the right."
 msgstr "Diviser le terminal vers la droite."
 
+#: src/input/command.zig:487
+msgid "Split Up"
+msgstr "Diviser vers le haut"
+
 #: src/input/command.zig:488
 msgid "Split the terminal up."
 msgstr "Diviser le terminal vers le haut."
+
+#: src/input/command.zig:492
+msgid "Split Down"
+msgstr "Diviser vers le bas"
 
 #: src/input/command.zig:493
 msgid "Split the terminal down."
@@ -987,7 +1265,8 @@ msgstr "Ouvrir la configuration avec l'éditeur du système"
 
 #: src/input/command.zig:589
 msgid "Open the config file with the OS's default editor."
-msgstr "Ouvrir le fichier de configuration avec l'éditeur par défaut du système."
+msgstr ""
+"Ouvrir le fichier de configuration avec l'éditeur par défaut du système."
 
 #: src/input/command.zig:593
 msgid "Open Config in New Terminal Window"
@@ -995,7 +1274,9 @@ msgstr "Ouvrir la configuration dans une nouvelle fenêtre de terminal"
 
 #: src/input/command.zig:594
 msgid "Open the config file in a new window using $EDITOR or $VISUAL."
-msgstr "Ouvrir le fichier de configuration dans une nouvelle fenêtre avec $EDITOR ou $VISUAL."
+msgstr ""
+"Ouvrir le fichier de configuration dans une nouvelle fenêtre avec $EDITOR ou "
+"$VISUAL."
 
 #: src/input/command.zig:600
 msgid "Reload Config"
@@ -1075,7 +1356,8 @@ msgstr "Activer/désactiver le maintien au premier plan"
 
 #: src/input/command.zig:661
 msgid "Toggle the float on top state of the current window."
-msgstr "Activer ou désactiver le maintien de la fenêtre actuelle au premier plan."
+msgstr ""
+"Activer ou désactiver le maintien de la fenêtre actuelle au premier plan."
 
 #: src/input/command.zig:666
 msgid "Toggle Secure Input"
@@ -1091,7 +1373,9 @@ msgstr "Activer/désactiver le rapport de souris"
 
 #: src/input/command.zig:673
 msgid "Toggle whether mouse events are reported to terminal applications."
-msgstr "Activer ou désactiver le signalement des événements de souris aux applications du terminal."
+msgstr ""
+"Activer ou désactiver le signalement des événements de souris aux "
+"applications du terminal."
 
 #: src/input/command.zig:678
 msgid "Toggle Background Opacity"
@@ -1099,7 +1383,9 @@ msgstr "Activer/désactiver l'opacité de l'arrière-plan"
 
 #: src/input/command.zig:679
 msgid "Toggle the background opacity of a window that started transparent."
-msgstr "Activer ou désactiver l'opacité de l'arrière-plan d'une fenêtre qui a démarré transparente."
+msgstr ""
+"Activer ou désactiver l'opacité de l'arrière-plan d'une fenêtre qui a "
+"démarré transparente."
 
 #: src/input/command.zig:684
 msgid "Check for Updates"
@@ -1136,3 +1422,78 @@ msgstr "Ghostty"
 #: src/input/command.zig:709
 msgid "Put a little Ghostty in your terminal."
 msgstr "Mettre un petit Ghostty dans votre terminal."
+
+#~ msgid "Open in Ghostty"
+#~ msgstr "Ouvrir dans Ghostty"
+
+#~ msgid ""
+#~ "⚠️ You're running a debug build of Ghostty! Performance will be degraded."
+#~ msgstr ""
+#~ "⚠️ Vous utilisez une version de débogage de Ghostty ! Les performances "
+#~ "seront dégradées."
+
+#~ msgid "Ghostty: Terminal Inspector"
+#~ msgstr "Ghostty : Inspecteur de terminal"
+
+#~ msgid "Find…"
+#~ msgstr "Rechercher…"
+
+#~ msgid "Previous Match"
+#~ msgstr "Résultat précédent"
+
+#~ msgid "Next Match"
+#~ msgstr "Résultat suivant"
+
+#~ msgid "Split"
+#~ msgstr "Créer un panneau"
+
+#~ msgid "Change Title…"
+#~ msgstr "Changer le titre…"
+
+#~ msgid "Close Split"
+#~ msgstr "Fermer le panneau"
+
+#~ msgid "Tab"
+#~ msgstr "Onglet"
+
+#~ msgid "Change Window Title…"
+#~ msgstr "Changer le titre de la fenêtre…"
+
+#~ msgid "Leave blank to restore the default title."
+#~ msgstr "Laisser vide pour restaurer le titre par défaut."
+
+#~ msgid "OK"
+#~ msgstr "OK"
+
+#~ msgid "New Split"
+#~ msgstr "Nouveau panneau"
+
+#~ msgid "View Open Tabs"
+#~ msgstr "Voir les onglets ouverts"
+
+#~ msgid "Command Palette"
+#~ msgstr "Palette de commandes"
+
+#~ msgid "Terminal Inspector"
+#~ msgstr "Inspecteur de terminal"
+
+#~ msgid "About Ghostty"
+#~ msgstr "À propos de Ghostty"
+
+#~ msgid "Execute a command…"
+#~ msgstr "Exécuter une commande…"
+
+#~ msgid "Quit Ghostty?"
+#~ msgstr "Quitter Ghostty ?"
+
+#~ msgid "Change Terminal Title"
+#~ msgstr "Changer le titre du terminal"
+
+#~ msgid "Change Tab Title"
+#~ msgstr "Changer le titre de l'onglet"
+
+#~ msgid "Change Window Title"
+#~ msgstr "Changer le titre de la fenêtre"
+
+#~ msgid "Ghostty Developers"
+#~ msgstr "Les développeurs de Ghostty"
