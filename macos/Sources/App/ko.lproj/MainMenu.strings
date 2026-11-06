@@ -1,4 +1,4 @@
-/* Mash menu translations for MainMenu.xib. English is the base in MainMenu.xib. */
+/* Mash menu translations for MainMenu.xib. English is the base in Base.lproj/MainMenu.xib. */
 "5kV-Vb-QxS.title" = "Mash 정보";
 "BOF-NM-1cW.title" = "설정…";
 "KKH-XX-5py.title" = "구성 다시 불러오기";

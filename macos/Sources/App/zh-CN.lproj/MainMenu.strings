@@ -1,4 +1,4 @@
-/* Mash menu translations for MainMenu.xib. English is the base in MainMenu.xib. */
+/* Mash menu translations for MainMenu.xib. English is the base in Base.lproj/MainMenu.xib. */
 "5kV-Vb-QxS.title" = "关于 Mash";
 "BOF-NM-1cW.title" = "设置…";
 "KKH-XX-5py.title" = "重新加载配置";

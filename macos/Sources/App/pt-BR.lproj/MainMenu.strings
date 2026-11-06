@@ -1,4 +1,4 @@
-/* Mash menu translations for MainMenu.xib. English is the base in MainMenu.xib. */
+/* Mash menu translations for MainMenu.xib. English is the base in Base.lproj/MainMenu.xib. */
 "5kV-Vb-QxS.title" = "Sobre o Mash";
 "BOF-NM-1cW.title" = "Ajustes…";
 "KKH-XX-5py.title" = "Recarregar configuração";

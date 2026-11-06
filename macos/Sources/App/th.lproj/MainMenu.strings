@@ -1,4 +1,4 @@
-/* Mash menu translations for MainMenu.xib. English is the base in MainMenu.xib. */
+/* Mash menu translations for MainMenu.xib. English is the base in Base.lproj/MainMenu.xib. */
 "5kV-Vb-QxS.title" = "เกี่ยวกับ Mash";
 "BOF-NM-1cW.title" = "การตั้งค่า…";
 "KKH-XX-5py.title" = "โหลดการกำหนดค่าใหม่";
