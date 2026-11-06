@@ -24,7 +24,7 @@ enum MashMenus {
         /// Herdr chord, e.g. "cmd+ctrl+g". nil makes a separator.
         let chord: String?
 
-        static func item(_ key: String, _ english: String, _ chord: String) -> Entry {
+        @MainActor static func item(_ key: String, _ english: String, _ chord: String) -> Entry {
             .init(title: MashMenus.localized(key, english), chord: chord)
         }
         static let separator = Entry(title: "", chord: nil)
