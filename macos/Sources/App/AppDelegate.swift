@@ -881,7 +881,11 @@ class AppDelegate: NSObject,
             for item in appMenu.items where item.action == #selector(detachHerdr(_:)) {
                 appMenu.removeItem(item)
             }
-            let detach = NSMenuItem(title: "Detach", action: #selector(detachHerdr(_:)), keyEquivalent: "")
+            let detach = NSMenuItem(
+                title: MashMenus.localized("herdr.menu.item.detach", "Detach"),
+                action: #selector(detachHerdr(_:)),
+                keyEquivalent: ""
+            )
             detach.target = self
             MashMenus.applyShortcut(MashMenus.detachChord, to: detach)
             appMenu.insertItem(detach, at: appMenu.index(of: reload) + 1)

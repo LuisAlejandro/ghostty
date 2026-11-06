@@ -24,73 +24,75 @@ enum MashMenus {
         /// Herdr chord, e.g. "cmd+ctrl+g". nil makes a separator.
         let chord: String?
 
-        static func item(_ title: String, _ chord: String) -> Entry { .init(title: title, chord: chord) }
+        static func item(_ key: String, _ english: String, _ chord: String) -> Entry {
+            .init(title: MashMenus.localized(key, english), chord: chord)
+        }
         static let separator = Entry(title: "", chord: nil)
     }
 
     static let file: [Entry] = [
-        .item("New Dev Tab", "cmd+t"),
-        .item("New Agent Tab", "cmd+alt+t"),
-        .item("New Review Tab", "cmd+shift+r"),
-        .item("New Shell Tab", "cmd+shift+t"),
+        .item("herdr.menu.item.new_dev_tab", "New Dev Tab", "cmd+t"),
+        .item("herdr.menu.item.new_agent_tab", "New Agent Tab", "cmd+alt+t"),
+        .item("herdr.menu.item.new_review_tab", "New Review Tab", "cmd+shift+r"),
+        .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "cmd+shift+t"),
         .separator,
-        .item("New Workspace…", "cmd+ctrl+n"),
-        .item("New Worktree…", "cmd+ctrl+shift+n"),
-        .item("Workspace Picker…", "cmd+ctrl+o"),
+        .item("herdr.menu.item.new_workspace", "New Workspace…", "cmd+ctrl+n"),
+        .item("herdr.menu.item.new_worktree", "New Worktree…", "cmd+ctrl+shift+n"),
+        .item("herdr.menu.item.workspace_picker", "Workspace Picker…", "cmd+ctrl+o"),
         .separator,
-        .item("Close Pane", "cmd+alt+w"),
-        .item("Close Tab", "cmd+shift+w"),
-        .item("Close Workspace", "cmd+ctrl+w"),
-        .item("Remove Worktree", "cmd+ctrl+backspace"),
+        .item("herdr.menu.item.close_pane", "Close Pane", "cmd+alt+w"),
+        .item("herdr.menu.item.close_tab", "Close Tab", "cmd+shift+w"),
+        .item("herdr.menu.item.close_workspace", "Close Workspace", "cmd+ctrl+w"),
+        .item("herdr.menu.item.remove_worktree", "Remove Worktree", "cmd+ctrl+backspace"),
     ]
 
     static let edit: [Entry] = [
-        .item("Annotate Selection", "cmd+k"),
-        .item("Paste Annotations into Agent", "cmd+l"),
-        .item("Manage Annotations", "cmd+shift+l"),
+        .item("herdr.menu.item.annotate_selection", "Annotate Selection", "cmd+k"),
+        .item("herdr.menu.item.paste_annotations_into_agent", "Paste Annotations into Agent", "cmd+l"),
+        .item("herdr.menu.item.manage_annotations", "Manage Annotations", "cmd+shift+l"),
         .separator,
-        .item("Pick Link or ID", "alt+g"),
+        .item("herdr.menu.item.pick_link_or_id", "Pick Link or ID", "alt+g"),
     ]
 
     static let view: [Entry] = [
-        .item("Toggle Sidebar", "cmd+b"),
-        .item("Zoom Pane", "cmd+alt+z"),
+        .item("herdr.menu.item.toggle_sidebar", "Toggle Sidebar", "cmd+b"),
+        .item("herdr.menu.item.zoom_pane", "Zoom Pane", "cmd+alt+z"),
         .separator,
-        .item("Split Pane Right", "cmd+alt+backslash"),
-        .item("Split Pane Down", "cmd+alt+minus"),
-        .item("Resize Mode", "cmd+alt+r"),
+        .item("herdr.menu.item.split_pane_right", "Split Pane Right", "cmd+alt+backslash"),
+        .item("herdr.menu.item.split_pane_down", "Split Pane Down", "cmd+alt+minus"),
+        .item("herdr.menu.item.resize_mode", "Resize Mode", "cmd+alt+r"),
     ]
 
     static let go: [Entry] = [
-        .item("Goto…", "cmd+ctrl+g"),
+        .item("herdr.menu.item.goto", "Goto…", "cmd+ctrl+g"),
         .separator,
-        .item("Previous Workspace", "cmd+ctrl+bracket_left"),
-        .item("Next Workspace", "cmd+ctrl+bracket_right"),
-        .item("Previous Tab", "cmd+shift+bracket_left"),
-        .item("Next Tab", "cmd+shift+bracket_right"),
-        .item("Previous Pane", "cmd+alt+bracket_left"),
-        .item("Next Pane", "cmd+alt+bracket_right"),
-        .item("Previous Agent", "ctrl+shift+arrow_up"),
-        .item("Next Agent", "ctrl+shift+arrow_down"),
+        .item("herdr.menu.item.previous_workspace", "Previous Workspace", "cmd+ctrl+bracket_left"),
+        .item("herdr.menu.item.next_workspace", "Next Workspace", "cmd+ctrl+bracket_right"),
+        .item("herdr.menu.item.previous_tab", "Previous Tab", "cmd+shift+bracket_left"),
+        .item("herdr.menu.item.next_tab", "Next Tab", "cmd+shift+bracket_right"),
+        .item("herdr.menu.item.previous_pane", "Previous Pane", "cmd+alt+bracket_left"),
+        .item("herdr.menu.item.next_pane", "Next Pane", "cmd+alt+bracket_right"),
+        .item("herdr.menu.item.previous_agent", "Previous Agent", "ctrl+shift+arrow_up"),
+        .item("herdr.menu.item.next_agent", "Next Agent", "ctrl+shift+arrow_down"),
         .separator,
-        .item("Open Notification Target", "cmd+y"),
+        .item("herdr.menu.item.open_notification_target", "Open Notification Target", "cmd+y"),
     ]
 
     static let tools: [Entry] = [
-        .item("Command Palette…", "cmd+shift+p"),
-        .item("File Finder…", "cmd+p"),
-        .item("Source Control", "ctrl+shift+g"),
-        .item("Session Search…", "cmd+alt+l"),
-        .item("Snippets…", "cmd+alt+p"),
-        .item("Container Status", "cmd+shift+o"),
-        .item("Plugin Manager", "cmd+shift+x"),
+        .item("herdr.menu.item.command_palette", "Command Palette…", "cmd+shift+p"),
+        .item("herdr.menu.item.file_finder", "File Finder…", "cmd+p"),
+        .item("herdr.menu.item.source_control", "Source Control", "ctrl+shift+g"),
+        .item("herdr.menu.item.session_search", "Session Search…", "cmd+alt+l"),
+        .item("herdr.menu.item.snippets", "Snippets…", "cmd+alt+p"),
+        .item("herdr.menu.item.container_status", "Container Status", "cmd+shift+o"),
+        .item("herdr.menu.item.plugin_manager", "Plugin Manager", "cmd+shift+x"),
         .separator,
-        .item("Fork Agent from Message…", "cmd+alt+y"),
+        .item("herdr.menu.item.fork_agent_from_message", "Fork Agent from Message…", "cmd+alt+y"),
     ]
 
     static let help: [Entry] = [
-        .item("Mash Help", "cmd+shift+i"),
-        .item("Check for Updates…", "cmd+shift+u"),
+        .item("herdr.menu.item.mash_help", "Mash Help", "cmd+shift+i"),
+        .item("herdr.menu.item.check_for_updates", "Check for Updates…", "cmd+shift+u"),
     ]
 
     /// Herdr's own settings, reload and detach chords, used by the app menu.
@@ -101,64 +103,68 @@ enum MashMenus {
     // MARK: Native tables -- Herdr's stock prefix keys plus keys.native.toml.
 
     static let nativeFile: [Entry] = [
-        .item("New Dev Tab", "ctrl+b>t"),
-        .item("New Agent Tab", "ctrl+b>a"),
-        .item("New Review Tab", "ctrl+b>shift+v"),
-        .item("New Shell Tab", "ctrl+b>shift+c"),
+        .item("herdr.menu.item.new_dev_tab", "New Dev Tab", "ctrl+b>t"),
+        .item("herdr.menu.item.new_agent_tab", "New Agent Tab", "ctrl+b>a"),
+        .item("herdr.menu.item.new_review_tab", "New Review Tab", "ctrl+b>shift+v"),
+        .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "ctrl+b>shift+c"),
         .separator,
-        .item("New Workspace…", "ctrl+b>shift+n"),
-        .item("New Worktree…", "ctrl+b>shift+g"),
-        .item("Workspace Picker…", "ctrl+b>shift+f"),
+        .item("herdr.menu.item.new_workspace", "New Workspace…", "ctrl+b>shift+n"),
+        .item("herdr.menu.item.new_worktree", "New Worktree…", "ctrl+b>shift+g"),
+        .item("herdr.menu.item.workspace_picker", "Workspace Picker…", "ctrl+b>shift+f"),
         .separator,
-        .item("Close Pane", "ctrl+b>x"),
-        .item("Close Tab", "ctrl+b>shift+x"),
-        .item("Close Workspace", "ctrl+b>shift+d"),
+        .item("herdr.menu.item.close_pane", "Close Pane", "ctrl+b>x"),
+        .item("herdr.menu.item.close_tab", "Close Tab", "ctrl+b>shift+x"),
+        .item("herdr.menu.item.close_workspace", "Close Workspace", "ctrl+b>shift+d"),
     ]
 
     static let nativeEdit: [Entry] = [
-        .item("Annotate Selection", "ctrl+b>i"),
-        .item("Paste Annotations into Agent", "ctrl+b>shift+i"),
-        .item("Manage Annotations", "ctrl+b>m"),
+        .item("herdr.menu.item.annotate_selection", "Annotate Selection", "ctrl+b>i"),
+        .item("herdr.menu.item.paste_annotations_into_agent", "Paste Annotations into Agent", "ctrl+b>shift+i"),
+        .item("herdr.menu.item.manage_annotations", "Manage Annotations", "ctrl+b>m"),
         .separator,
-        .item("Pick Link or ID", "ctrl+b>u"),
+        .item("herdr.menu.item.pick_link_or_id", "Pick Link or ID", "ctrl+b>u"),
     ]
 
     static let nativeView: [Entry] = [
-        .item("Toggle Sidebar", "ctrl+b>b"),
-        .item("Zoom Pane", "ctrl+b>z"),
+        .item("herdr.menu.item.toggle_sidebar", "Toggle Sidebar", "ctrl+b>b"),
+        .item("herdr.menu.item.zoom_pane", "Zoom Pane", "ctrl+b>z"),
         .separator,
-        .item("Split Pane Right", "ctrl+b>v"),
-        .item("Split Pane Down", "ctrl+b>minus"),
-        .item("Resize Mode", "ctrl+b>r"),
+        .item("herdr.menu.item.split_pane_right", "Split Pane Right", "ctrl+b>v"),
+        .item("herdr.menu.item.split_pane_down", "Split Pane Down", "ctrl+b>minus"),
+        .item("herdr.menu.item.resize_mode", "Resize Mode", "ctrl+b>r"),
     ]
 
     static let nativeGo: [Entry] = [
-        .item("Goto…", "ctrl+b>g"),
+        .item("herdr.menu.item.goto", "Goto…", "ctrl+b>g"),
         .separator,
-        .item("Previous Tab", "ctrl+b>p"),
-        .item("Next Tab", "ctrl+b>n"),
-        .item("Previous Pane", "ctrl+b>shift+tab"),
-        .item("Next Pane", "ctrl+b>tab"),
+        .item("herdr.menu.item.previous_tab", "Previous Tab", "ctrl+b>p"),
+        .item("herdr.menu.item.next_tab", "Next Tab", "ctrl+b>n"),
+        .item("herdr.menu.item.previous_pane", "Previous Pane", "ctrl+b>shift+tab"),
+        .item("herdr.menu.item.next_pane", "Next Pane", "ctrl+b>tab"),
         .separator,
-        .item("Open Notification Target", "ctrl+b>o"),
+        .item("herdr.menu.item.open_notification_target", "Open Notification Target", "ctrl+b>o"),
     ]
 
     static let nativeTools: [Entry] = [
-        .item("Command Palette…", "ctrl+b>semicolon"),
-        .item("File Finder…", "ctrl+b>f"),
-        .item("Source Control", "ctrl+b>y"),
-        .item("Session Search…", "ctrl+b>shift+e"),
-        .item("Snippets…", "ctrl+b>shift+s"),
-        .item("Container Status", "ctrl+b>shift+o"),
-        .item("Plugin Manager", "ctrl+b>shift+u"),
+        .item("herdr.menu.item.command_palette", "Command Palette…", "ctrl+b>semicolon"),
+        .item("herdr.menu.item.file_finder", "File Finder…", "ctrl+b>f"),
+        .item("herdr.menu.item.source_control", "Source Control", "ctrl+b>y"),
+        .item("herdr.menu.item.session_search", "Session Search…", "ctrl+b>shift+e"),
+        .item("herdr.menu.item.snippets", "Snippets…", "ctrl+b>shift+s"),
+        .item("herdr.menu.item.container_status", "Container Status", "ctrl+b>shift+o"),
+        .item("herdr.menu.item.plugin_manager", "Plugin Manager", "ctrl+b>shift+u"),
         .separator,
-        .item("Fork Agent from Message…", "ctrl+b>shift+y"),
+        .item("herdr.menu.item.fork_agent_from_message", "Fork Agent from Message…", "ctrl+b>shift+y"),
     ]
 
     static let nativeHelp: [Entry] = [
-        .item("Mash Help", "ctrl+b>shift+slash"),
-        .item("Check for Updates…", "ctrl+b>shift+z"),
+        .item("herdr.menu.item.mash_help", "Mash Help", "ctrl+b>shift+slash"),
+        .item("herdr.menu.item.check_for_updates", "Check for Updates…", "ctrl+b>shift+z"),
     ]
+
+    static func localized(_ key: String, _ english: String) -> String {
+        NSLocalizedString(key, tableName: nil, bundle: .main, value: english, comment: "Mash menu item")
+    }
 
     private static let fileMenuTitle = String(localized: "menu.file", defaultValue: "File", comment: "File menu title")
     private static let editMenuTitle = String(localized: "menu.edit", defaultValue: "Edit", comment: "Edit menu title")
