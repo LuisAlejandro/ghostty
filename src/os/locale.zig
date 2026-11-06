@@ -24,9 +24,6 @@ pub fn ensureLocale() !void {
         if (lang == null or lang.?[0] == 0) {
             setLangFromCocoa();
         }
-
-        // Mash: MASH_LANGUAGE picks the macOS menu language for this process.
-        registerMashLanguage();
     }
 
     // Set the locale to whatever is set in env vars.
@@ -77,34 +74,6 @@ pub fn ensureLocale() !void {
         log.info("setlocale default result={s}", .{v});
         return;
     } else log.warn("setlocale failed even with the fallback, uncertain results", .{});
-}
-
-/// Mash: the macOS app language comes from MASH_LANGUAGE. It is registered as
-/// an in-memory defaults fallback (never written to ~/Library/Preferences), so
-/// AppKit loads the matching MainMenu.strings when the menus are built.
-fn registerMashLanguage() void {
-    const raw = std.posix.system.getenv("MASH_LANGUAGE") orelse return;
-    const lang = std.mem.sliceTo(raw, 0);
-    if (lang.len == 0) return;
-    for (lang) |c| switch (c) {
-        'a'...'z', 'A'...'Z', '0'...'9', '-' => {},
-        else => return,
-    };
-
-    const pool = objc.AutoreleasePool.init();
-    defer pool.deinit();
-
-    const NSString = objc.getClass("NSString") orelse return;
-    const NSArray = objc.getClass("NSArray") orelse return;
-    const NSDictionary = objc.getClass("NSDictionary") orelse return;
-    const NSUserDefaults = objc.getClass("NSUserDefaults") orelse return;
-
-    const value = NSString.msgSend(objc.Object, objc.sel("stringWithUTF8String:"), .{raw});
-    const list = NSArray.msgSend(objc.Object, objc.sel("arrayWithObject:"), .{value.value});
-    const key = NSString.msgSend(objc.Object, objc.sel("stringWithUTF8String:"), .{@as([*:0]const u8, "AppleLanguages")});
-    const dict = NSDictionary.msgSend(objc.Object, objc.sel("dictionaryWithObject:forKey:"), .{ list.value, key.value });
-    const defaults = NSUserDefaults.msgSend(objc.Object, objc.sel("standardUserDefaults"), .{});
-    defaults.msgSend(void, objc.sel("registerDefaults:"), .{dict.value});
 }
 
 /// This sets the LANG environment variable based on the macOS system
