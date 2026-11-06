@@ -79,14 +79,18 @@ pub fn ensureLocale() !void {
     } else log.warn("setlocale failed even with the fallback, uncertain results", .{});
 }
 
-/// Mash: the macOS app language comes from MASH_LANGUAGE. It is registered as
-/// an in-memory defaults fallback (never written to ~/Library/Preferences), so
-/// AppKit loads the matching MainMenu.strings when the menus are built.
+/// Mash: the macOS app language comes from MASH_LANGUAGE.
+///
+/// AppKit picks the menu language from AppleLanguages. The value is written into
+/// the in-memory argument domain, the highest-priority domain, the same one a
+/// `-AppleLanguages (es)` launch argument would fill; nothing reaches
+/// ~/Library/Preferences. registerDefaults would not work: it is the lowest
+/// domain, so the system language set in NSGlobalDomain would always win.
 fn registerMashLanguage() void {
     const raw = std.posix.system.getenv("MASH_LANGUAGE") orelse return;
     const lang = std.mem.sliceTo(raw, 0);
     if (lang.len == 0) return;
-    for (lang) |c| switch (c) {
+    for (lang) |ch| switch (ch) {
         'a'...'z', 'A'...'Z', '0'...'9', '-' => {},
         else => return,
     };
@@ -96,15 +100,21 @@ fn registerMashLanguage() void {
 
     const NSString = objc.getClass("NSString") orelse return;
     const NSArray = objc.getClass("NSArray") orelse return;
-    const NSDictionary = objc.getClass("NSDictionary") orelse return;
+    const NSMutableDictionary = objc.getClass("NSMutableDictionary") orelse return;
     const NSUserDefaults = objc.getClass("NSUserDefaults") orelse return;
 
     const value = NSString.msgSend(objc.Object, objc.sel("stringWithUTF8String:"), .{raw});
     const list = NSArray.msgSend(objc.Object, objc.sel("arrayWithObject:"), .{value.value});
     const key = NSString.msgSend(objc.Object, objc.sel("stringWithUTF8String:"), .{@as([*:0]const u8, "AppleLanguages")});
-    const dict = NSDictionary.msgSend(objc.Object, objc.sel("dictionaryWithObject:forKey:"), .{ list.value, key.value });
+    const domain = NSString.msgSend(objc.Object, objc.sel("stringWithUTF8String:"), .{@as([*:0]const u8, "NSArgumentDomain")});
     const defaults = NSUserDefaults.msgSend(objc.Object, objc.sel("standardUserDefaults"), .{});
-    defaults.msgSend(void, objc.sel("registerDefaults:"), .{dict.value});
+
+    // Keep any arguments already parsed into the domain; replace only the language.
+    const current = defaults.msgSend(objc.Object, objc.sel("volatileDomainForName:"), .{domain.value});
+    const args = NSMutableDictionary.msgSend(objc.Object, objc.sel("dictionaryWithDictionary:"), .{current.value});
+    args.msgSend(void, objc.sel("setObject:forKey:"), .{ list.value, key.value });
+    defaults.msgSend(void, objc.sel("removeVolatileDomainForName:"), .{domain.value});
+    defaults.msgSend(void, objc.sel("setVolatileDomain:forName:"), .{ args.value, domain.value });
 }
 
 /// This sets the LANG environment variable based on the macOS system
