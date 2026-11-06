@@ -4,6 +4,19 @@ import GhosttyKit
 
 import MachO
 
+// AppKit caches Bundle.main's preferred localizations on first access. Mash
+// reads Bundle metadata below before Ghostty initializes, so install the
+// process-only AppleLanguages override before that first bundle lookup.
+private func mashRegisterLanguage() {
+    guard let language = ProcessInfo.processInfo.environment["MASH_LANGUAGE"], !language.isEmpty else { return }
+    let defaults = UserDefaults.standard
+    var arguments = defaults.volatileDomain(forName: UserDefaults.argumentDomain)
+    arguments["AppleLanguages"] = [language]
+    defaults.setVolatileDomain(arguments, forName: UserDefaults.argumentDomain)
+}
+
+mashRegisterLanguage()
+
 // Capture the loaded image and version before a replacement can change disk
 // metadata. A marker or rereading VERSION is not evidence of this runtime.
 let mashUpdateLoadedVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
