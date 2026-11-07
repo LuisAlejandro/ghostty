@@ -5028,6 +5028,32 @@ test "mash_send_key native suffix encodes without Kitty; Cursor single chords st
     try testing.expectEqualStrings("\x1b[47:63;2u", help_writer.buffered());
 }
 
+test "mash_send_key shifted brackets match typed workspace keys" {
+    const testing = std.testing;
+    const cases = .{
+        .{ "shift+bracket_left", "{", "\x1b[91:123;2u" },
+        .{ "shift+bracket_right", "}", "\x1b[93:125;2u" },
+    };
+    inline for (cases) |case| {
+        var text: [1]u8 = undefined;
+        const press = mashChordPress(mashChord(case[0]).?, true, &text);
+        try testing.expectEqualStrings(case[1], press.utf8);
+        var buf: [64]u8 = undefined;
+        var legacy: std.Io.Writer = .fixed(&buf);
+        try input.key_encode.encode(&legacy, press, .default);
+        try testing.expectEqualStrings(case[1], legacy.buffered());
+        var kitty: std.Io.Writer = .fixed(&buf);
+        try input.key_encode.encode(&kitty, press, .{
+            .kitty_flags = .{
+                .disambiguate = true,
+                .report_all = true,
+                .report_alternates = true,
+            },
+        });
+        try testing.expectEqualStrings(case[2], kitty.buffered());
+    }
+}
+
 /// Build a synthetic press. A native menu sends a prefix followed by a key;
 /// its printable text is needed by the legacy encoder, and for Kitty's shifted
 /// alternate (e.g. Shift+Slash -> '?'). A single-chord Cursor-style menu keeps
@@ -5041,15 +5067,41 @@ fn mashChordPress(chord: MashChord, sequence: bool, text: *[1]u8) input.KeyEvent
     };
     if (sequence and unshifted >= ' ' and unshifted <= '~') {
         const ch: u8 = @intCast(unshifted);
-        text[0] = if (chord.mods.shift) switch (ch) {
-            'a'...'z' => std.ascii.toUpper(ch),
-            '/' => '?',
-            ';' => ':',
-            else => ch,
-        } else ch;
+        text[0] = if (chord.mods.shift) shifted(ch) else ch;
         press.utf8 = text[0..1];
     }
     return press;
+}
+
+/// The character a US-layout key types with Shift held. The menus send Herdr's
+/// own key names, so every printable key a keymap can name has to arrive as the
+/// character the user would have typed: `shift+bracket_left` is `{`, not `[`.
+fn shifted(ch: u8) u8 {
+    return switch (ch) {
+        'a'...'z' => std.ascii.toUpper(ch),
+        '`' => '~',
+        '1' => '!',
+        '2' => '@',
+        '3' => '#',
+        '4' => '$',
+        '5' => '%',
+        '6' => '^',
+        '7' => '&',
+        '8' => '*',
+        '9' => '(',
+        '0' => ')',
+        '-' => '_',
+        '=' => '+',
+        '[' => '{',
+        ']' => '}',
+        '\\' => '|',
+        ';' => ':',
+        '\'' => '"',
+        ',' => '<',
+        '.' => '>',
+        '/' => '?',
+        else => ch,
+    };
 }
 
 /// Write one chord's press and release to the pty, using the negotiated
