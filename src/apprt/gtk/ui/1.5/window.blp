@@ -105,21 +105,10 @@ menu main_menu {
     }
   }
 
-  section {
-    item {
-      label: _("Clear");
-      action: "win.clear";
-    }
-
-    item {
-      label: _("Reset");
-      action: "win.reset";
-    }
-  }
-
   // Mash: Herdr commands. Each item sends its shipped Linux Herdr chord to
   // this window's terminal (win.mash-send-key -> mash_send_key), so it
-  // behaves exactly like the shortcut. accel only displays the chord.
+  // behaves exactly like the shortcut. accel only displays the chord. View
+  // also carries Ghostty's own font size and full screen actions.
   section {
     submenu {
       label: _("File");
@@ -152,6 +141,13 @@ menu main_menu {
           target: "ctrl+shift+t";
           accel: "<Control><Shift>t";
         }
+
+        item {
+          label: _("New Shell Pane under Fresh");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+backquote";
+          accel: "<Control><Shift>grave";
+        }
       }
 
       section {
@@ -174,6 +170,22 @@ menu main_menu {
           action: "win.mash-send-key";
           target: "ctrl+alt+shift+o";
           accel: "<Control><Alt><Shift>o";
+        }
+      }
+
+      section {
+        item {
+          label: _("Rename Tab…");
+          action: "win.mash-send-key";
+          target: "ctrl+shift+m";
+          accel: "<Control><Shift>m";
+        }
+
+        item {
+          label: _("Rename Workspace…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+m";
+          accel: "<Control><Alt><Shift>m";
         }
       }
 
@@ -242,10 +254,45 @@ menu main_menu {
           accel: "<Alt>g";
         }
       }
+
+      section {
+        item {
+          label: _("Clear Pane");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+k";
+          accel: "<Control><Alt><Shift>k";
+        }
+      }
     }
 
     submenu {
       label: _("View");
+
+      section {
+        item {
+          label: _("Increase Font Size");
+          action: "win.increase-font-size";
+          accel: "<Control>equal";
+        }
+
+        item {
+          label: _("Decrease Font Size");
+          action: "win.decrease-font-size";
+          accel: "<Control>minus";
+        }
+
+        item {
+          label: _("Reset Font Size");
+          action: "win.reset-font-size";
+          accel: "<Control>0";
+        }
+
+        item {
+          label: _("Toggle Full Screen");
+          action: "win.toggle-fullscreen";
+          accel: "<Control>Return";
+        }
+      }
 
       section {
         item {
@@ -283,6 +330,22 @@ menu main_menu {
           action: "win.mash-send-key";
           target: "ctrl+alt+r";
           accel: "<Control><Alt>r";
+        }
+      }
+
+      section {
+        item {
+          label: _("Move Tab Left");
+          action: "win.mash-send-key";
+          target: "alt+shift+bracket_left";
+          accel: "<Alt><Shift>bracketleft";
+        }
+
+        item {
+          label: _("Move Tab Right");
+          action: "win.mash-send-key";
+          target: "alt+shift+bracket_right";
+          accel: "<Alt><Shift>bracketright";
         }
       }
     }
@@ -359,6 +422,36 @@ menu main_menu {
 
       section {
         item {
+          label: _("Focus Pane Left");
+          action: "win.mash-send-key";
+          target: "ctrl+super+arrow_left";
+          accel: "<Control><Super>Left";
+        }
+
+        item {
+          label: _("Focus Pane Right");
+          action: "win.mash-send-key";
+          target: "ctrl+super+arrow_right";
+          accel: "<Control><Super>Right";
+        }
+
+        item {
+          label: _("Focus Pane Up");
+          action: "win.mash-send-key";
+          target: "ctrl+super+arrow_up";
+          accel: "<Control><Super>Up";
+        }
+
+        item {
+          label: _("Focus Pane Down");
+          action: "win.mash-send-key";
+          target: "ctrl+super+arrow_down";
+          accel: "<Control><Super>Down";
+        }
+      }
+
+      section {
+        item {
           label: _("Open Notification Target");
           action: "win.mash-send-key";
           target: "ctrl+alt+y";
@@ -376,6 +469,13 @@ menu main_menu {
           action: "win.mash-send-key";
           target: "ctrl+shift+p";
           accel: "<Control><Shift>p";
+        }
+
+        item {
+          label: _("Search Files and Actions…");
+          action: "win.mash-send-key";
+          target: "ctrl+alt+shift+f";
+          accel: "<Control><Alt><Shift>f";
         }
 
         item {
@@ -427,6 +527,20 @@ menu main_menu {
           action: "win.mash-send-key";
           target: "ctrl+alt+shift+y";
           accel: "<Control><Alt><Shift>y";
+        }
+
+        item {
+          label: _("Fork Agent Beside Pane…");
+          action: "win.mash-send-key";
+          target: "ctrl+super+y";
+          accel: "<Control><Super>y";
+        }
+
+        item {
+          label: _("Fork Agent into New Workspace…");
+          action: "win.mash-send-key";
+          target: "ctrl+super+shift+y";
+          accel: "<Control><Shift><Super>y";
         }
       }
     }
@@ -503,24 +617,12 @@ menu main_menu_native {
     }
   }
 
-  section {
-    item {
-      label: _("Clear");
-      action: "win.clear";
-    }
-
-    item {
-      label: _("Reset");
-      action: "win.reset";
-    }
-  }
-
   // Mash: Herdr commands in the Native keymap. Each item sends Herdr's stock
   // Ctrl+B prefix key, or Mash's keys.native.toml prefix key, as a sequence
   // (mash_send_key "ctrl+b>n"). A GTK accel holds one chord, so the sequence
-  // is shown at the end of the label instead. Items for actions Herdr has no
-  // stock key for (workspace and agent cycling, removing a worktree) are left
-  // out rather than shown with a key that does nothing.
+  // is shown at the end of the label instead. Actions the Cursor-style keymap
+  // deliberately leaves unbound (copy mode, edit scrollback, rename and swap
+  // pane) appear only here.
   section {
     submenu {
       label: _("File");
@@ -549,6 +651,12 @@ menu main_menu_native {
           action: "win.mash-send-key";
           target: "ctrl+b>shift+c";
         }
+
+        item {
+          label: _("New Shell Pane under Fresh  ·  Ctrl+B `");
+          action: "win.mash-send-key";
+          target: "ctrl+b>backquote";
+        }
       }
 
       section {
@@ -573,6 +681,26 @@ menu main_menu_native {
 
       section {
         item {
+          label: _("Rename Tab…  ·  Ctrl+B T");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+t";
+        }
+
+        item {
+          label: _("Rename Workspace…  ·  Ctrl+B W");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+w";
+        }
+
+        item {
+          label: _("Rename Pane…  ·  Ctrl+B P");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+p";
+        }
+      }
+
+      section {
+        item {
           label: _("Close Pane  ·  Ctrl+B x");
           action: "win.mash-send-key";
           target: "ctrl+b>x";
@@ -590,6 +718,11 @@ menu main_menu_native {
           target: "ctrl+b>shift+d";
         }
 
+        item {
+          label: _("Remove Worktree  ·  Ctrl+B Shift+Backspace");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+backspace";
+        }
       }
     }
 
@@ -623,10 +756,56 @@ menu main_menu_native {
           target: "ctrl+b>u";
         }
       }
+
+      section {
+        item {
+          label: _("Copy Mode  ·  Ctrl+B [");
+          action: "win.mash-send-key";
+          target: "ctrl+b>bracket_left";
+        }
+
+        item {
+          label: _("Edit Scrollback  ·  Ctrl+B e");
+          action: "win.mash-send-key";
+          target: "ctrl+b>e";
+        }
+
+        item {
+          label: _("Clear Pane  ·  Ctrl+B Ctrl+K");
+          action: "win.mash-send-key";
+          target: "ctrl+b>ctrl+k";
+        }
+      }
     }
 
     submenu {
       label: _("View");
+
+      section {
+        item {
+          label: _("Increase Font Size");
+          action: "win.increase-font-size";
+          accel: "<Control>equal";
+        }
+
+        item {
+          label: _("Decrease Font Size");
+          action: "win.decrease-font-size";
+          accel: "<Control>minus";
+        }
+
+        item {
+          label: _("Reset Font Size");
+          action: "win.reset-font-size";
+          accel: "<Control>0";
+        }
+
+        item {
+          label: _("Toggle Full Screen");
+          action: "win.toggle-fullscreen";
+          accel: "<Control>Return";
+        }
+      }
 
       section {
         item {
@@ -661,6 +840,46 @@ menu main_menu_native {
           target: "ctrl+b>r";
         }
       }
+
+      section {
+        item {
+          label: _("Swap Pane Left  ·  Ctrl+B H");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+h";
+        }
+
+        item {
+          label: _("Swap Pane Right  ·  Ctrl+B L");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+l";
+        }
+
+        item {
+          label: _("Swap Pane Up  ·  Ctrl+B K");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+k";
+        }
+
+        item {
+          label: _("Swap Pane Down  ·  Ctrl+B J");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+j";
+        }
+      }
+
+      section {
+        item {
+          label: _("Move Tab Left  ·  Ctrl+B Shift+Left");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+arrow_left";
+        }
+
+        item {
+          label: _("Move Tab Right  ·  Ctrl+B Shift+Right");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+arrow_right";
+        }
+      }
     }
 
     submenu {
@@ -675,7 +894,17 @@ menu main_menu_native {
       }
 
       section {
+        item {
+          label: _("Previous Workspace  ·  Ctrl+B {");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+bracket_left";
+        }
 
+        item {
+          label: _("Next Workspace  ·  Ctrl+B }");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+bracket_right";
+        }
 
         item {
           label: _("Previous Tab  ·  Ctrl+B p");
@@ -701,7 +930,43 @@ menu main_menu_native {
           target: "ctrl+b>tab";
         }
 
+        item {
+          label: _("Previous Agent  ·  Ctrl+B Shift+Up");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+arrow_up";
+        }
 
+        item {
+          label: _("Next Agent  ·  Ctrl+B Shift+Down");
+          action: "win.mash-send-key";
+          target: "ctrl+b>shift+arrow_down";
+        }
+      }
+
+      section {
+        item {
+          label: _("Focus Pane Left  ·  Ctrl+B h");
+          action: "win.mash-send-key";
+          target: "ctrl+b>h";
+        }
+
+        item {
+          label: _("Focus Pane Right  ·  Ctrl+B l");
+          action: "win.mash-send-key";
+          target: "ctrl+b>l";
+        }
+
+        item {
+          label: _("Focus Pane Up  ·  Ctrl+B k");
+          action: "win.mash-send-key";
+          target: "ctrl+b>k";
+        }
+
+        item {
+          label: _("Focus Pane Down  ·  Ctrl+B j");
+          action: "win.mash-send-key";
+          target: "ctrl+b>j";
+        }
       }
 
       section {
@@ -721,6 +986,12 @@ menu main_menu_native {
           label: _("Command Palette…  ·  Ctrl+B ;");
           action: "win.mash-send-key";
           target: "ctrl+b>semicolon";
+        }
+
+        item {
+          label: _("Search Files and Actions…  ·  Ctrl+B Ctrl+F");
+          action: "win.mash-send-key";
+          target: "ctrl+b>ctrl+f";
         }
 
         item {
@@ -765,6 +1036,18 @@ menu main_menu_native {
           label: _("Fork Agent from Message…  ·  Ctrl+B Y");
           action: "win.mash-send-key";
           target: "ctrl+b>shift+y";
+        }
+
+        item {
+          label: _("Fork Agent Beside Pane…  ·  Ctrl+B Ctrl+Y");
+          action: "win.mash-send-key";
+          target: "ctrl+b>ctrl+y";
+        }
+
+        item {
+          label: _("Fork Agent into New Workspace…  ·  Ctrl+B Ctrl+Shift+Y");
+          action: "win.mash-send-key";
+          target: "ctrl+b>ctrl+shift+y";
         }
       }
     }

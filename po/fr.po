@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.mitchellh.ghostty\n"
 "Report-Msgid-Bugs-To: m@mitchellh.com\n"
-"POT-Creation-Date: 2026-11-06 16:12-0400\n"
+"POT-Creation-Date: 2026-11-06 22:30-0400\n"
 "PO-Revision-Date: 2026-08-22 11:30+0200\n"
 "Last-Translator: flou <flou@proton.me>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -50,7 +50,7 @@ msgid "Reload configuration to show this prompt again"
 msgstr "Recharger la configuration pour afficher à nouveau ce message"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7
-#: src/apprt/gtk/class/application.zig:2079
+#: src/apprt/gtk/class/application.zig:2077
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -77,7 +77,7 @@ msgid "Ignore"
 msgstr "Ignorer"
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13
-#: src/apprt/gtk/ui/1.2/surface.blp:356 src/apprt/gtk/ui/1.5/window.blp:444
+#: src/apprt/gtk/ui/1.2/surface.blp:329 src/apprt/gtk/ui/1.5/window.blp:558
 msgid "Reload Configuration"
 msgstr "Recharger la configuration"
 
@@ -113,425 +113,570 @@ msgid "Read-only"
 msgstr "Lecture seule"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
-#: src/apprt/gtk/ui/1.5/window.blp:489
+#: src/apprt/gtk/ui/1.5/window.blp:603
 msgid "Copy"
 msgstr "Copier"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
-#: src/apprt/gtk/ui/1.5/window.blp:494
+#: src/apprt/gtk/ui/1.5/window.blp:608
 msgid "Paste"
 msgstr "Coller"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:311
-msgid "Notify on Next Command Finish"
-msgstr "Notifier à la fin de la prochaine commande"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:318 src/apprt/gtk/ui/1.5/window.blp:110
-#: src/apprt/gtk/ui/1.5/window.blp:508
-msgid "Clear"
-msgstr "Effacer"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:323 src/apprt/gtk/ui/1.5/window.blp:115
-#: src/apprt/gtk/ui/1.5/window.blp:513
-msgid "Reset"
-msgstr "Réinitialiser"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:330
+#: src/apprt/gtk/ui/1.2/surface.blp:313
 msgid "Window"
 msgstr "Fenêtre"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:103
-#: src/apprt/gtk/ui/1.5/window.blp:501 src/input/command.zig:630
+#: src/apprt/gtk/ui/1.2/surface.blp:316 src/apprt/gtk/ui/1.5/window.blp:103
+#: src/apprt/gtk/ui/1.5/window.blp:615 src/input/command.zig:630
 msgid "Close Window"
 msgstr "Fermer la fenêtre"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:341
-msgid "Config"
-msgstr "Config"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:344
-msgid "Open Configuration in OS Editor"
-msgstr "Ouvrir la configuration dans l'éditeur du système"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:350
-msgid "Open Configuration in New Window"
-msgstr "Ouvrir la configuration dans une nouvelle fenêtre"
 
 #: src/apprt/gtk/ui/1.5/window.blp:59
 msgid "Main Menu"
 msgstr "Menu principal"
 
-#: src/apprt/gtk/ui/1.5/window.blp:125 src/apprt/gtk/ui/1.5/window.blp:526
+#: src/apprt/gtk/ui/1.5/window.blp:114 src/apprt/gtk/ui/1.5/window.blp:628
 msgid "File"
 msgstr "Fichier"
 
-#: src/apprt/gtk/ui/1.5/window.blp:129
+#: src/apprt/gtk/ui/1.5/window.blp:118
 msgid "New Dev Tab"
 msgstr "Nouvel onglet Dev"
 
-#: src/apprt/gtk/ui/1.5/window.blp:136
+#: src/apprt/gtk/ui/1.5/window.blp:125
 msgid "New Agent Tab"
 msgstr "Nouvel onglet Agent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:143
+#: src/apprt/gtk/ui/1.5/window.blp:132
 msgid "New Review Tab"
 msgstr "Nouvel onglet Review"
 
-#: src/apprt/gtk/ui/1.5/window.blp:150
+#: src/apprt/gtk/ui/1.5/window.blp:139
 msgid "New Shell Tab"
 msgstr "Nouvel onglet Shell"
 
-#: src/apprt/gtk/ui/1.5/window.blp:159
+#: src/apprt/gtk/ui/1.5/window.blp:146
+msgid "New Shell Pane under Fresh"
+msgstr "Nouveau volet Shell sous Fresh"
+
+#: src/apprt/gtk/ui/1.5/window.blp:155
 msgid "New Workspace…"
 msgstr "Nouvel espace de travail…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:166
+#: src/apprt/gtk/ui/1.5/window.blp:162
 msgid "New Worktree…"
 msgstr "Nouveau worktree…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:173
+#: src/apprt/gtk/ui/1.5/window.blp:169
 msgid "Workspace Picker…"
 msgstr "Sélecteur d'espace de travail…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:182
+#: src/apprt/gtk/ui/1.5/window.blp:178
+msgid "Rename Tab…"
+msgstr "Renommer l'onglet…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:185
+msgid "Rename Workspace…"
+msgstr "Renommer l'espace de travail…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:194
 msgid "Close Pane"
 msgstr "Fermer le volet"
 
-#: src/apprt/gtk/ui/1.5/window.blp:189 src/input/command.zig:613
+#: src/apprt/gtk/ui/1.5/window.blp:201 src/input/command.zig:613
 msgid "Close Tab"
 msgstr "Fermer l'onglet"
 
-#: src/apprt/gtk/ui/1.5/window.blp:196
+#: src/apprt/gtk/ui/1.5/window.blp:208
 msgid "Close Workspace"
 msgstr "Fermer l'espace de travail"
 
-#: src/apprt/gtk/ui/1.5/window.blp:203
+#: src/apprt/gtk/ui/1.5/window.blp:215
 msgid "Remove Worktree"
 msgstr "Retirer le worktree"
 
-#: src/apprt/gtk/ui/1.5/window.blp:212 src/apprt/gtk/ui/1.5/window.blp:597
+#: src/apprt/gtk/ui/1.5/window.blp:224 src/apprt/gtk/ui/1.5/window.blp:730
 msgid "Edit"
 msgstr "Édition"
 
-#: src/apprt/gtk/ui/1.5/window.blp:216
+#: src/apprt/gtk/ui/1.5/window.blp:228
 msgid "Annotate Selection"
 msgstr "Annoter la sélection"
 
-#: src/apprt/gtk/ui/1.5/window.blp:223
+#: src/apprt/gtk/ui/1.5/window.blp:235
 msgid "Paste Annotations into Agent"
 msgstr "Coller les annotations dans l'Agent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:230
+#: src/apprt/gtk/ui/1.5/window.blp:242
 msgid "Manage Annotations"
 msgstr "Gérer les annotations"
 
-#: src/apprt/gtk/ui/1.5/window.blp:239
+#: src/apprt/gtk/ui/1.5/window.blp:251
 msgid "Pick Link or ID"
 msgstr "Choisir un lien ou un ID"
 
-#: src/apprt/gtk/ui/1.5/window.blp:248 src/apprt/gtk/ui/1.5/window.blp:629
+#: src/apprt/gtk/ui/1.5/window.blp:260
+msgid "Clear Pane"
+msgstr "Effacer le volet"
+
+#: src/apprt/gtk/ui/1.5/window.blp:269 src/apprt/gtk/ui/1.5/window.blp:782
 msgid "View"
 msgstr "Présentation"
 
-#: src/apprt/gtk/ui/1.5/window.blp:252
+#: src/apprt/gtk/ui/1.5/window.blp:273 src/apprt/gtk/ui/1.5/window.blp:786
+#: src/input/command.zig:225
+msgid "Increase Font Size"
+msgstr "Augmenter la taille de la police"
+
+#: src/apprt/gtk/ui/1.5/window.blp:279 src/apprt/gtk/ui/1.5/window.blp:792
+#: src/input/command.zig:231
+msgid "Decrease Font Size"
+msgstr "Diminuer la taille de la police"
+
+#: src/apprt/gtk/ui/1.5/window.blp:285 src/apprt/gtk/ui/1.5/window.blp:798
+#: src/input/command.zig:237
+msgid "Reset Font Size"
+msgstr "Réinitialiser la taille de la police"
+
+#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:804
+msgid "Toggle Full Screen"
+msgstr "Passer en plein écran"
+
+#: src/apprt/gtk/ui/1.5/window.blp:299
 msgid "Toggle Sidebar"
 msgstr "Basculer la barre latérale"
 
-#: src/apprt/gtk/ui/1.5/window.blp:259
+#: src/apprt/gtk/ui/1.5/window.blp:306
 msgid "Zoom Pane"
 msgstr "Zoomer le volet"
 
-#: src/apprt/gtk/ui/1.5/window.blp:268
+#: src/apprt/gtk/ui/1.5/window.blp:315
 msgid "Split Pane Right"
 msgstr "Diviser le volet à droite"
 
-#: src/apprt/gtk/ui/1.5/window.blp:275
+#: src/apprt/gtk/ui/1.5/window.blp:322
 msgid "Split Pane Down"
 msgstr "Diviser le volet vers le bas"
 
-#: src/apprt/gtk/ui/1.5/window.blp:282
+#: src/apprt/gtk/ui/1.5/window.blp:329
 msgid "Resize Mode"
 msgstr "Mode redimensionnement"
 
-#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:667
+#: src/apprt/gtk/ui/1.5/window.blp:338 src/input/command.zig:434
+msgid "Move Tab Left"
+msgstr "Déplacer l'onglet à gauche"
+
+#: src/apprt/gtk/ui/1.5/window.blp:345 src/input/command.zig:439
+msgid "Move Tab Right"
+msgstr "Déplacer l'onglet à droite"
+
+#: src/apprt/gtk/ui/1.5/window.blp:354 src/apprt/gtk/ui/1.5/window.blp:886
 msgid "Go"
 msgstr "Aller"
 
-#: src/apprt/gtk/ui/1.5/window.blp:295
+#: src/apprt/gtk/ui/1.5/window.blp:358
 msgid "Goto…"
 msgstr "Aller à…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:304
+#: src/apprt/gtk/ui/1.5/window.blp:367
 msgid "Previous Workspace"
 msgstr "Espace de travail précédent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:311
+#: src/apprt/gtk/ui/1.5/window.blp:374
 msgid "Next Workspace"
 msgstr "Espace de travail suivant"
 
-#: src/apprt/gtk/ui/1.5/window.blp:318
+#: src/apprt/gtk/ui/1.5/window.blp:381
 msgid "Previous Tab"
 msgstr "Onglet précédent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:325
+#: src/apprt/gtk/ui/1.5/window.blp:388
 msgid "Next Tab"
 msgstr "Onglet suivant"
 
-#: src/apprt/gtk/ui/1.5/window.blp:332
+#: src/apprt/gtk/ui/1.5/window.blp:395
 msgid "Previous Pane"
 msgstr "Volet précédent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:339
+#: src/apprt/gtk/ui/1.5/window.blp:402
 msgid "Next Pane"
 msgstr "Volet suivant"
 
-#: src/apprt/gtk/ui/1.5/window.blp:346
+#: src/apprt/gtk/ui/1.5/window.blp:409
 msgid "Previous Agent"
 msgstr "Agent précédent"
 
-#: src/apprt/gtk/ui/1.5/window.blp:353
+#: src/apprt/gtk/ui/1.5/window.blp:416
 msgid "Next Agent"
 msgstr "Agent suivant"
 
-#: src/apprt/gtk/ui/1.5/window.blp:362
+#: src/apprt/gtk/ui/1.5/window.blp:425
+msgid "Focus Pane Left"
+msgstr "Activer le volet de gauche"
+
+#: src/apprt/gtk/ui/1.5/window.blp:432
+msgid "Focus Pane Right"
+msgstr "Activer le volet de droite"
+
+#: src/apprt/gtk/ui/1.5/window.blp:439
+msgid "Focus Pane Up"
+msgstr "Activer le volet du haut"
+
+#: src/apprt/gtk/ui/1.5/window.blp:446
+msgid "Focus Pane Down"
+msgstr "Activer le volet du bas"
+
+#: src/apprt/gtk/ui/1.5/window.blp:455
 msgid "Open Notification Target"
 msgstr "Ouvrir la cible de notification"
 
-#: src/apprt/gtk/ui/1.5/window.blp:371 src/apprt/gtk/ui/1.5/window.blp:717
+#: src/apprt/gtk/ui/1.5/window.blp:464 src/apprt/gtk/ui/1.5/window.blp:982
 msgid "Tools"
 msgstr "Outils"
 
-#: src/apprt/gtk/ui/1.5/window.blp:375
+#: src/apprt/gtk/ui/1.5/window.blp:468
 msgid "Command Palette…"
 msgstr "Palette de commandes…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:382
+#: src/apprt/gtk/ui/1.5/window.blp:475
+msgid "Search Files and Actions…"
+msgstr "Rechercher des fichiers et des actions…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:482
 msgid "File Finder…"
 msgstr "Recherche de fichiers…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:389
+#: src/apprt/gtk/ui/1.5/window.blp:489
 msgid "Source Control"
 msgstr "Contrôle de code source"
 
-#: src/apprt/gtk/ui/1.5/window.blp:396
+#: src/apprt/gtk/ui/1.5/window.blp:496
 msgid "Session Search…"
 msgstr "Recherche de session…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:403
+#: src/apprt/gtk/ui/1.5/window.blp:503
 msgid "Snippets…"
 msgstr "Extraits…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:410
+#: src/apprt/gtk/ui/1.5/window.blp:510
 msgid "Container Status"
 msgstr "Statut du conteneur"
 
-#: src/apprt/gtk/ui/1.5/window.blp:417
+#: src/apprt/gtk/ui/1.5/window.blp:517
 msgid "Plugin Manager"
 msgstr "Gestionnaire de plugins"
 
-#: src/apprt/gtk/ui/1.5/window.blp:426
+#: src/apprt/gtk/ui/1.5/window.blp:526
 msgid "Fork Agent from Message…"
 msgstr "Dériver l'Agent du message…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:437
+#: src/apprt/gtk/ui/1.5/window.blp:533
+msgid "Fork Agent Beside Pane…"
+msgstr "Dériver l'Agent à côté du volet…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:540
+msgid "Fork Agent into New Workspace…"
+msgstr "Dériver l'Agent dans un nouvel espace de travail…"
+
+#: src/apprt/gtk/ui/1.5/window.blp:551
 msgid "Settings…"
 msgstr "Réglages…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:450
+#: src/apprt/gtk/ui/1.5/window.blp:564
 msgid "Detach"
 msgstr "Détacher"
 
-#: src/apprt/gtk/ui/1.5/window.blp:459
+#: src/apprt/gtk/ui/1.5/window.blp:573
 msgid "Mash Help"
 msgstr "Aide Mash"
 
-#: src/apprt/gtk/ui/1.5/window.blp:466
+#: src/apprt/gtk/ui/1.5/window.blp:580
 msgid "Check for Updates…"
 msgstr "Vérifier les mises à jour…"
 
-#: src/apprt/gtk/ui/1.5/window.blp:473 src/apprt/gtk/ui/1.5/window.blp:806
-#: src/apprt/gtk/class/window.zig:1925
+#: src/apprt/gtk/ui/1.5/window.blp:587 src/apprt/gtk/ui/1.5/window.blp:1089
+#: src/apprt/gtk/class/window.zig:1930
 msgid "About Mash Terminal"
 msgstr "À propos de Mash Terminal"
 
-#: src/apprt/gtk/ui/1.5/window.blp:478 src/apprt/gtk/ui/1.5/window.blp:811
+#: src/apprt/gtk/ui/1.5/window.blp:592 src/apprt/gtk/ui/1.5/window.blp:1094
 #: src/input/command.zig:702
 msgid "Quit"
 msgstr "Quitter"
 
-#: src/apprt/gtk/ui/1.5/window.blp:530
+#: src/apprt/gtk/ui/1.5/window.blp:632
 msgid "New Dev Tab  ·  Ctrl+B t"
 msgstr "Nouvel onglet Dev  ·  Ctrl+B t"
 
-#: src/apprt/gtk/ui/1.5/window.blp:536
+#: src/apprt/gtk/ui/1.5/window.blp:638
 msgid "New Agent Tab  ·  Ctrl+B a"
 msgstr "Nouvel onglet Agent  ·  Ctrl+B a"
 
-#: src/apprt/gtk/ui/1.5/window.blp:542
+#: src/apprt/gtk/ui/1.5/window.blp:644
 msgid "New Review Tab  ·  Ctrl+B V"
 msgstr "Nouvel onglet Review  ·  Ctrl+B V"
 
-#: src/apprt/gtk/ui/1.5/window.blp:548
+#: src/apprt/gtk/ui/1.5/window.blp:650
 msgid "New Shell Tab  ·  Ctrl+B C"
 msgstr "Nouvel onglet Shell  ·  Ctrl+B C"
 
-#: src/apprt/gtk/ui/1.5/window.blp:556
+#: src/apprt/gtk/ui/1.5/window.blp:656
+msgid "New Shell Pane under Fresh  ·  Ctrl+B `"
+msgstr "Nouveau volet Shell sous Fresh  ·  Ctrl+B `"
+
+#: src/apprt/gtk/ui/1.5/window.blp:664
 msgid "New Workspace…  ·  Ctrl+B N"
 msgstr "Nouvel espace de travail…  ·  Ctrl+B N"
 
-#: src/apprt/gtk/ui/1.5/window.blp:562
+#: src/apprt/gtk/ui/1.5/window.blp:670
 msgid "New Worktree…  ·  Ctrl+B G"
 msgstr "Nouveau worktree…  ·  Ctrl+B G"
 
-#: src/apprt/gtk/ui/1.5/window.blp:568
+#: src/apprt/gtk/ui/1.5/window.blp:676
 msgid "Workspace Picker…  ·  Ctrl+B F"
 msgstr "Sélecteur d'espace de travail…  ·  Ctrl+B F"
 
-#: src/apprt/gtk/ui/1.5/window.blp:576
+#: src/apprt/gtk/ui/1.5/window.blp:684
+msgid "Rename Tab…  ·  Ctrl+B T"
+msgstr "Renommer l'onglet…  ·  Ctrl+B T"
+
+#: src/apprt/gtk/ui/1.5/window.blp:690
+msgid "Rename Workspace…  ·  Ctrl+B W"
+msgstr "Renommer l'espace de travail…  ·  Ctrl+B W"
+
+#: src/apprt/gtk/ui/1.5/window.blp:696
+msgid "Rename Pane…  ·  Ctrl+B P"
+msgstr "Renommer le volet…  ·  Ctrl+B P"
+
+#: src/apprt/gtk/ui/1.5/window.blp:704
 msgid "Close Pane  ·  Ctrl+B x"
 msgstr "Fermer le volet  ·  Ctrl+B x"
 
-#: src/apprt/gtk/ui/1.5/window.blp:582
+#: src/apprt/gtk/ui/1.5/window.blp:710
 msgid "Close Tab  ·  Ctrl+B X"
 msgstr "Fermer l'onglet  ·  Ctrl+B X"
 
-#: src/apprt/gtk/ui/1.5/window.blp:588
+#: src/apprt/gtk/ui/1.5/window.blp:716
 msgid "Close Workspace  ·  Ctrl+B D"
 msgstr "Fermer l'espace de travail  ·  Ctrl+B D"
 
-#: src/apprt/gtk/ui/1.5/window.blp:601
+#: src/apprt/gtk/ui/1.5/window.blp:722
+msgid "Remove Worktree  ·  Ctrl+B Shift+Backspace"
+msgstr "Retirer le worktree  ·  Ctrl+B Shift+Backspace"
+
+#: src/apprt/gtk/ui/1.5/window.blp:734
 msgid "Annotate Selection  ·  Ctrl+B i"
 msgstr "Annoter la sélection  ·  Ctrl+B i"
 
-#: src/apprt/gtk/ui/1.5/window.blp:607
+#: src/apprt/gtk/ui/1.5/window.blp:740
 msgid "Paste Annotations into Agent  ·  Ctrl+B I"
 msgstr "Coller les annotations dans l'Agent  ·  Ctrl+B I"
 
-#: src/apprt/gtk/ui/1.5/window.blp:613
+#: src/apprt/gtk/ui/1.5/window.blp:746
 msgid "Manage Annotations  ·  Ctrl+B m"
 msgstr "Gérer les annotations  ·  Ctrl+B m"
 
-#: src/apprt/gtk/ui/1.5/window.blp:621
+#: src/apprt/gtk/ui/1.5/window.blp:754
 msgid "Pick Link or ID  ·  Ctrl+B u"
 msgstr "Choisir un lien ou un ID  ·  Ctrl+B u"
 
-#: src/apprt/gtk/ui/1.5/window.blp:633
+#: src/apprt/gtk/ui/1.5/window.blp:762
+msgid "Copy Mode  ·  Ctrl+B ["
+msgstr "Mode copie  ·  Ctrl+B ["
+
+#: src/apprt/gtk/ui/1.5/window.blp:768
+msgid "Edit Scrollback  ·  Ctrl+B e"
+msgstr "Modifier l'historique de défilement  ·  Ctrl+B e"
+
+#: src/apprt/gtk/ui/1.5/window.blp:774
+msgid "Clear Pane  ·  Ctrl+B Ctrl+K"
+msgstr "Effacer le volet  ·  Ctrl+B Ctrl+K"
+
+#: src/apprt/gtk/ui/1.5/window.blp:812
 msgid "Toggle Sidebar  ·  Ctrl+B b"
 msgstr "Basculer la barre latérale  ·  Ctrl+B b"
 
-#: src/apprt/gtk/ui/1.5/window.blp:639
+#: src/apprt/gtk/ui/1.5/window.blp:818
 msgid "Zoom Pane  ·  Ctrl+B z"
 msgstr "Zoomer le volet  ·  Ctrl+B z"
 
-#: src/apprt/gtk/ui/1.5/window.blp:647
+#: src/apprt/gtk/ui/1.5/window.blp:826
 msgid "Split Pane Right  ·  Ctrl+B v"
 msgstr "Diviser le volet à droite  ·  Ctrl+B v"
 
-#: src/apprt/gtk/ui/1.5/window.blp:653
+#: src/apprt/gtk/ui/1.5/window.blp:832
 msgid "Split Pane Down  ·  Ctrl+B -"
 msgstr "Diviser le volet vers le bas  ·  Ctrl+B -"
 
-#: src/apprt/gtk/ui/1.5/window.blp:659
+#: src/apprt/gtk/ui/1.5/window.blp:838
 msgid "Resize Mode  ·  Ctrl+B r"
 msgstr "Mode redimensionnement  ·  Ctrl+B r"
 
-#: src/apprt/gtk/ui/1.5/window.blp:671
+#: src/apprt/gtk/ui/1.5/window.blp:846
+msgid "Swap Pane Left  ·  Ctrl+B H"
+msgstr "Échanger le volet à gauche  ·  Ctrl+B H"
+
+#: src/apprt/gtk/ui/1.5/window.blp:852
+msgid "Swap Pane Right  ·  Ctrl+B L"
+msgstr "Échanger le volet à droite  ·  Ctrl+B L"
+
+#: src/apprt/gtk/ui/1.5/window.blp:858
+msgid "Swap Pane Up  ·  Ctrl+B K"
+msgstr "Échanger le volet vers le haut  ·  Ctrl+B K"
+
+#: src/apprt/gtk/ui/1.5/window.blp:864
+msgid "Swap Pane Down  ·  Ctrl+B J"
+msgstr "Échanger le volet vers le bas  ·  Ctrl+B J"
+
+#: src/apprt/gtk/ui/1.5/window.blp:872
+msgid "Move Tab Left  ·  Ctrl+B Shift+Left"
+msgstr "Déplacer l'onglet à gauche  ·  Ctrl+B Shift+Left"
+
+#: src/apprt/gtk/ui/1.5/window.blp:878
+msgid "Move Tab Right  ·  Ctrl+B Shift+Right"
+msgstr "Déplacer l'onglet à droite  ·  Ctrl+B Shift+Right"
+
+#: src/apprt/gtk/ui/1.5/window.blp:890
 msgid "Goto…  ·  Ctrl+B g"
 msgstr "Aller à…  ·  Ctrl+B g"
 
-#: src/apprt/gtk/ui/1.5/window.blp:681
+#: src/apprt/gtk/ui/1.5/window.blp:898
+msgid "Previous Workspace  ·  Ctrl+B {"
+msgstr "Espace de travail précédent  ·  Ctrl+B {"
+
+#: src/apprt/gtk/ui/1.5/window.blp:904
+msgid "Next Workspace  ·  Ctrl+B }"
+msgstr "Espace de travail suivant  ·  Ctrl+B }"
+
+#: src/apprt/gtk/ui/1.5/window.blp:910
 msgid "Previous Tab  ·  Ctrl+B p"
 msgstr "Onglet précédent  ·  Ctrl+B p"
 
-#: src/apprt/gtk/ui/1.5/window.blp:687
+#: src/apprt/gtk/ui/1.5/window.blp:916
 msgid "Next Tab  ·  Ctrl+B n"
 msgstr "Onglet suivant  ·  Ctrl+B n"
 
-#: src/apprt/gtk/ui/1.5/window.blp:693
+#: src/apprt/gtk/ui/1.5/window.blp:922
 msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
 msgstr "Volet précédent  ·  Ctrl+B Shift+Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:699
+#: src/apprt/gtk/ui/1.5/window.blp:928
 msgid "Next Pane  ·  Ctrl+B Tab"
 msgstr "Volet suivant  ·  Ctrl+B Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:709
+#: src/apprt/gtk/ui/1.5/window.blp:934
+msgid "Previous Agent  ·  Ctrl+B Shift+Up"
+msgstr "Agent précédent  ·  Ctrl+B Shift+Up"
+
+#: src/apprt/gtk/ui/1.5/window.blp:940
+msgid "Next Agent  ·  Ctrl+B Shift+Down"
+msgstr "Agent suivant  ·  Ctrl+B Shift+Down"
+
+#: src/apprt/gtk/ui/1.5/window.blp:948
+msgid "Focus Pane Left  ·  Ctrl+B h"
+msgstr "Activer le volet de gauche  ·  Ctrl+B h"
+
+#: src/apprt/gtk/ui/1.5/window.blp:954
+msgid "Focus Pane Right  ·  Ctrl+B l"
+msgstr "Activer le volet de droite  ·  Ctrl+B l"
+
+#: src/apprt/gtk/ui/1.5/window.blp:960
+msgid "Focus Pane Up  ·  Ctrl+B k"
+msgstr "Activer le volet du haut  ·  Ctrl+B k"
+
+#: src/apprt/gtk/ui/1.5/window.blp:966
+msgid "Focus Pane Down  ·  Ctrl+B j"
+msgstr "Activer le volet du bas  ·  Ctrl+B j"
+
+#: src/apprt/gtk/ui/1.5/window.blp:974
 msgid "Open Notification Target  ·  Ctrl+B o"
 msgstr "Ouvrir la cible de notification  ·  Ctrl+B o"
 
-#: src/apprt/gtk/ui/1.5/window.blp:721
+#: src/apprt/gtk/ui/1.5/window.blp:986
 msgid "Command Palette…  ·  Ctrl+B ;"
 msgstr "Palette de commandes…  ·  Ctrl+B ;"
 
-#: src/apprt/gtk/ui/1.5/window.blp:727
+#: src/apprt/gtk/ui/1.5/window.blp:992
+msgid "Search Files and Actions…  ·  Ctrl+B Ctrl+F"
+msgstr "Rechercher des fichiers et des actions…  ·  Ctrl+B Ctrl+F"
+
+#: src/apprt/gtk/ui/1.5/window.blp:998
 msgid "File Finder…  ·  Ctrl+B f"
 msgstr "Recherche de fichiers…  ·  Ctrl+B f"
 
-#: src/apprt/gtk/ui/1.5/window.blp:733
+#: src/apprt/gtk/ui/1.5/window.blp:1004
 msgid "Source Control  ·  Ctrl+B y"
 msgstr "Contrôle de code source  ·  Ctrl+B y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:739
+#: src/apprt/gtk/ui/1.5/window.blp:1010
 msgid "Session Search…  ·  Ctrl+B E"
 msgstr "Recherche de session…  ·  Ctrl+B E"
 
-#: src/apprt/gtk/ui/1.5/window.blp:745
+#: src/apprt/gtk/ui/1.5/window.blp:1016
 msgid "Snippets…  ·  Ctrl+B S"
 msgstr "Extraits…  ·  Ctrl+B S"
 
-#: src/apprt/gtk/ui/1.5/window.blp:751
+#: src/apprt/gtk/ui/1.5/window.blp:1022
 msgid "Container Status  ·  Ctrl+B O"
 msgstr "Statut du conteneur  ·  Ctrl+B O"
 
-#: src/apprt/gtk/ui/1.5/window.blp:757
+#: src/apprt/gtk/ui/1.5/window.blp:1028
 msgid "Plugin Manager  ·  Ctrl+B U"
 msgstr "Gestionnaire de plugins  ·  Ctrl+B U"
 
-#: src/apprt/gtk/ui/1.5/window.blp:765
+#: src/apprt/gtk/ui/1.5/window.blp:1036
 msgid "Fork Agent from Message…  ·  Ctrl+B Y"
 msgstr "Dériver l'Agent du message…  ·  Ctrl+B Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:775
+#: src/apprt/gtk/ui/1.5/window.blp:1042
+msgid "Fork Agent Beside Pane…  ·  Ctrl+B Ctrl+Y"
+msgstr "Dériver l'Agent à côté du volet…  ·  Ctrl+B Ctrl+Y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1048
+msgid "Fork Agent into New Workspace…  ·  Ctrl+B Ctrl+Shift+Y"
+msgstr "Dériver l'Agent dans un nouvel espace de travail…  ·  Ctrl+B Ctrl+Shift+Y"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1058
 msgid "Settings…  ·  Ctrl+B s"
 msgstr "Réglages…  ·  Ctrl+B s"
 
-#: src/apprt/gtk/ui/1.5/window.blp:781
+#: src/apprt/gtk/ui/1.5/window.blp:1064
 msgid "Reload Configuration  ·  Ctrl+B R"
 msgstr "Recharger la configuration  ·  Ctrl+B R"
 
-#: src/apprt/gtk/ui/1.5/window.blp:786
+#: src/apprt/gtk/ui/1.5/window.blp:1069
 msgid "Detach  ·  Ctrl+B q"
 msgstr "Détacher  ·  Ctrl+B q"
 
-#: src/apprt/gtk/ui/1.5/window.blp:794
+#: src/apprt/gtk/ui/1.5/window.blp:1077
 msgid "Mash Help  ·  Ctrl+B ?"
 msgstr "Aide Mash  ·  Ctrl+B ?"
 
-#: src/apprt/gtk/ui/1.5/window.blp:800
+#: src/apprt/gtk/ui/1.5/window.blp:1083
 msgid "Check for Updates…  ·  Ctrl+B Z"
 msgstr "Vérifier les mises à jour…  ·  Ctrl+B Z"
 
-#: src/apprt/gtk/class/application.zig:1770
+#: src/apprt/gtk/class/application.zig:1768
 msgid "The keybind was revoked by the system."
 msgstr "Le raccourci clavier a été révoqué par le système."
 
-#: src/apprt/gtk/class/application.zig:1772
+#: src/apprt/gtk/class/application.zig:1770
 msgid "The keybind was denied by the system."
 msgstr "Le raccourci clavier a été refusé par le système."
 
-#: src/apprt/gtk/class/application.zig:1783
+#: src/apprt/gtk/class/application.zig:1781
 msgid "Global keybind unavailable"
 msgstr "Raccourci clavier global indisponible"
 
-#: src/apprt/gtk/class/application.zig:2075
+#: src/apprt/gtk/class/application.zig:2073
 msgid "Export Terminal IO Events"
 msgstr "Exporter les événements d'E/S du terminal"
 
-#: src/apprt/gtk/class/application.zig:2078
+#: src/apprt/gtk/class/application.zig:2076
 msgid "Export"
 msgstr "Exporter"
 
-#: src/apprt/gtk/class/application.zig:2584
+#: src/apprt/gtk/class/application.zig:2582
 msgid "Editing configuration file"
 msgstr "Modification du fichier de configuration"
 
@@ -609,19 +754,19 @@ msgstr "Commande exécutée avec succès"
 msgid "Command Failed"
 msgstr "Échec de la commande"
 
-#: src/apprt/gtk/class/window.zig:1142
+#: src/apprt/gtk/class/window.zig:1147
 msgid "Reloaded the configuration"
 msgstr "Configuration rechargée"
 
-#: src/apprt/gtk/class/window.zig:1764
+#: src/apprt/gtk/class/window.zig:1769
 msgid "Copied to clipboard"
 msgstr "Copié dans le presse-papiers"
 
-#: src/apprt/gtk/class/window.zig:1766
+#: src/apprt/gtk/class/window.zig:1771
 msgid "Cleared clipboard"
 msgstr "Presse-papiers vidé"
 
-#: src/apprt/gtk/class/window.zig:1906
+#: src/apprt/gtk/class/window.zig:1911
 msgid "Mash"
 msgstr "Mash"
 
@@ -748,25 +893,13 @@ msgstr "Résultat de recherche précédent"
 msgid "Navigate to the previous search result, if any."
 msgstr "Aller au résultat de recherche précédent, s'il y en a un."
 
-#: src/input/command.zig:225
-msgid "Increase Font Size"
-msgstr "Augmenter la taille de la police"
-
 #: src/input/command.zig:226
 msgid "Increase the font size by 1 point."
 msgstr "Augmenter la taille de la police d'un point."
 
-#: src/input/command.zig:231
-msgid "Decrease Font Size"
-msgstr "Diminuer la taille de la police"
-
 #: src/input/command.zig:232
 msgid "Decrease the font size by 1 point."
 msgstr "Diminuer la taille de la police d'un point."
-
-#: src/input/command.zig:237
-msgid "Reset Font Size"
-msgstr "Réinitialiser la taille de la police"
 
 #: src/input/command.zig:238
 msgid "Reset the font size to the default."
@@ -1059,17 +1192,9 @@ msgstr "Nouvel onglet"
 msgid "Open a new tab."
 msgstr "Ouvrir un nouvel onglet."
 
-#: src/input/command.zig:434
-msgid "Move Tab Left"
-msgstr "Déplacer l'onglet à gauche"
-
 #: src/input/command.zig:435
 msgid "Move the current tab to the left."
 msgstr "Déplacer l'onglet actuel vers la gauche."
-
-#: src/input/command.zig:439
-msgid "Move Tab Right"
-msgstr "Déplacer l'onglet à droite"
 
 #: src/input/command.zig:440
 msgid "Move the current tab to the right."
@@ -1422,6 +1547,24 @@ msgstr "Ghostty"
 #: src/input/command.zig:709
 msgid "Put a little Ghostty in your terminal."
 msgstr "Mettre un petit Ghostty dans votre terminal."
+
+#~ msgid "Notify on Next Command Finish"
+#~ msgstr "Notifier à la fin de la prochaine commande"
+
+#~ msgid "Clear"
+#~ msgstr "Effacer"
+
+#~ msgid "Reset"
+#~ msgstr "Réinitialiser"
+
+#~ msgid "Config"
+#~ msgstr "Config"
+
+#~ msgid "Open Configuration in OS Editor"
+#~ msgstr "Ouvrir la configuration dans l'éditeur du système"
+
+#~ msgid "Open Configuration in New Window"
+#~ msgstr "Ouvrir la configuration dans une nouvelle fenêtre"
 
 #~ msgid "Open in Ghostty"
 #~ msgstr "Ouvrir dans Ghostty"

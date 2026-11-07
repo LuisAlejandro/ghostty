@@ -1515,24 +1515,16 @@ extension Ghostty {
 
             let menu = NSMenu()
 
-            // We just use a floating var so we can easily setup metadata on each item
-            // in a row without storing it all.
-            var item: NSMenuItem
-
             // If we have a selection, add copy
             if let text = self.accessibilitySelectedText(), text.count > 0 {
                 menu.addItem(withTitle: "Copy", action: #selector(copy(_:)), keyEquivalent: "")
             }
             menu.addItem(withTitle: "Paste", action: #selector(paste(_:)), keyEquivalent: "")
 
-
-            menu.addItem(.separator())
-            item = menu.addItem(withTitle: "Reset Terminal", action: #selector(resetTerminal(_:)), keyEquivalent: "")
-            item.setImageIfDesired(systemSymbolName: "arrow.trianglehead.2.clockwise")
-            item = menu.addItem(withTitle: "Terminal Read-only", action: #selector(toggleReadonly(_:)), keyEquivalent: "")
-            item.setImageIfDesired(systemSymbolName: "eye.fill")
-            item.state = readonly ? .on : .off
-
+            // Mash: no Reset Terminal or Terminal Read-only. A full reset drops
+            // the modes Herdr set on this terminal (alternate screen, mouse
+            // tracking, the kitty keyboard flags), and read-only locks every key
+            // out of Herdr.
             return menu
         }
 

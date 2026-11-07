@@ -366,8 +366,13 @@ pub const Window = extern struct {
             .init("ring-bell", actionRingBell, null),
             .init("copy", actionCopy, null),
             .init("paste", actionPaste, null),
-            .init("reset", actionReset, null),
-            .init("clear", actionClear, null),
+            // Mash: no reset or clear. A full reset drops the modes Herdr set on
+            // this terminal, and clear_screen does nothing on the alternate
+            // screen Herdr draws on; Herdr's Clear Pane is in the menu instead.
+            .init("increase-font-size", actionIncreaseFontSize, null),
+            .init("decrease-font-size", actionDecreaseFontSize, null),
+            .init("reset-font-size", actionResetFontSize, null),
+            .init("toggle-fullscreen", actionToggleFullscreen, null),
             // Mash's menu items: send a Herdr chord to this window's terminal.
             .init("mash-send-key", actionMashSendKey, s_variant_type),
             .init("mash-reload", actionMashReload, null),
@@ -1964,20 +1969,36 @@ pub const Window = extern struct {
         self.performBindingAction(.paste_from_clipboard);
     }
 
-    fn actionReset(
+    fn actionIncreaseFontSize(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
         self: *Window,
     ) callconv(.c) void {
-        self.performBindingAction(.reset);
+        self.performBindingAction(.{ .increase_font_size = 1 });
     }
 
-    fn actionClear(
+    fn actionDecreaseFontSize(
         _: *gio.SimpleAction,
         _: ?*glib.Variant,
         self: *Window,
     ) callconv(.c) void {
-        self.performBindingAction(.clear_screen);
+        self.performBindingAction(.{ .decrease_font_size = 1 });
+    }
+
+    fn actionResetFontSize(
+        _: *gio.SimpleAction,
+        _: ?*glib.Variant,
+        self: *Window,
+    ) callconv(.c) void {
+        self.performBindingAction(.reset_font_size);
+    }
+
+    fn actionToggleFullscreen(
+        _: *gio.SimpleAction,
+        _: ?*glib.Variant,
+        self: *Window,
+    ) callconv(.c) void {
+        self.performBindingAction(.toggle_fullscreen);
     }
 
     fn actionMashSendKey(

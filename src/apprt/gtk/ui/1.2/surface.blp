@@ -306,23 +306,6 @@ menu context_menu_model {
       label: _("Paste");
       action: "win.paste";
     }
-
-    item {
-      label: _("Notify on Next Command Finish");
-      action: "surface.notify-on-next-command-finish";
-    }
-  }
-
-  section {
-    item {
-      label: _("Clear");
-      action: "win.clear";
-    }
-
-    item {
-      label: _("Reset");
-      action: "win.reset";
-    }
   }
 
   section {
@@ -336,26 +319,15 @@ menu context_menu_model {
     }
   }
 
+  // Mash: no Clear, Reset, Notify on Next Command Finish or Ghostty config
+  // editor items. Herdr draws on the alternate screen, where clear does
+  // nothing; a reset drops the modes Herdr set; the only command here is Herdr
+  // itself, which never finishes; and Mash's settings are Herdr's. Reload
+  // reloads Ghostty and Herdr together, like the main menu.
   section {
-    submenu {
-      label: _("Config");
-
-      item {
-        label: _("Open Configuration in OS Editor");
-        action: "app.open-config";
-        target: "os-open";
-      }
-
-      item {
-        label: _("Open Configuration in New Window");
-        action: "app.open-config";
-        target: "new-window";
-      }
-
-      item {
-        label: _("Reload Configuration");
-        action: "app.reload-config";
-      }
+    item {
+      label: _("Reload Configuration");
+      action: "win.mash-reload";
     }
   }
 }

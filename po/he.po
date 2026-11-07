@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.mitchellh.ghostty\n"
 "Report-Msgid-Bugs-To: m@mitchellh.com\n"
-"POT-Creation-Date: 2026-11-06 16:12-0400\n"
+"POT-Creation-Date: 2026-11-06 22:30-0400\n"
 "PO-Revision-Date: 2026-08-13 19:14+0300\n"
 "Last-Translator: Sl (Shahaf Levi), Sl's Repository Ltd "
 "<ghostty@slsrepo.com>\n"
@@ -50,7 +50,7 @@ msgid "Reload configuration to show this prompt again"
 msgstr "טען/י את ההגדרות מחדש כדי להציג את הבקשה הזו שוב"
 
 #: src/apprt/gtk/ui/1.2/close-confirmation-dialog.blp:7
-#: src/apprt/gtk/class/application.zig:2079
+#: src/apprt/gtk/class/application.zig:2077
 msgid "Cancel"
 msgstr "ביטול"
 
@@ -76,7 +76,7 @@ msgid "Ignore"
 msgstr "התעלמות"
 
 #: src/apprt/gtk/ui/1.2/config-errors-dialog.blp:13
-#: src/apprt/gtk/ui/1.2/surface.blp:356 src/apprt/gtk/ui/1.5/window.blp:444
+#: src/apprt/gtk/ui/1.2/surface.blp:329 src/apprt/gtk/ui/1.5/window.blp:558
 msgid "Reload Configuration"
 msgstr "טעינה מחדש של ההגדרות"
 
@@ -109,425 +109,570 @@ msgid "Read-only"
 msgstr "לקריאה בלבד"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
-#: src/apprt/gtk/ui/1.5/window.blp:489
+#: src/apprt/gtk/ui/1.5/window.blp:603
 msgid "Copy"
 msgstr "העתקה"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
-#: src/apprt/gtk/ui/1.5/window.blp:494
+#: src/apprt/gtk/ui/1.5/window.blp:608
 msgid "Paste"
 msgstr "הדבקה"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:311
-msgid "Notify on Next Command Finish"
-msgstr "תזכורת בסיום הפקודה הבאה"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:318 src/apprt/gtk/ui/1.5/window.blp:110
-#: src/apprt/gtk/ui/1.5/window.blp:508
-msgid "Clear"
-msgstr "ניקוי"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:323 src/apprt/gtk/ui/1.5/window.blp:115
-#: src/apprt/gtk/ui/1.5/window.blp:513
-msgid "Reset"
-msgstr "איפוס"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:330
+#: src/apprt/gtk/ui/1.2/surface.blp:313
 msgid "Window"
 msgstr "חלון"
 
-#: src/apprt/gtk/ui/1.2/surface.blp:333 src/apprt/gtk/ui/1.5/window.blp:103
-#: src/apprt/gtk/ui/1.5/window.blp:501 src/input/command.zig:630
+#: src/apprt/gtk/ui/1.2/surface.blp:316 src/apprt/gtk/ui/1.5/window.blp:103
+#: src/apprt/gtk/ui/1.5/window.blp:615 src/input/command.zig:630
 msgid "Close Window"
 msgstr "סגירת החלון"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:341
-msgid "Config"
-msgstr "הגדרות"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:344
-msgid "Open Configuration in OS Editor"
-msgstr "פתיחת ההגדרות בעורך של מערכת ההפעלה"
-
-#: src/apprt/gtk/ui/1.2/surface.blp:350
-msgid "Open Configuration in New Window"
-msgstr "פתיחת ההגדרות בחלון חדש"
 
 #: src/apprt/gtk/ui/1.5/window.blp:59
 msgid "Main Menu"
 msgstr "תפריט ראשי"
 
-#: src/apprt/gtk/ui/1.5/window.blp:125 src/apprt/gtk/ui/1.5/window.blp:526
+#: src/apprt/gtk/ui/1.5/window.blp:114 src/apprt/gtk/ui/1.5/window.blp:628
 msgid "File"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:129
+#: src/apprt/gtk/ui/1.5/window.blp:118
 msgid "New Dev Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:136
+#: src/apprt/gtk/ui/1.5/window.blp:125
 msgid "New Agent Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:143
+#: src/apprt/gtk/ui/1.5/window.blp:132
 msgid "New Review Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:150
+#: src/apprt/gtk/ui/1.5/window.blp:139
 msgid "New Shell Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:159
+#: src/apprt/gtk/ui/1.5/window.blp:146
+msgid "New Shell Pane under Fresh"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:155
 msgid "New Workspace…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:166
+#: src/apprt/gtk/ui/1.5/window.blp:162
 msgid "New Worktree…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:173
+#: src/apprt/gtk/ui/1.5/window.blp:169
 msgid "Workspace Picker…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:182
+#: src/apprt/gtk/ui/1.5/window.blp:178
+msgid "Rename Tab…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:185
+msgid "Rename Workspace…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:194
 msgid "Close Pane"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:189 src/input/command.zig:613
+#: src/apprt/gtk/ui/1.5/window.blp:201 src/input/command.zig:613
 msgid "Close Tab"
 msgstr "סגירת כרטיסייה"
 
-#: src/apprt/gtk/ui/1.5/window.blp:196
+#: src/apprt/gtk/ui/1.5/window.blp:208
 msgid "Close Workspace"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:203
+#: src/apprt/gtk/ui/1.5/window.blp:215
 msgid "Remove Worktree"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:212 src/apprt/gtk/ui/1.5/window.blp:597
+#: src/apprt/gtk/ui/1.5/window.blp:224 src/apprt/gtk/ui/1.5/window.blp:730
 msgid "Edit"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:216
+#: src/apprt/gtk/ui/1.5/window.blp:228
 msgid "Annotate Selection"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:223
+#: src/apprt/gtk/ui/1.5/window.blp:235
 msgid "Paste Annotations into Agent"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:230
+#: src/apprt/gtk/ui/1.5/window.blp:242
 msgid "Manage Annotations"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:239
+#: src/apprt/gtk/ui/1.5/window.blp:251
 msgid "Pick Link or ID"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:248 src/apprt/gtk/ui/1.5/window.blp:629
+#: src/apprt/gtk/ui/1.5/window.blp:260
+msgid "Clear Pane"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:269 src/apprt/gtk/ui/1.5/window.blp:782
 msgid "View"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:252
+#: src/apprt/gtk/ui/1.5/window.blp:273 src/apprt/gtk/ui/1.5/window.blp:786
+#: src/input/command.zig:225
+msgid "Increase Font Size"
+msgstr "הגדלת גודל הגופן"
+
+#: src/apprt/gtk/ui/1.5/window.blp:279 src/apprt/gtk/ui/1.5/window.blp:792
+#: src/input/command.zig:231
+msgid "Decrease Font Size"
+msgstr "הקטנת גודל הגופן"
+
+#: src/apprt/gtk/ui/1.5/window.blp:285 src/apprt/gtk/ui/1.5/window.blp:798
+#: src/input/command.zig:237
+msgid "Reset Font Size"
+msgstr "איפוס גודל הגופן"
+
+#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:804
+msgid "Toggle Full Screen"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:299
 msgid "Toggle Sidebar"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:259
+#: src/apprt/gtk/ui/1.5/window.blp:306
 msgid "Zoom Pane"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:268
+#: src/apprt/gtk/ui/1.5/window.blp:315
 msgid "Split Pane Right"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:275
+#: src/apprt/gtk/ui/1.5/window.blp:322
 msgid "Split Pane Down"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:282
+#: src/apprt/gtk/ui/1.5/window.blp:329
 msgid "Resize Mode"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:291 src/apprt/gtk/ui/1.5/window.blp:667
+#: src/apprt/gtk/ui/1.5/window.blp:338 src/input/command.zig:434
+msgid "Move Tab Left"
+msgstr "הזזת הכרטיסייה שמאלה"
+
+#: src/apprt/gtk/ui/1.5/window.blp:345 src/input/command.zig:439
+msgid "Move Tab Right"
+msgstr "הזזת הכרטיסייה ימינה"
+
+#: src/apprt/gtk/ui/1.5/window.blp:354 src/apprt/gtk/ui/1.5/window.blp:886
 msgid "Go"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:295
+#: src/apprt/gtk/ui/1.5/window.blp:358
 msgid "Goto…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:304
+#: src/apprt/gtk/ui/1.5/window.blp:367
 msgid "Previous Workspace"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:311
+#: src/apprt/gtk/ui/1.5/window.blp:374
 msgid "Next Workspace"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:318
+#: src/apprt/gtk/ui/1.5/window.blp:381
 msgid "Previous Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:325
+#: src/apprt/gtk/ui/1.5/window.blp:388
 msgid "Next Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:332
+#: src/apprt/gtk/ui/1.5/window.blp:395
 msgid "Previous Pane"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:339
+#: src/apprt/gtk/ui/1.5/window.blp:402
 msgid "Next Pane"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:346
+#: src/apprt/gtk/ui/1.5/window.blp:409
 msgid "Previous Agent"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:353
+#: src/apprt/gtk/ui/1.5/window.blp:416
 msgid "Next Agent"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:362
+#: src/apprt/gtk/ui/1.5/window.blp:425
+msgid "Focus Pane Left"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:432
+msgid "Focus Pane Right"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:439
+msgid "Focus Pane Up"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:446
+msgid "Focus Pane Down"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:455
 msgid "Open Notification Target"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:371 src/apprt/gtk/ui/1.5/window.blp:717
+#: src/apprt/gtk/ui/1.5/window.blp:464 src/apprt/gtk/ui/1.5/window.blp:982
 msgid "Tools"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:375
+#: src/apprt/gtk/ui/1.5/window.blp:468
 msgid "Command Palette…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:382
+#: src/apprt/gtk/ui/1.5/window.blp:475
+msgid "Search Files and Actions…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:482
 msgid "File Finder…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:389
+#: src/apprt/gtk/ui/1.5/window.blp:489
 msgid "Source Control"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:396
+#: src/apprt/gtk/ui/1.5/window.blp:496
 msgid "Session Search…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:403
+#: src/apprt/gtk/ui/1.5/window.blp:503
 msgid "Snippets…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:410
+#: src/apprt/gtk/ui/1.5/window.blp:510
 msgid "Container Status"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:417
+#: src/apprt/gtk/ui/1.5/window.blp:517
 msgid "Plugin Manager"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:426
+#: src/apprt/gtk/ui/1.5/window.blp:526
 msgid "Fork Agent from Message…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:437
+#: src/apprt/gtk/ui/1.5/window.blp:533
+msgid "Fork Agent Beside Pane…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:540
+msgid "Fork Agent into New Workspace…"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:551
 msgid "Settings…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:450
+#: src/apprt/gtk/ui/1.5/window.blp:564
 msgid "Detach"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:459
+#: src/apprt/gtk/ui/1.5/window.blp:573
 msgid "Mash Help"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:466
+#: src/apprt/gtk/ui/1.5/window.blp:580
 msgid "Check for Updates…"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:473 src/apprt/gtk/ui/1.5/window.blp:806
-#: src/apprt/gtk/class/window.zig:1925
+#: src/apprt/gtk/ui/1.5/window.blp:587 src/apprt/gtk/ui/1.5/window.blp:1089
+#: src/apprt/gtk/class/window.zig:1930
 msgid "About Mash Terminal"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:478 src/apprt/gtk/ui/1.5/window.blp:811
+#: src/apprt/gtk/ui/1.5/window.blp:592 src/apprt/gtk/ui/1.5/window.blp:1094
 #: src/input/command.zig:702
 msgid "Quit"
 msgstr "יציאה"
 
-#: src/apprt/gtk/ui/1.5/window.blp:530
+#: src/apprt/gtk/ui/1.5/window.blp:632
 msgid "New Dev Tab  ·  Ctrl+B t"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:536
+#: src/apprt/gtk/ui/1.5/window.blp:638
 msgid "New Agent Tab  ·  Ctrl+B a"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:542
+#: src/apprt/gtk/ui/1.5/window.blp:644
 msgid "New Review Tab  ·  Ctrl+B V"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:548
+#: src/apprt/gtk/ui/1.5/window.blp:650
 msgid "New Shell Tab  ·  Ctrl+B C"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:556
+#: src/apprt/gtk/ui/1.5/window.blp:656
+msgid "New Shell Pane under Fresh  ·  Ctrl+B `"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:664
 msgid "New Workspace…  ·  Ctrl+B N"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:562
+#: src/apprt/gtk/ui/1.5/window.blp:670
 msgid "New Worktree…  ·  Ctrl+B G"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:568
+#: src/apprt/gtk/ui/1.5/window.blp:676
 msgid "Workspace Picker…  ·  Ctrl+B F"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:576
+#: src/apprt/gtk/ui/1.5/window.blp:684
+msgid "Rename Tab…  ·  Ctrl+B T"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:690
+msgid "Rename Workspace…  ·  Ctrl+B W"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:696
+msgid "Rename Pane…  ·  Ctrl+B P"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:704
 msgid "Close Pane  ·  Ctrl+B x"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:582
+#: src/apprt/gtk/ui/1.5/window.blp:710
 msgid "Close Tab  ·  Ctrl+B X"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:588
+#: src/apprt/gtk/ui/1.5/window.blp:716
 msgid "Close Workspace  ·  Ctrl+B D"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:601
+#: src/apprt/gtk/ui/1.5/window.blp:722
+msgid "Remove Worktree  ·  Ctrl+B Shift+Backspace"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:734
 msgid "Annotate Selection  ·  Ctrl+B i"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:607
+#: src/apprt/gtk/ui/1.5/window.blp:740
 msgid "Paste Annotations into Agent  ·  Ctrl+B I"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:613
+#: src/apprt/gtk/ui/1.5/window.blp:746
 msgid "Manage Annotations  ·  Ctrl+B m"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:621
+#: src/apprt/gtk/ui/1.5/window.blp:754
 msgid "Pick Link or ID  ·  Ctrl+B u"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:633
+#: src/apprt/gtk/ui/1.5/window.blp:762
+msgid "Copy Mode  ·  Ctrl+B ["
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:768
+msgid "Edit Scrollback  ·  Ctrl+B e"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:774
+msgid "Clear Pane  ·  Ctrl+B Ctrl+K"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:812
 msgid "Toggle Sidebar  ·  Ctrl+B b"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:639
+#: src/apprt/gtk/ui/1.5/window.blp:818
 msgid "Zoom Pane  ·  Ctrl+B z"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:647
+#: src/apprt/gtk/ui/1.5/window.blp:826
 msgid "Split Pane Right  ·  Ctrl+B v"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:653
+#: src/apprt/gtk/ui/1.5/window.blp:832
 msgid "Split Pane Down  ·  Ctrl+B -"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:659
+#: src/apprt/gtk/ui/1.5/window.blp:838
 msgid "Resize Mode  ·  Ctrl+B r"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:671
+#: src/apprt/gtk/ui/1.5/window.blp:846
+msgid "Swap Pane Left  ·  Ctrl+B H"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:852
+msgid "Swap Pane Right  ·  Ctrl+B L"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:858
+msgid "Swap Pane Up  ·  Ctrl+B K"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:864
+msgid "Swap Pane Down  ·  Ctrl+B J"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:872
+msgid "Move Tab Left  ·  Ctrl+B Shift+Left"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:878
+msgid "Move Tab Right  ·  Ctrl+B Shift+Right"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:890
 msgid "Goto…  ·  Ctrl+B g"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:681
+#: src/apprt/gtk/ui/1.5/window.blp:898
+msgid "Previous Workspace  ·  Ctrl+B {"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:904
+msgid "Next Workspace  ·  Ctrl+B }"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:910
 msgid "Previous Tab  ·  Ctrl+B p"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:687
+#: src/apprt/gtk/ui/1.5/window.blp:916
 msgid "Next Tab  ·  Ctrl+B n"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:693
+#: src/apprt/gtk/ui/1.5/window.blp:922
 msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:699
+#: src/apprt/gtk/ui/1.5/window.blp:928
 msgid "Next Pane  ·  Ctrl+B Tab"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:709
+#: src/apprt/gtk/ui/1.5/window.blp:934
+msgid "Previous Agent  ·  Ctrl+B Shift+Up"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:940
+msgid "Next Agent  ·  Ctrl+B Shift+Down"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:948
+msgid "Focus Pane Left  ·  Ctrl+B h"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:954
+msgid "Focus Pane Right  ·  Ctrl+B l"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:960
+msgid "Focus Pane Up  ·  Ctrl+B k"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:966
+msgid "Focus Pane Down  ·  Ctrl+B j"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:974
 msgid "Open Notification Target  ·  Ctrl+B o"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:721
+#: src/apprt/gtk/ui/1.5/window.blp:986
 msgid "Command Palette…  ·  Ctrl+B ;"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:727
+#: src/apprt/gtk/ui/1.5/window.blp:992
+msgid "Search Files and Actions…  ·  Ctrl+B Ctrl+F"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:998
 msgid "File Finder…  ·  Ctrl+B f"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:733
+#: src/apprt/gtk/ui/1.5/window.blp:1004
 msgid "Source Control  ·  Ctrl+B y"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:739
+#: src/apprt/gtk/ui/1.5/window.blp:1010
 msgid "Session Search…  ·  Ctrl+B E"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:745
+#: src/apprt/gtk/ui/1.5/window.blp:1016
 msgid "Snippets…  ·  Ctrl+B S"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:751
+#: src/apprt/gtk/ui/1.5/window.blp:1022
 msgid "Container Status  ·  Ctrl+B O"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:757
+#: src/apprt/gtk/ui/1.5/window.blp:1028
 msgid "Plugin Manager  ·  Ctrl+B U"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:765
+#: src/apprt/gtk/ui/1.5/window.blp:1036
 msgid "Fork Agent from Message…  ·  Ctrl+B Y"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:775
+#: src/apprt/gtk/ui/1.5/window.blp:1042
+msgid "Fork Agent Beside Pane…  ·  Ctrl+B Ctrl+Y"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:1048
+msgid "Fork Agent into New Workspace…  ·  Ctrl+B Ctrl+Shift+Y"
+msgstr ""
+
+#: src/apprt/gtk/ui/1.5/window.blp:1058
 msgid "Settings…  ·  Ctrl+B s"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:781
+#: src/apprt/gtk/ui/1.5/window.blp:1064
 msgid "Reload Configuration  ·  Ctrl+B R"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:786
+#: src/apprt/gtk/ui/1.5/window.blp:1069
 msgid "Detach  ·  Ctrl+B q"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:794
+#: src/apprt/gtk/ui/1.5/window.blp:1077
 msgid "Mash Help  ·  Ctrl+B ?"
 msgstr ""
 
-#: src/apprt/gtk/ui/1.5/window.blp:800
+#: src/apprt/gtk/ui/1.5/window.blp:1083
 msgid "Check for Updates…  ·  Ctrl+B Z"
 msgstr ""
 
-#: src/apprt/gtk/class/application.zig:1770
+#: src/apprt/gtk/class/application.zig:1768
 msgid "The keybind was revoked by the system."
 msgstr "קיצור המקשים נשלל על ידי המערכת."
 
-#: src/apprt/gtk/class/application.zig:1772
+#: src/apprt/gtk/class/application.zig:1770
 msgid "The keybind was denied by the system."
 msgstr "קיצור המקשים נדחה על ידי המערכת."
 
-#: src/apprt/gtk/class/application.zig:1783
+#: src/apprt/gtk/class/application.zig:1781
 msgid "Global keybind unavailable"
 msgstr "קיצור המקשים הגלובלי אינו זמין"
 
-#: src/apprt/gtk/class/application.zig:2075
+#: src/apprt/gtk/class/application.zig:2073
 msgid "Export Terminal IO Events"
 msgstr "ייצוא אירועי קלט/פלט של המסוף"
 
-#: src/apprt/gtk/class/application.zig:2078
+#: src/apprt/gtk/class/application.zig:2076
 msgid "Export"
 msgstr "ייצוא"
 
-#: src/apprt/gtk/class/application.zig:2584
+#: src/apprt/gtk/class/application.zig:2582
 msgid "Editing configuration file"
 msgstr "עריכת קובץ הגדרות"
 
@@ -602,19 +747,19 @@ msgstr "הפקודה הצליחה"
 msgid "Command Failed"
 msgstr "הפקודה נכשלה"
 
-#: src/apprt/gtk/class/window.zig:1142
+#: src/apprt/gtk/class/window.zig:1147
 msgid "Reloaded the configuration"
 msgstr "ההגדרות נטענו מחדש"
 
-#: src/apprt/gtk/class/window.zig:1764
+#: src/apprt/gtk/class/window.zig:1769
 msgid "Copied to clipboard"
 msgstr "הועתק ללוח ההעתקה"
 
-#: src/apprt/gtk/class/window.zig:1766
+#: src/apprt/gtk/class/window.zig:1771
 msgid "Cleared clipboard"
 msgstr "לוח ההעתקה רוקן"
 
-#: src/apprt/gtk/class/window.zig:1906
+#: src/apprt/gtk/class/window.zig:1911
 msgid "Mash"
 msgstr ""
 
@@ -735,25 +880,13 @@ msgstr "תוצאת החיפוש הקודמת"
 msgid "Navigate to the previous search result, if any."
 msgstr "נווט/י לתוצאת החיפוש הקודמת, אם ישנה."
 
-#: src/input/command.zig:225
-msgid "Increase Font Size"
-msgstr "הגדלת גודל הגופן"
-
 #: src/input/command.zig:226
 msgid "Increase the font size by 1 point."
 msgstr "הגדל/י את גודל הגופן בנקודה אחת."
 
-#: src/input/command.zig:231
-msgid "Decrease Font Size"
-msgstr "הקטנת גודל הגופן"
-
 #: src/input/command.zig:232
 msgid "Decrease the font size by 1 point."
 msgstr "הקטן/י את גודל הגופן בנקודה אחת."
-
-#: src/input/command.zig:237
-msgid "Reset Font Size"
-msgstr "איפוס גודל הגופן"
 
 #: src/input/command.zig:238
 msgid "Reset the font size to the default."
@@ -1025,17 +1158,9 @@ msgstr "כרטיסייה חדשה"
 msgid "Open a new tab."
 msgstr "פתח/י כרטיסייה חדשה."
 
-#: src/input/command.zig:434
-msgid "Move Tab Left"
-msgstr "הזזת הכרטיסייה שמאלה"
-
 #: src/input/command.zig:435
 msgid "Move the current tab to the left."
 msgstr "הזז/י את הכרטיסייה הנוכחית שמאלה."
-
-#: src/input/command.zig:439
-msgid "Move Tab Right"
-msgstr "הזזת הכרטיסייה ימינה"
 
 #: src/input/command.zig:440
 msgid "Move the current tab to the right."
@@ -1380,6 +1505,24 @@ msgstr "Ghostty"
 #: src/input/command.zig:709
 msgid "Put a little Ghostty in your terminal."
 msgstr "הכנס/י קצת Ghostty למסוף שלך."
+
+#~ msgid "Notify on Next Command Finish"
+#~ msgstr "תזכורת בסיום הפקודה הבאה"
+
+#~ msgid "Clear"
+#~ msgstr "ניקוי"
+
+#~ msgid "Reset"
+#~ msgstr "איפוס"
+
+#~ msgid "Config"
+#~ msgstr "הגדרות"
+
+#~ msgid "Open Configuration in OS Editor"
+#~ msgstr "פתיחת ההגדרות בעורך של מערכת ההפעלה"
+
+#~ msgid "Open Configuration in New Window"
+#~ msgstr "פתיחת ההגדרות בחלון חדש"
 
 #~ msgid "Open in Ghostty"
 #~ msgstr "פתח/י בGhostty"

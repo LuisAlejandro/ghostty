@@ -24,50 +24,18 @@ class AppDelegate: NSObject,
     @IBOutlet private var menuSecureInput: NSMenuItem?
     @IBOutlet private var menuQuit: NSMenuItem?
 
-    @IBOutlet private var menuNewTab: NSMenuItem?
-    @IBOutlet private var menuSplitRight: NSMenuItem?
-    @IBOutlet private var menuSplitLeft: NSMenuItem?
-    @IBOutlet private var menuSplitDown: NSMenuItem?
-    @IBOutlet private var menuSplitUp: NSMenuItem?
-    @IBOutlet private var menuClose: NSMenuItem?
-    @IBOutlet private var menuCloseTab: NSMenuItem?
     @IBOutlet private var menuCloseWindow: NSMenuItem?
-    @IBOutlet private var menuCloseAllWindows: NSMenuItem?
 
     @IBOutlet private var menuCopy: NSMenuItem?
     @IBOutlet private var menuPaste: NSMenuItem?
-    @IBOutlet private var menuPasteSelection: NSMenuItem?
-    @IBOutlet private var menuSelectAll: NSMenuItem?
-    @IBOutlet private var menuFindParent: NSMenuItem?
-    @IBOutlet private var menuFind: NSMenuItem?
-    @IBOutlet private var menuSelectionForFind: NSMenuItem?
-    @IBOutlet private var menuScrollToSelection: NSMenuItem?
-    @IBOutlet private var menuFindNext: NSMenuItem?
-    @IBOutlet private var menuFindPrevious: NSMenuItem?
-    @IBOutlet private var menuHideFindBar: NSMenuItem?
 
-    @IBOutlet private var menuToggleVisibility: NSMenuItem?
     @IBOutlet private var menuToggleFullScreen: NSMenuItem?
     @IBOutlet private var menuBringAllToFront: NSMenuItem?
-    @IBOutlet private var menuZoomSplit: NSMenuItem?
-    @IBOutlet private var menuPreviousSplit: NSMenuItem?
-    @IBOutlet private var menuNextSplit: NSMenuItem?
-    @IBOutlet private var menuSelectSplitAbove: NSMenuItem?
-    @IBOutlet private var menuSelectSplitBelow: NSMenuItem?
-    @IBOutlet private var menuSelectSplitLeft: NSMenuItem?
-    @IBOutlet private var menuSelectSplitRight: NSMenuItem?
     @IBOutlet private var menuReturnToDefaultSize: NSMenuItem?
 
     @IBOutlet private var menuIncreaseFontSize: NSMenuItem?
     @IBOutlet private var menuDecreaseFontSize: NSMenuItem?
     @IBOutlet private var menuResetFontSize: NSMenuItem?
-    @IBOutlet private var menuReadonly: NSMenuItem?
-
-    @IBOutlet private var menuEqualizeSplits: NSMenuItem?
-    @IBOutlet private var menuMoveSplitDividerUp: NSMenuItem?
-    @IBOutlet private var menuMoveSplitDividerDown: NSMenuItem?
-    @IBOutlet private var menuMoveSplitDividerLeft: NSMenuItem?
-    @IBOutlet private var menuMoveSplitDividerRight: NSMenuItem?
 
     /// The dock menu
     private var dockMenu: NSMenu = NSMenu()
@@ -137,6 +105,9 @@ class AppDelegate: NSObject,
             UserDefaults.ghostty.removePersistentDomain(forName: suite)
         }
         #endif
+        // Mash has one window and no native tabs (see TerminalWindow), so AppKit
+        // must not add its window-tabbing items to the View and Window menus.
+        NSWindow.allowsAutomaticWindowTabbing = false
         UserDefaults.ghostty.register(defaults: [
             // Disable the automatic full screen menu item because we handle
             // it manually.
@@ -1015,32 +986,10 @@ extension AppDelegate {
         self.menuOpenConfig?.setImageIfDesired(systemSymbolName: "gear")
         self.menuReloadConfig?.setImageIfDesired(systemSymbolName: "arrow.trianglehead.2.clockwise.rotate.90")
         self.menuSecureInput?.setImageIfDesired(systemSymbolName: "lock.display")
-        self.menuNewTab?.setImageIfDesired(systemSymbolName: "macwindow")
-        self.menuSplitRight?.setImageIfDesired(systemSymbolName: "rectangle.righthalf.inset.filled")
-        self.menuSplitLeft?.setImageIfDesired(systemSymbolName: "rectangle.leadinghalf.inset.filled")
-        self.menuSplitUp?.setImageIfDesired(systemSymbolName: "rectangle.tophalf.inset.filled")
-        self.menuSplitDown?.setImageIfDesired(systemSymbolName: "rectangle.bottomhalf.inset.filled")
-        self.menuClose?.setImageIfDesired(systemSymbolName: "xmark")
-        self.menuPasteSelection?.setImageIfDesired(systemSymbolName: "doc.on.clipboard.fill")
         self.menuIncreaseFontSize?.setImageIfDesired(systemSymbolName: "textformat.size.larger")
         self.menuResetFontSize?.setImageIfDesired(systemSymbolName: "textformat.size")
         self.menuDecreaseFontSize?.setImageIfDesired(systemSymbolName: "textformat.size.smaller")
-        self.menuReadonly?.setImageIfDesired(systemSymbolName: "eye.fill")
         self.menuToggleFullScreen?.setImageIfDesired(systemSymbolName: "square.arrowtriangle.4.outward")
-        self.menuToggleVisibility?.setImageIfDesired(systemSymbolName: "eye")
-        self.menuZoomSplit?.setImageIfDesired(systemSymbolName: "arrow.up.left.and.arrow.down.right")
-        self.menuPreviousSplit?.setImageIfDesired(systemSymbolName: "chevron.backward.2")
-        self.menuNextSplit?.setImageIfDesired(systemSymbolName: "chevron.forward.2")
-        self.menuEqualizeSplits?.setImageIfDesired(systemSymbolName: "inset.filled.topleft.topright.bottomleft.bottomright.rectangle")
-        self.menuSelectSplitLeft?.setImageIfDesired(systemSymbolName: "arrow.left")
-        self.menuSelectSplitRight?.setImageIfDesired(systemSymbolName: "arrow.right")
-        self.menuSelectSplitAbove?.setImageIfDesired(systemSymbolName: "arrow.up")
-        self.menuSelectSplitBelow?.setImageIfDesired(systemSymbolName: "arrow.down")
-        self.menuMoveSplitDividerUp?.setImageIfDesired(systemSymbolName: "arrow.up.to.line")
-        self.menuMoveSplitDividerDown?.setImageIfDesired(systemSymbolName: "arrow.down.to.line")
-        self.menuMoveSplitDividerLeft?.setImageIfDesired(systemSymbolName: "arrow.left.to.line")
-        self.menuMoveSplitDividerRight?.setImageIfDesired(systemSymbolName: "arrow.right.to.line")
-        self.menuFindParent?.setImageIfDesired(systemSymbolName: "text.page.badge.magnifyingglass")
     }
 
     /// Sync all of our menu item keyboard shortcuts with the Ghostty configuration.
@@ -1051,45 +1000,16 @@ extension AppDelegate {
 
         syncMenuShortcut(config, action: "quit", menuItem: self.menuQuit)
 
-        syncMenuShortcut(config, action: "new_tab", menuItem: self.menuNewTab)
-        syncMenuShortcut(config, action: "close_surface", menuItem: self.menuClose)
-        syncMenuShortcut(config, action: "close_tab", menuItem: self.menuCloseTab)
         syncMenuShortcut(config, action: "close_window", menuItem: self.menuCloseWindow)
-        syncMenuShortcut(config, action: "close_all_windows", menuItem: self.menuCloseAllWindows)
-        syncMenuShortcut(config, action: "new_split:right", menuItem: self.menuSplitRight)
-        syncMenuShortcut(config, action: "new_split:left", menuItem: self.menuSplitLeft)
-        syncMenuShortcut(config, action: "new_split:down", menuItem: self.menuSplitDown)
-        syncMenuShortcut(config, action: "new_split:up", menuItem: self.menuSplitUp)
 
         syncMenuShortcut(config, action: "copy_to_clipboard", menuItem: self.menuCopy)
         syncMenuShortcut(config, action: "paste_from_clipboard", menuItem: self.menuPaste)
-        syncMenuShortcut(config, action: "paste_from_selection", menuItem: self.menuPasteSelection)
-        syncMenuShortcut(config, action: "select_all", menuItem: self.menuSelectAll)
-        syncMenuShortcut(config, action: "start_search", menuItem: self.menuFind)
-        syncMenuShortcut(config, action: "end_search", menuItem: self.menuHideFindBar)
-        syncMenuShortcut(config, action: "search_selection", menuItem: self.menuSelectionForFind)
-        syncMenuShortcut(config, action: "scroll_to_selection", menuItem: self.menuScrollToSelection)
-        syncMenuShortcut(config, action: "navigate_search:next", menuItem: self.menuFindNext)
-        syncMenuShortcut(config, action: "navigate_search:previous", menuItem: self.menuFindPrevious)
 
-        syncMenuShortcut(config, action: "toggle_split_zoom", menuItem: self.menuZoomSplit)
-        syncMenuShortcut(config, action: "goto_split:previous", menuItem: self.menuPreviousSplit)
-        syncMenuShortcut(config, action: "goto_split:next", menuItem: self.menuNextSplit)
-        syncMenuShortcut(config, action: "goto_split:up", menuItem: self.menuSelectSplitAbove)
-        syncMenuShortcut(config, action: "goto_split:down", menuItem: self.menuSelectSplitBelow)
-        syncMenuShortcut(config, action: "goto_split:left", menuItem: self.menuSelectSplitLeft)
-        syncMenuShortcut(config, action: "goto_split:right", menuItem: self.menuSelectSplitRight)
-        syncMenuShortcut(config, action: "resize_split:up,10", menuItem: self.menuMoveSplitDividerUp)
-        syncMenuShortcut(config, action: "resize_split:down,10", menuItem: self.menuMoveSplitDividerDown)
-        syncMenuShortcut(config, action: "resize_split:right,10", menuItem: self.menuMoveSplitDividerRight)
-        syncMenuShortcut(config, action: "resize_split:left,10", menuItem: self.menuMoveSplitDividerLeft)
-        syncMenuShortcut(config, action: "equalize_splits", menuItem: self.menuEqualizeSplits)
         syncMenuShortcut(config, action: "reset_window_size", menuItem: self.menuReturnToDefaultSize)
 
         syncMenuShortcut(config, action: "increase_font_size:1", menuItem: self.menuIncreaseFontSize)
         syncMenuShortcut(config, action: "decrease_font_size:1", menuItem: self.menuDecreaseFontSize)
         syncMenuShortcut(config, action: "reset_font_size", menuItem: self.menuResetFontSize)
-        syncMenuShortcut(config, action: "toggle_visibility", menuItem: self.menuToggleVisibility)
 
         syncMenuShortcut(config, action: "toggle_secure_input", menuItem: self.menuSecureInput)
 

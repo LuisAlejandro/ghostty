@@ -35,10 +35,14 @@ enum MashMenus {
         .item("herdr.menu.item.new_agent_tab", "New Agent Tab", "cmd+alt+t"),
         .item("herdr.menu.item.new_review_tab", "New Review Tab", "cmd+shift+r"),
         .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "cmd+shift+t"),
+        .item("herdr.menu.item.new_shell_pane_under_fresh", "New Shell Pane under Fresh", "ctrl+shift+backquote"),
         .separator,
         .item("herdr.menu.item.new_workspace", "New Workspace…", "cmd+ctrl+n"),
         .item("herdr.menu.item.new_worktree", "New Worktree…", "cmd+ctrl+shift+n"),
         .item("herdr.menu.item.workspace_picker", "Workspace Picker…", "cmd+ctrl+o"),
+        .separator,
+        .item("herdr.menu.item.rename_tab", "Rename Tab…", "cmd+shift+m"),
+        .item("herdr.menu.item.rename_workspace", "Rename Workspace…", "cmd+ctrl+r"),
         .separator,
         .item("herdr.menu.item.close_pane", "Close Pane", "cmd+alt+w"),
         .item("herdr.menu.item.close_tab", "Close Tab", "cmd+shift+w"),
@@ -52,6 +56,8 @@ enum MashMenus {
         .item("herdr.menu.item.manage_annotations", "Manage Annotations", "cmd+shift+l"),
         .separator,
         .item("herdr.menu.item.pick_link_or_id", "Pick Link or ID", "alt+g"),
+        .separator,
+        .item("herdr.menu.item.clear_pane", "Clear Pane", "cmd+alt+k"),
     ]
 
     static let view: [Entry] = [
@@ -61,6 +67,9 @@ enum MashMenus {
         .item("herdr.menu.item.split_pane_right", "Split Pane Right", "cmd+alt+backslash"),
         .item("herdr.menu.item.split_pane_down", "Split Pane Down", "cmd+alt+minus"),
         .item("herdr.menu.item.resize_mode", "Resize Mode", "cmd+alt+r"),
+        .separator,
+        .item("herdr.menu.item.move_tab_left", "Move Tab Left", "cmd+alt+shift+bracket_left"),
+        .item("herdr.menu.item.move_tab_right", "Move Tab Right", "cmd+alt+shift+bracket_right"),
     ]
 
     static let go: [Entry] = [
@@ -75,11 +84,17 @@ enum MashMenus {
         .item("herdr.menu.item.previous_agent", "Previous Agent", "ctrl+shift+arrow_up"),
         .item("herdr.menu.item.next_agent", "Next Agent", "ctrl+shift+arrow_down"),
         .separator,
+        .item("herdr.menu.item.focus_pane_left", "Focus Pane Left", "cmd+alt+arrow_left"),
+        .item("herdr.menu.item.focus_pane_right", "Focus Pane Right", "cmd+alt+arrow_right"),
+        .item("herdr.menu.item.focus_pane_up", "Focus Pane Up", "cmd+alt+arrow_up"),
+        .item("herdr.menu.item.focus_pane_down", "Focus Pane Down", "cmd+alt+arrow_down"),
+        .separator,
         .item("herdr.menu.item.open_notification_target", "Open Notification Target", "cmd+y"),
     ]
 
     static let tools: [Entry] = [
         .item("herdr.menu.item.command_palette", "Command Palette…", "cmd+shift+p"),
+        .item("herdr.menu.item.search_files_and_actions", "Search Files and Actions…", "cmd+alt+shift+f"),
         .item("herdr.menu.item.file_finder", "File Finder…", "cmd+p"),
         .item("herdr.menu.item.source_control", "Source Control", "ctrl+shift+g"),
         .item("herdr.menu.item.session_search", "Session Search…", "cmd+alt+l"),
@@ -88,6 +103,8 @@ enum MashMenus {
         .item("herdr.menu.item.plugin_manager", "Plugin Manager", "cmd+shift+x"),
         .separator,
         .item("herdr.menu.item.fork_agent_from_message", "Fork Agent from Message…", "cmd+alt+y"),
+        .item("herdr.menu.item.fork_agent_beside_pane", "Fork Agent Beside Pane…", "cmd+alt+shift+y"),
+        .item("herdr.menu.item.fork_agent_into_workspace", "Fork Agent into New Workspace…", "cmd+ctrl+y"),
     ]
 
     static let help: [Entry] = [
@@ -107,14 +124,20 @@ enum MashMenus {
         .item("herdr.menu.item.new_agent_tab", "New Agent Tab", "ctrl+b>a"),
         .item("herdr.menu.item.new_review_tab", "New Review Tab", "ctrl+b>shift+v"),
         .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "ctrl+b>shift+c"),
+        .item("herdr.menu.item.new_shell_pane_under_fresh", "New Shell Pane under Fresh", "ctrl+b>backquote"),
         .separator,
         .item("herdr.menu.item.new_workspace", "New Workspace…", "ctrl+b>shift+n"),
         .item("herdr.menu.item.new_worktree", "New Worktree…", "ctrl+b>shift+g"),
         .item("herdr.menu.item.workspace_picker", "Workspace Picker…", "ctrl+b>shift+f"),
         .separator,
+        .item("herdr.menu.item.rename_tab", "Rename Tab…", "ctrl+b>shift+t"),
+        .item("herdr.menu.item.rename_workspace", "Rename Workspace…", "ctrl+b>shift+w"),
+        .item("herdr.menu.item.rename_pane", "Rename Pane…", "ctrl+b>shift+p"),
+        .separator,
         .item("herdr.menu.item.close_pane", "Close Pane", "ctrl+b>x"),
         .item("herdr.menu.item.close_tab", "Close Tab", "ctrl+b>shift+x"),
         .item("herdr.menu.item.close_workspace", "Close Workspace", "ctrl+b>shift+d"),
+        .item("herdr.menu.item.remove_worktree", "Remove Worktree", "ctrl+b>shift+backspace"),
     ]
 
     static let nativeEdit: [Entry] = [
@@ -123,6 +146,10 @@ enum MashMenus {
         .item("herdr.menu.item.manage_annotations", "Manage Annotations", "ctrl+b>m"),
         .separator,
         .item("herdr.menu.item.pick_link_or_id", "Pick Link or ID", "ctrl+b>u"),
+        .separator,
+        .item("herdr.menu.item.copy_mode", "Copy Mode", "ctrl+b>bracket_left"),
+        .item("herdr.menu.item.edit_scrollback", "Edit Scrollback", "ctrl+b>e"),
+        .item("herdr.menu.item.clear_pane", "Clear Pane", "ctrl+b>ctrl+k"),
     ]
 
     static let nativeView: [Entry] = [
@@ -132,21 +159,39 @@ enum MashMenus {
         .item("herdr.menu.item.split_pane_right", "Split Pane Right", "ctrl+b>v"),
         .item("herdr.menu.item.split_pane_down", "Split Pane Down", "ctrl+b>minus"),
         .item("herdr.menu.item.resize_mode", "Resize Mode", "ctrl+b>r"),
+        .separator,
+        .item("herdr.menu.item.swap_pane_left", "Swap Pane Left", "ctrl+b>shift+h"),
+        .item("herdr.menu.item.swap_pane_right", "Swap Pane Right", "ctrl+b>shift+l"),
+        .item("herdr.menu.item.swap_pane_up", "Swap Pane Up", "ctrl+b>shift+k"),
+        .item("herdr.menu.item.swap_pane_down", "Swap Pane Down", "ctrl+b>shift+j"),
+        .separator,
+        .item("herdr.menu.item.move_tab_left", "Move Tab Left", "ctrl+b>shift+arrow_left"),
+        .item("herdr.menu.item.move_tab_right", "Move Tab Right", "ctrl+b>shift+arrow_right"),
     ]
 
     static let nativeGo: [Entry] = [
         .item("herdr.menu.item.goto", "Goto…", "ctrl+b>g"),
         .separator,
+        .item("herdr.menu.item.previous_workspace", "Previous Workspace", "ctrl+b>shift+bracket_left"),
+        .item("herdr.menu.item.next_workspace", "Next Workspace", "ctrl+b>shift+bracket_right"),
         .item("herdr.menu.item.previous_tab", "Previous Tab", "ctrl+b>p"),
         .item("herdr.menu.item.next_tab", "Next Tab", "ctrl+b>n"),
         .item("herdr.menu.item.previous_pane", "Previous Pane", "ctrl+b>shift+tab"),
         .item("herdr.menu.item.next_pane", "Next Pane", "ctrl+b>tab"),
+        .item("herdr.menu.item.previous_agent", "Previous Agent", "ctrl+b>shift+arrow_up"),
+        .item("herdr.menu.item.next_agent", "Next Agent", "ctrl+b>shift+arrow_down"),
+        .separator,
+        .item("herdr.menu.item.focus_pane_left", "Focus Pane Left", "ctrl+b>h"),
+        .item("herdr.menu.item.focus_pane_right", "Focus Pane Right", "ctrl+b>l"),
+        .item("herdr.menu.item.focus_pane_up", "Focus Pane Up", "ctrl+b>k"),
+        .item("herdr.menu.item.focus_pane_down", "Focus Pane Down", "ctrl+b>j"),
         .separator,
         .item("herdr.menu.item.open_notification_target", "Open Notification Target", "ctrl+b>o"),
     ]
 
     static let nativeTools: [Entry] = [
         .item("herdr.menu.item.command_palette", "Command Palette…", "ctrl+b>semicolon"),
+        .item("herdr.menu.item.search_files_and_actions", "Search Files and Actions…", "ctrl+b>ctrl+f"),
         .item("herdr.menu.item.file_finder", "File Finder…", "ctrl+b>f"),
         .item("herdr.menu.item.source_control", "Source Control", "ctrl+b>y"),
         .item("herdr.menu.item.session_search", "Session Search…", "ctrl+b>shift+e"),
@@ -155,6 +200,8 @@ enum MashMenus {
         .item("herdr.menu.item.plugin_manager", "Plugin Manager", "ctrl+b>shift+u"),
         .separator,
         .item("herdr.menu.item.fork_agent_from_message", "Fork Agent from Message…", "ctrl+b>shift+y"),
+        .item("herdr.menu.item.fork_agent_beside_pane", "Fork Agent Beside Pane…", "ctrl+b>ctrl+y"),
+        .item("herdr.menu.item.fork_agent_into_workspace", "Fork Agent into New Workspace…", "ctrl+b>ctrl+shift+y"),
     ]
 
     static let nativeHelp: [Entry] = [
@@ -322,7 +369,15 @@ enum MashMenus {
             case "minus": key = "-"
             case "semicolon": key = ";"
             case "slash": key = "/"
+            case "backquote": key = "`"
+            case "bracket_left": key = "["
+            case "bracket_right": key = "]"
             case "tab": key = "⇥"
+            case "backspace": key = "⌫"
+            case "arrow_up": key = "↑"
+            case "arrow_down": key = "↓"
+            case "arrow_left": key = "←"
+            case "arrow_right": key = "→"
             default: key = part.uppercased()
             }
         }
@@ -338,6 +393,9 @@ enum MashMenus {
         case "backspace": return String(UnicodeScalar(NSBackspaceCharacter)!)
         case "arrow_up": return String(UnicodeScalar(NSUpArrowFunctionKey)!)
         case "arrow_down": return String(UnicodeScalar(NSDownArrowFunctionKey)!)
+        case "arrow_left": return String(UnicodeScalar(NSLeftArrowFunctionKey)!)
+        case "arrow_right": return String(UnicodeScalar(NSRightArrowFunctionKey)!)
+        case "backquote": return "`"
         default: return name
         }
     }

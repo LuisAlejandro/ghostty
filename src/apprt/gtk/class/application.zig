@@ -1218,8 +1218,6 @@ pub const Application = extern struct {
         self.syncActionAccelerator("win.new-window", .{ .new_window = {} });
         self.syncActionAccelerator("win.copy", .{ .copy_to_clipboard = .mixed });
         self.syncActionAccelerator("win.paste", .{ .paste_from_clipboard = {} });
-        self.syncActionAccelerator("win.reset", .{ .reset = {} });
-        self.syncActionAccelerator("win.clear", .{ .clear_screen = {} });
     }
 
     fn syncActionAccelerator(
