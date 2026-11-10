@@ -311,10 +311,28 @@ class AppDelegate: NSObject,
             }
         }
 
+        // Mash's updater quits with `saving no`: it has already asked the user,
+        // and the Herdr server keeps every pane alive, so a confirmation here
+        // would only stall the update until it times out. Cmd+Q and a plain
+        // scripted `quit` still confirm.
+        if Self.isQuitWithoutSaving(NSAppleEventManager.shared().currentAppleEvent) {
+            return .terminateNow
+        }
+
         // If our app says we don't need to confirm, we can exit now.
         if !ghostty.needsConfirmQuit { return .terminateNow }
 
         return terminate()
+    }
+
+    /// True for a Quit Application Apple event whose save options are `no`.
+    static func isQuitWithoutSaving(_ event: NSAppleEventDescriptor?) -> Bool {
+        guard let event,
+              event.eventClass == "aevt".fourCharCode,
+              event.eventID == "quit".fourCharCode,
+              let save = event.paramDescriptor(forKeyword: "savo".fourCharCode)
+        else { return false }
+        return save.enumCodeValue == "no  ".fourCharCode
     }
 
     func applicationWillTerminate(_ notification: Notification) {
