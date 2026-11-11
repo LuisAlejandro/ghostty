@@ -34,7 +34,7 @@ enum MashMenus {
         .item("herdr.menu.item.new_dev_tab", "New Dev Tab", "cmd+t"),
         .item("herdr.menu.item.new_agent_tab", "New Agent Tab", "cmd+alt+t"),
         .item("herdr.menu.item.new_review_tab", "New Review Tab", "cmd+shift+r"),
-        .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "cmd+shift+t"),
+        .item("herdr.menu.item.new_shell_tab", "New Shell Tab", "cmd+shift+backquote"),
         .item("herdr.menu.item.new_shell_pane_under_fresh", "New Shell Pane under Fresh", "ctrl+shift+backquote"),
         .separator,
         .item("herdr.menu.item.new_workspace", "New Workspace…", "cmd+ctrl+n"),
