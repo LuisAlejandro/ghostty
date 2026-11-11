@@ -852,6 +852,15 @@ class AppDelegate: NSObject,
         MashMenus.send(MashMenus.detachChord)
     }
 
+    /// Quit and stop sessions: Herdr ends its server, every pane's process
+    /// with it, and then this window closes on its own. The opposite of
+    /// Detach and of Cmd+Q, which only release the client. The helper refuses
+    /// to stop any server that is not Mash's own, so a rebinding that points
+    /// this item at the wrong chord ends nothing.
+    @IBAction func quitAndStopSessions(_ sender: Any?) {
+        MashMenus.send(MashMenus.quitAndStopChord)
+    }
+
     /// Target of every Mash menu item; the item carries its chord.
     @IBAction func sendMashChord(_ sender: NSMenuItem) {
         guard let chord = sender.representedObject as? String else { return }
@@ -859,15 +868,19 @@ class AppDelegate: NSObject,
     }
 
     /// The app menu's Mash entries: Settings and Reload show Herdr's chords,
-    /// and Detach sits after them. Safe to call again after a config reload:
-    /// the first-launch wizard can change the keybinding mode after these items
-    /// exist, so the old Detach item is dropped before the new one goes in.
+    /// Detach sits after them, and Quit and Stop Sessions after that. Safe to
+    /// call again after a config reload: the first-launch wizard can change the
+    /// keybinding mode after these items exist, so the old items are dropped
+    /// before the new ones go in.
     @MainActor private func installMashAppMenuItems(into mainMenu: NSMenu) {
         guard let appMenu = mainMenu.items.first?.submenu else { return }
         if let settings = menuOpenConfig { MashMenus.applyShortcut(MashMenus.settingsChord, to: settings) }
         if let reload = menuReloadConfig {
             MashMenus.applyShortcut(MashMenus.reloadChord, to: reload)
             for item in appMenu.items where item.action == #selector(detachHerdr(_:)) {
+                appMenu.removeItem(item)
+            }
+            for item in appMenu.items where item.action == #selector(quitAndStopSessions(_:)) {
                 appMenu.removeItem(item)
             }
             let detach = NSMenuItem(
@@ -878,6 +891,18 @@ class AppDelegate: NSObject,
             detach.target = self
             MashMenus.applyShortcut(MashMenus.detachChord, to: detach)
             appMenu.insertItem(detach, at: appMenu.index(of: reload) + 1)
+
+            let stopSessions = NSMenuItem(
+                title: MashMenus.localized(
+                    "herdr.menu.item.quit_and_stop_sessions",
+                    "Quit and Stop Sessions"
+                ),
+                action: #selector(quitAndStopSessions(_:)),
+                keyEquivalent: ""
+            )
+            stopSessions.target = self
+            MashMenus.applyShortcut(MashMenus.quitAndStopChord, to: stopSessions)
+            appMenu.insertItem(stopSessions, at: appMenu.index(of: detach) + 1)
         }
     }
 

@@ -111,12 +111,12 @@ msgid "Read-only"
 msgstr "Лише читання"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
-#: src/apprt/gtk/ui/1.5/window.blp:603
+#: src/apprt/gtk/ui/1.5/window.blp:610
 msgid "Copy"
 msgstr "Скопіювати"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
-#: src/apprt/gtk/ui/1.5/window.blp:608
+#: src/apprt/gtk/ui/1.5/window.blp:615
 msgid "Paste"
 msgstr "Вставити"
 
@@ -384,11 +384,11 @@ msgstr "Налаштування…"
 msgid "Detach"
 msgstr "Від'єднати"
 
-#: src/apprt/gtk/ui/1.5/window.blp:573
+#: src/apprt/gtk/ui/1.5/window.blp:580
 msgid "Mash Help"
 msgstr "Довідка Mash"
 
-#: src/apprt/gtk/ui/1.5/window.blp:580
+#: src/apprt/gtk/ui/1.5/window.blp:587
 msgid "Check for Updates…"
 msgstr "Перевірити оновлення…"
 
@@ -402,255 +402,263 @@ msgstr "Про Mash Terminal"
 msgid "Quit"
 msgstr "Вийти"
 
-#: src/apprt/gtk/ui/1.5/window.blp:632
+#: src/apprt/gtk/ui/1.5/window.blp:639
 msgid "New Dev Tab  ·  Ctrl+B t"
 msgstr "Нова вкладка розробки  ·  Ctrl+B t"
 
-#: src/apprt/gtk/ui/1.5/window.blp:638
+#: src/apprt/gtk/ui/1.5/window.blp:645
 msgid "New Agent Tab  ·  Ctrl+B a"
 msgstr "Нова вкладка агента  ·  Ctrl+B a"
 
-#: src/apprt/gtk/ui/1.5/window.blp:644
+#: src/apprt/gtk/ui/1.5/window.blp:651
 msgid "New Review Tab  ·  Ctrl+B V"
 msgstr "Нова вкладка огляду  ·  Ctrl+B V"
 
-#: src/apprt/gtk/ui/1.5/window.blp:650
+#: src/apprt/gtk/ui/1.5/window.blp:657
 msgid "New Shell Tab  ·  Ctrl+B C"
 msgstr "Нова вкладка оболонки  ·  Ctrl+B C"
 
-#: src/apprt/gtk/ui/1.5/window.blp:656
+#: src/apprt/gtk/ui/1.5/window.blp:663
 msgid "New Shell Pane under Fresh  ·  Ctrl+B `"
 msgstr "Нова панель оболонки під Fresh  ·  Ctrl+B `"
 
-#: src/apprt/gtk/ui/1.5/window.blp:664
+#: src/apprt/gtk/ui/1.5/window.blp:671
 msgid "New Workspace…  ·  Ctrl+B N"
 msgstr "Новий робочий простір…  ·  Ctrl+B N"
 
-#: src/apprt/gtk/ui/1.5/window.blp:670
+#: src/apprt/gtk/ui/1.5/window.blp:677
 msgid "New Worktree…  ·  Ctrl+B G"
 msgstr "Нове робоче дерево…  ·  Ctrl+B G"
 
-#: src/apprt/gtk/ui/1.5/window.blp:676
+#: src/apprt/gtk/ui/1.5/window.blp:683
 msgid "Workspace Picker…  ·  Ctrl+B F"
 msgstr "Вибір робочого простору…  ·  Ctrl+B F"
 
-#: src/apprt/gtk/ui/1.5/window.blp:684
+#: src/apprt/gtk/ui/1.5/window.blp:691
 msgid "Rename Tab…  ·  Ctrl+B T"
 msgstr "Перейменувати вкладку…  ·  Ctrl+B T"
 
-#: src/apprt/gtk/ui/1.5/window.blp:690
+#: src/apprt/gtk/ui/1.5/window.blp:697
 msgid "Rename Workspace…  ·  Ctrl+B W"
 msgstr "Перейменувати робочий простір…  ·  Ctrl+B W"
 
-#: src/apprt/gtk/ui/1.5/window.blp:696
+#: src/apprt/gtk/ui/1.5/window.blp:703
 msgid "Rename Pane…  ·  Ctrl+B P"
 msgstr "Перейменувати панель…  ·  Ctrl+B P"
 
-#: src/apprt/gtk/ui/1.5/window.blp:704
+#: src/apprt/gtk/ui/1.5/window.blp:711
 msgid "Close Pane  ·  Ctrl+B x"
 msgstr "Закрити панель  ·  Ctrl+B x"
 
-#: src/apprt/gtk/ui/1.5/window.blp:710
+#: src/apprt/gtk/ui/1.5/window.blp:717
 msgid "Close Tab  ·  Ctrl+B X"
 msgstr "Закрити вкладку  ·  Ctrl+B X"
 
-#: src/apprt/gtk/ui/1.5/window.blp:716
+#: src/apprt/gtk/ui/1.5/window.blp:723
 msgid "Close Workspace  ·  Ctrl+B D"
 msgstr "Закрити робочий простір  ·  Ctrl+B D"
 
-#: src/apprt/gtk/ui/1.5/window.blp:722
+#: src/apprt/gtk/ui/1.5/window.blp:729
 msgid "Remove Worktree  ·  Ctrl+B Shift+Backspace"
 msgstr "Видалити робоче дерево  ·  Ctrl+B Shift+Backspace"
 
-#: src/apprt/gtk/ui/1.5/window.blp:734
+#: src/apprt/gtk/ui/1.5/window.blp:741
 msgid "Annotate Selection  ·  Ctrl+B i"
 msgstr "Анотувати виділене  ·  Ctrl+B i"
 
-#: src/apprt/gtk/ui/1.5/window.blp:740
+#: src/apprt/gtk/ui/1.5/window.blp:747
 msgid "Paste Annotations into Agent  ·  Ctrl+B I"
 msgstr "Вставити анотації в агента  ·  Ctrl+B I"
 
-#: src/apprt/gtk/ui/1.5/window.blp:746
+#: src/apprt/gtk/ui/1.5/window.blp:753
 msgid "Manage Annotations  ·  Ctrl+B m"
 msgstr "Керувати анотаціями  ·  Ctrl+B m"
 
-#: src/apprt/gtk/ui/1.5/window.blp:754
+#: src/apprt/gtk/ui/1.5/window.blp:761
 msgid "Pick Link or ID  ·  Ctrl+B u"
 msgstr "Вибрати посилання або ID  ·  Ctrl+B u"
 
-#: src/apprt/gtk/ui/1.5/window.blp:762
+#: src/apprt/gtk/ui/1.5/window.blp:769
 msgid "Copy Mode  ·  Ctrl+B ["
 msgstr "Режим копіювання  ·  Ctrl+B ["
 
-#: src/apprt/gtk/ui/1.5/window.blp:768
+#: src/apprt/gtk/ui/1.5/window.blp:775
 msgid "Edit Scrollback  ·  Ctrl+B e"
 msgstr "Редагувати історію прокручування  ·  Ctrl+B e"
 
-#: src/apprt/gtk/ui/1.5/window.blp:774
+#: src/apprt/gtk/ui/1.5/window.blp:781
 msgid "Clear Pane  ·  Ctrl+B Ctrl+K"
 msgstr "Очистити панель  ·  Ctrl+B Ctrl+K"
 
-#: src/apprt/gtk/ui/1.5/window.blp:812
+#: src/apprt/gtk/ui/1.5/window.blp:819
 msgid "Toggle Sidebar  ·  Ctrl+B b"
 msgstr "Перемкнути бічну панель  ·  Ctrl+B b"
 
-#: src/apprt/gtk/ui/1.5/window.blp:818
+#: src/apprt/gtk/ui/1.5/window.blp:825
 msgid "Zoom Pane  ·  Ctrl+B z"
 msgstr "Розгорнути панель  ·  Ctrl+B z"
 
-#: src/apprt/gtk/ui/1.5/window.blp:826
+#: src/apprt/gtk/ui/1.5/window.blp:833
 msgid "Split Pane Right  ·  Ctrl+B v"
 msgstr "Розділити панель праворуч  ·  Ctrl+B v"
 
-#: src/apprt/gtk/ui/1.5/window.blp:832
+#: src/apprt/gtk/ui/1.5/window.blp:839
 msgid "Split Pane Down  ·  Ctrl+B -"
 msgstr "Розділити панель вниз  ·  Ctrl+B -"
 
-#: src/apprt/gtk/ui/1.5/window.blp:838
+#: src/apprt/gtk/ui/1.5/window.blp:845
 msgid "Resize Mode  ·  Ctrl+B r"
 msgstr "Режим зміни розміру  ·  Ctrl+B r"
 
-#: src/apprt/gtk/ui/1.5/window.blp:846
+#: src/apprt/gtk/ui/1.5/window.blp:853
 msgid "Swap Pane Left  ·  Ctrl+B H"
 msgstr "Поміняти панель з лівою  ·  Ctrl+B H"
 
-#: src/apprt/gtk/ui/1.5/window.blp:852
+#: src/apprt/gtk/ui/1.5/window.blp:859
 msgid "Swap Pane Right  ·  Ctrl+B L"
 msgstr "Поміняти панель з правою  ·  Ctrl+B L"
 
-#: src/apprt/gtk/ui/1.5/window.blp:858
+#: src/apprt/gtk/ui/1.5/window.blp:865
 msgid "Swap Pane Up  ·  Ctrl+B K"
 msgstr "Поміняти панель з верхньою  ·  Ctrl+B K"
 
-#: src/apprt/gtk/ui/1.5/window.blp:864
+#: src/apprt/gtk/ui/1.5/window.blp:871
 msgid "Swap Pane Down  ·  Ctrl+B J"
 msgstr "Поміняти панель з нижньою  ·  Ctrl+B J"
 
-#: src/apprt/gtk/ui/1.5/window.blp:872
+#: src/apprt/gtk/ui/1.5/window.blp:879
 msgid "Move Tab Left  ·  Ctrl+B Shift+Left"
 msgstr "Перемістити вкладку ліворуч  ·  Ctrl+B Shift+Left"
 
-#: src/apprt/gtk/ui/1.5/window.blp:878
+#: src/apprt/gtk/ui/1.5/window.blp:885
 msgid "Move Tab Right  ·  Ctrl+B Shift+Right"
 msgstr "Перемістити вкладку праворуч  ·  Ctrl+B Shift+Right"
 
-#: src/apprt/gtk/ui/1.5/window.blp:890
+#: src/apprt/gtk/ui/1.5/window.blp:897
 msgid "Goto…  ·  Ctrl+B g"
 msgstr "Перейти…  ·  Ctrl+B g"
 
-#: src/apprt/gtk/ui/1.5/window.blp:898
+#: src/apprt/gtk/ui/1.5/window.blp:905
 msgid "Previous Workspace  ·  Ctrl+B {"
 msgstr "Попередній робочий простір  ·  Ctrl+B {"
 
-#: src/apprt/gtk/ui/1.5/window.blp:904
+#: src/apprt/gtk/ui/1.5/window.blp:911
 msgid "Next Workspace  ·  Ctrl+B }"
 msgstr "Наступний робочий простір  ·  Ctrl+B }"
 
-#: src/apprt/gtk/ui/1.5/window.blp:910
+#: src/apprt/gtk/ui/1.5/window.blp:917
 msgid "Previous Tab  ·  Ctrl+B p"
 msgstr "Попередня вкладка  ·  Ctrl+B p"
 
-#: src/apprt/gtk/ui/1.5/window.blp:916
+#: src/apprt/gtk/ui/1.5/window.blp:923
 msgid "Next Tab  ·  Ctrl+B n"
 msgstr "Наступна вкладка  ·  Ctrl+B n"
 
-#: src/apprt/gtk/ui/1.5/window.blp:922
+#: src/apprt/gtk/ui/1.5/window.blp:929
 msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
 msgstr "Попередня панель  ·  Ctrl+B Shift+Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:928
+#: src/apprt/gtk/ui/1.5/window.blp:935
 msgid "Next Pane  ·  Ctrl+B Tab"
 msgstr "Наступна панель  ·  Ctrl+B Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:934
+#: src/apprt/gtk/ui/1.5/window.blp:941
 msgid "Previous Agent  ·  Ctrl+B Shift+Up"
 msgstr "Попередній агент  ·  Ctrl+B Shift+Up"
 
-#: src/apprt/gtk/ui/1.5/window.blp:940
+#: src/apprt/gtk/ui/1.5/window.blp:947
 msgid "Next Agent  ·  Ctrl+B Shift+Down"
 msgstr "Наступний агент  ·  Ctrl+B Shift+Down"
 
-#: src/apprt/gtk/ui/1.5/window.blp:948
+#: src/apprt/gtk/ui/1.5/window.blp:955
 msgid "Focus Pane Left  ·  Ctrl+B h"
 msgstr "Фокус на панель ліворуч  ·  Ctrl+B h"
 
-#: src/apprt/gtk/ui/1.5/window.blp:954
+#: src/apprt/gtk/ui/1.5/window.blp:961
 msgid "Focus Pane Right  ·  Ctrl+B l"
 msgstr "Фокус на панель праворуч  ·  Ctrl+B l"
 
-#: src/apprt/gtk/ui/1.5/window.blp:960
+#: src/apprt/gtk/ui/1.5/window.blp:967
 msgid "Focus Pane Up  ·  Ctrl+B k"
 msgstr "Фокус на панель угорі  ·  Ctrl+B k"
 
-#: src/apprt/gtk/ui/1.5/window.blp:966
+#: src/apprt/gtk/ui/1.5/window.blp:973
 msgid "Focus Pane Down  ·  Ctrl+B j"
 msgstr "Фокус на панель унизу  ·  Ctrl+B j"
 
-#: src/apprt/gtk/ui/1.5/window.blp:974
+#: src/apprt/gtk/ui/1.5/window.blp:981
 msgid "Open Notification Target  ·  Ctrl+B o"
 msgstr "Відкрити ціль сповіщення  ·  Ctrl+B o"
 
-#: src/apprt/gtk/ui/1.5/window.blp:986
+#: src/apprt/gtk/ui/1.5/window.blp:993
 msgid "Command Palette…  ·  Ctrl+B ;"
 msgstr "Палітра команд…  ·  Ctrl+B ;"
 
-#: src/apprt/gtk/ui/1.5/window.blp:992
+#: src/apprt/gtk/ui/1.5/window.blp:999
 msgid "Search Files and Actions…  ·  Ctrl+B Ctrl+F"
 msgstr "Пошук файлів і дій…  ·  Ctrl+B Ctrl+F"
 
-#: src/apprt/gtk/ui/1.5/window.blp:998
+#: src/apprt/gtk/ui/1.5/window.blp:1005
 msgid "File Finder…  ·  Ctrl+B f"
 msgstr "Пошук файлів…  ·  Ctrl+B f"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1004
+#: src/apprt/gtk/ui/1.5/window.blp:1011
 msgid "Source Control  ·  Ctrl+B y"
 msgstr "Контроль версій  ·  Ctrl+B y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1010
+#: src/apprt/gtk/ui/1.5/window.blp:1017
 msgid "Session Search…  ·  Ctrl+B E"
 msgstr "Пошук сеансу…  ·  Ctrl+B E"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1016
+#: src/apprt/gtk/ui/1.5/window.blp:1023
 msgid "Snippets…  ·  Ctrl+B S"
 msgstr "Фрагменти…  ·  Ctrl+B S"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1022
+#: src/apprt/gtk/ui/1.5/window.blp:1029
 msgid "Container Status  ·  Ctrl+B O"
 msgstr "Стан контейнера  ·  Ctrl+B O"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1028
+#: src/apprt/gtk/ui/1.5/window.blp:1035
 msgid "Plugin Manager  ·  Ctrl+B U"
 msgstr "Менеджер плагінів  ·  Ctrl+B U"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1036
+#: src/apprt/gtk/ui/1.5/window.blp:1043
 msgid "Fork Agent from Message…  ·  Ctrl+B Y"
 msgstr "Створити агента з повідомлення…  ·  Ctrl+B Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1042
+#: src/apprt/gtk/ui/1.5/window.blp:1049
 msgid "Fork Agent Beside Pane…  ·  Ctrl+B Ctrl+Y"
 msgstr "Створити агента поруч із панеллю…  ·  Ctrl+B Ctrl+Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1048
+#: src/apprt/gtk/ui/1.5/window.blp:1055
 msgid "Fork Agent into New Workspace…  ·  Ctrl+B Ctrl+Shift+Y"
 msgstr "Створити агента в новому робочому просторі…  ·  Ctrl+B Ctrl+Shift+Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1058
+#: src/apprt/gtk/ui/1.5/window.blp:1065
 msgid "Settings…  ·  Ctrl+B s"
 msgstr "Налаштування…  ·  Ctrl+B s"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1064
+#: src/apprt/gtk/ui/1.5/window.blp:1071
 msgid "Reload Configuration  ·  Ctrl+B R"
 msgstr "Перезавантажити налаштування  ·  Ctrl+B R"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1069
+#: src/apprt/gtk/ui/1.5/window.blp:571
+msgid "Quit and Stop Sessions"
+msgstr "Вийти й зупинити сеанси"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1082
+msgid "Quit and Stop Sessions  ·  Ctrl+B Q"
+msgstr "Вийти й зупинити сеанси  ·  Ctrl+B Q"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1076
 msgid "Detach  ·  Ctrl+B q"
 msgstr "Від'єднати  ·  Ctrl+B q"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1077
+#: src/apprt/gtk/ui/1.5/window.blp:1090
 msgid "Mash Help  ·  Ctrl+B ?"
 msgstr "Довідка Mash  ·  Ctrl+B ?"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1083
+#: src/apprt/gtk/ui/1.5/window.blp:1096
 msgid "Check for Updates…  ·  Ctrl+B Z"
 msgstr "Перевірити оновлення…  ·  Ctrl+B Z"
 

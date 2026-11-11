@@ -117,6 +117,13 @@ enum MashMenus {
     static var reloadChord: String { native ? "ctrl+b>shift+r" : "cmd+r" }
     static var detachChord: String { native ? "ctrl+b>q" : "cmd+u" }
 
+    /// Quit and end every pane's process. Not Herdr's stock keymap: this is
+    /// Mash's own Herdr command, so the shell binding in defaults/herdr/
+    /// config.toml (cmd+alt+q) and keys.native.toml (prefix+shift+q) is what
+    /// actually runs it. Cmd+Q and the close button stay non-destructive, so
+    /// this chord is the only route that ends running agents.
+    static var quitAndStopChord: String { native ? "ctrl+b>shift+q" : "cmd+alt+q" }
+
     // MARK: Native tables -- Herdr's stock prefix keys plus keys.native.toml.
 
     static let nativeFile: [Entry] = [

@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Ajuda do Mash";
 "herdr.menu.item.check_for_updates" = "Verificar atualizações…";
 "herdr.menu.item.detach" = "Desanexar";
+"herdr.menu.item.quit_and_stop_sessions" = "Sair e encerrar as sessões";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Novo painel de shell abaixo do Fresh";
 "herdr.menu.item.rename_tab" = "Renomear aba…";
 "herdr.menu.item.rename_workspace" = "Renomear espaço de trabalho…";

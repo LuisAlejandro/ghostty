@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Mash 도움말";
 "herdr.menu.item.check_for_updates" = "업데이트 확인…";
 "herdr.menu.item.detach" = "분리";
+"herdr.menu.item.quit_and_stop_sessions" = "종료하고 세션 중지";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Fresh 아래에 새 셸 창";
 "herdr.menu.item.rename_tab" = "탭 이름 변경…";
 "herdr.menu.item.rename_workspace" = "워크스페이스 이름 변경…";

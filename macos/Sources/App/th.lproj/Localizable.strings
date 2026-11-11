@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "วิธีใช้ Mash";
 "herdr.menu.item.check_for_updates" = "ตรวจสอบอัปเดต…";
 "herdr.menu.item.detach" = "แยกออก";
+"herdr.menu.item.quit_and_stop_sessions" = "ออกและหยุดเซสชัน";
 "herdr.menu.item.new_shell_pane_under_fresh" = "พาเนลเชลล์ใหม่ใต้ Fresh";
 "herdr.menu.item.rename_tab" = "เปลี่ยนชื่อแท็บ…";
 "herdr.menu.item.rename_workspace" = "เปลี่ยนชื่อเวิร์กสเปซ…";

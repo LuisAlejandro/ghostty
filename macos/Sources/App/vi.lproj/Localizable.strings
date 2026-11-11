@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Trợ giúp Mash";
 "herdr.menu.item.check_for_updates" = "Kiểm tra bản cập nhật…";
 "herdr.menu.item.detach" = "Tách";
+"herdr.menu.item.quit_and_stop_sessions" = "Thoát và dừng các phiên";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Khung Shell mới dưới Fresh";
 "herdr.menu.item.rename_tab" = "Đổi tên tab…";
 "herdr.menu.item.rename_workspace" = "Đổi tên không gian làm việc…";

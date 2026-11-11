@@ -566,6 +566,13 @@ menu main_menu {
       target: "ctrl+alt+u";
       accel: "<Control><Alt>u";
     }
+
+    item {
+      label: _("Quit and Stop Sessions");
+      action: "win.mash-send-key";
+      target: "ctrl+alt+q";
+      accel: "<Control><Alt>q";
+    }
   }
 
   section {
@@ -1069,6 +1076,12 @@ menu main_menu_native {
       label: _("Detach  ·  Ctrl+B q");
       action: "win.mash-send-key";
       target: "ctrl+b>q";
+    }
+
+    item {
+      label: _("Quit and Stop Sessions  ·  Ctrl+B Q");
+      action: "win.mash-send-key";
+      target: "ctrl+b>shift+q";
     }
   }
 

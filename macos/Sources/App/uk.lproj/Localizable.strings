@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Довідка Mash";
 "herdr.menu.item.check_for_updates" = "Перевірити оновлення…";
 "herdr.menu.item.detach" = "Від'єднати";
+"herdr.menu.item.quit_and_stop_sessions" = "Вийти й зупинити сеанси";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Нова панель оболонки під Fresh";
 "herdr.menu.item.rename_tab" = "Перейменувати вкладку…";
 "herdr.menu.item.rename_workspace" = "Перейменувати робочий простір…";

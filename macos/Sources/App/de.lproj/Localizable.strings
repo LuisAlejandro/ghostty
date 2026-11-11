@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Mash-Hilfe";
 "herdr.menu.item.check_for_updates" = "Nach Updates suchen…";
 "herdr.menu.item.detach" = "Trennen";
+"herdr.menu.item.quit_and_stop_sessions" = "Beenden und Sitzungen stoppen";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Neuer Shell-Bereich unter Fresh";
 "herdr.menu.item.rename_tab" = "Tab umbenennen…";
 "herdr.menu.item.rename_workspace" = "Arbeitsbereich umbenennen…";

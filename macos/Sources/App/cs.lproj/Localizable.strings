@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Nápověda Mash";
 "herdr.menu.item.check_for_updates" = "Zkontrolovat aktualizace…";
 "herdr.menu.item.detach" = "Odpojit";
+"herdr.menu.item.quit_and_stop_sessions" = "Ukončit a zastavit relace";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Nový panel shellu pod Fresh";
 "herdr.menu.item.rename_tab" = "Přejmenovat kartu…";
 "herdr.menu.item.rename_workspace" = "Přejmenovat pracovní prostor…";

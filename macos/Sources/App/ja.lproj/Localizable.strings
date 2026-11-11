@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Mash ヘルプ";
 "herdr.menu.item.check_for_updates" = "アップデートを確認…";
 "herdr.menu.item.detach" = "デタッチ";
+"herdr.menu.item.quit_and_stop_sessions" = "終了してセッションを停止";
 "herdr.menu.item.new_shell_pane_under_fresh" = "Fresh の下に新しいシェルペイン";
 "herdr.menu.item.rename_tab" = "タブ名を変更…";
 "herdr.menu.item.rename_workspace" = "ワークスペース名を変更…";

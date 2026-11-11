@@ -49,6 +49,7 @@
 "herdr.menu.item.mash_help" = "Mash 帮助";
 "herdr.menu.item.check_for_updates" = "检查更新…";
 "herdr.menu.item.detach" = "分离";
+"herdr.menu.item.quit_and_stop_sessions" = "退出并停止会话";
 "herdr.menu.item.new_shell_pane_under_fresh" = "在 Fresh 下新建 Shell 窗格";
 "herdr.menu.item.rename_tab" = "重命名标签页…";
 "herdr.menu.item.rename_workspace" = "重命名工作区…";

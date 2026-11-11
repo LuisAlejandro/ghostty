@@ -108,12 +108,12 @@ msgid "Read-only"
 msgstr "読み取り専用"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:301 src/apprt/gtk/ui/1.5/window.blp:91
-#: src/apprt/gtk/ui/1.5/window.blp:603
+#: src/apprt/gtk/ui/1.5/window.blp:610
 msgid "Copy"
 msgstr "コピー"
 
 #: src/apprt/gtk/ui/1.2/surface.blp:306 src/apprt/gtk/ui/1.5/window.blp:96
-#: src/apprt/gtk/ui/1.5/window.blp:608
+#: src/apprt/gtk/ui/1.5/window.blp:615
 msgid "Paste"
 msgstr "貼り付け"
 
@@ -381,11 +381,11 @@ msgstr "設定…"
 msgid "Detach"
 msgstr "デタッチ"
 
-#: src/apprt/gtk/ui/1.5/window.blp:573
+#: src/apprt/gtk/ui/1.5/window.blp:580
 msgid "Mash Help"
 msgstr "Mash ヘルプ"
 
-#: src/apprt/gtk/ui/1.5/window.blp:580
+#: src/apprt/gtk/ui/1.5/window.blp:587
 msgid "Check for Updates…"
 msgstr "アップデートを確認…"
 
@@ -399,255 +399,263 @@ msgstr "Mash Terminalについて"
 msgid "Quit"
 msgstr "終了"
 
-#: src/apprt/gtk/ui/1.5/window.blp:632
+#: src/apprt/gtk/ui/1.5/window.blp:639
 msgid "New Dev Tab  ·  Ctrl+B t"
 msgstr "新しい開発タブ  ·  Ctrl+B t"
 
-#: src/apprt/gtk/ui/1.5/window.blp:638
+#: src/apprt/gtk/ui/1.5/window.blp:645
 msgid "New Agent Tab  ·  Ctrl+B a"
 msgstr "新しいエージェントタブ  ·  Ctrl+B a"
 
-#: src/apprt/gtk/ui/1.5/window.blp:644
+#: src/apprt/gtk/ui/1.5/window.blp:651
 msgid "New Review Tab  ·  Ctrl+B V"
 msgstr "新しいレビュータブ  ·  Ctrl+B V"
 
-#: src/apprt/gtk/ui/1.5/window.blp:650
+#: src/apprt/gtk/ui/1.5/window.blp:657
 msgid "New Shell Tab  ·  Ctrl+B C"
 msgstr "新しいシェルタブ  ·  Ctrl+B C"
 
-#: src/apprt/gtk/ui/1.5/window.blp:656
+#: src/apprt/gtk/ui/1.5/window.blp:663
 msgid "New Shell Pane under Fresh  ·  Ctrl+B `"
 msgstr "Fresh の下に新しいシェルペイン  ·  Ctrl+B `"
 
-#: src/apprt/gtk/ui/1.5/window.blp:664
+#: src/apprt/gtk/ui/1.5/window.blp:671
 msgid "New Workspace…  ·  Ctrl+B N"
 msgstr "新しいワークスペース…  ·  Ctrl+B N"
 
-#: src/apprt/gtk/ui/1.5/window.blp:670
+#: src/apprt/gtk/ui/1.5/window.blp:677
 msgid "New Worktree…  ·  Ctrl+B G"
 msgstr "新しいワークツリー…  ·  Ctrl+B G"
 
-#: src/apprt/gtk/ui/1.5/window.blp:676
+#: src/apprt/gtk/ui/1.5/window.blp:683
 msgid "Workspace Picker…  ·  Ctrl+B F"
 msgstr "ワークスペース選択…  ·  Ctrl+B F"
 
-#: src/apprt/gtk/ui/1.5/window.blp:684
+#: src/apprt/gtk/ui/1.5/window.blp:691
 msgid "Rename Tab…  ·  Ctrl+B T"
 msgstr "タブ名を変更…  ·  Ctrl+B T"
 
-#: src/apprt/gtk/ui/1.5/window.blp:690
+#: src/apprt/gtk/ui/1.5/window.blp:697
 msgid "Rename Workspace…  ·  Ctrl+B W"
 msgstr "ワークスペース名を変更…  ·  Ctrl+B W"
 
-#: src/apprt/gtk/ui/1.5/window.blp:696
+#: src/apprt/gtk/ui/1.5/window.blp:703
 msgid "Rename Pane…  ·  Ctrl+B P"
 msgstr "ペイン名を変更…  ·  Ctrl+B P"
 
-#: src/apprt/gtk/ui/1.5/window.blp:704
+#: src/apprt/gtk/ui/1.5/window.blp:711
 msgid "Close Pane  ·  Ctrl+B x"
 msgstr "ペインを閉じる  ·  Ctrl+B x"
 
-#: src/apprt/gtk/ui/1.5/window.blp:710
+#: src/apprt/gtk/ui/1.5/window.blp:717
 msgid "Close Tab  ·  Ctrl+B X"
 msgstr "タブを閉じる  ·  Ctrl+B X"
 
-#: src/apprt/gtk/ui/1.5/window.blp:716
+#: src/apprt/gtk/ui/1.5/window.blp:723
 msgid "Close Workspace  ·  Ctrl+B D"
 msgstr "ワークスペースを閉じる  ·  Ctrl+B D"
 
-#: src/apprt/gtk/ui/1.5/window.blp:722
+#: src/apprt/gtk/ui/1.5/window.blp:729
 msgid "Remove Worktree  ·  Ctrl+B Shift+Backspace"
 msgstr "ワークツリーを削除  ·  Ctrl+B Shift+Backspace"
 
-#: src/apprt/gtk/ui/1.5/window.blp:734
+#: src/apprt/gtk/ui/1.5/window.blp:741
 msgid "Annotate Selection  ·  Ctrl+B i"
 msgstr "選択範囲に注釈を付ける  ·  Ctrl+B i"
 
-#: src/apprt/gtk/ui/1.5/window.blp:740
+#: src/apprt/gtk/ui/1.5/window.blp:747
 msgid "Paste Annotations into Agent  ·  Ctrl+B I"
 msgstr "注釈をエージェントに貼り付け  ·  Ctrl+B I"
 
-#: src/apprt/gtk/ui/1.5/window.blp:746
+#: src/apprt/gtk/ui/1.5/window.blp:753
 msgid "Manage Annotations  ·  Ctrl+B m"
 msgstr "注釈を管理  ·  Ctrl+B m"
 
-#: src/apprt/gtk/ui/1.5/window.blp:754
+#: src/apprt/gtk/ui/1.5/window.blp:761
 msgid "Pick Link or ID  ·  Ctrl+B u"
 msgstr "リンクまたはIDを選択  ·  Ctrl+B u"
 
-#: src/apprt/gtk/ui/1.5/window.blp:762
+#: src/apprt/gtk/ui/1.5/window.blp:769
 msgid "Copy Mode  ·  Ctrl+B ["
 msgstr "コピーモード  ·  Ctrl+B ["
 
-#: src/apprt/gtk/ui/1.5/window.blp:768
+#: src/apprt/gtk/ui/1.5/window.blp:775
 msgid "Edit Scrollback  ·  Ctrl+B e"
 msgstr "スクロールバックを編集  ·  Ctrl+B e"
 
-#: src/apprt/gtk/ui/1.5/window.blp:774
+#: src/apprt/gtk/ui/1.5/window.blp:781
 msgid "Clear Pane  ·  Ctrl+B Ctrl+K"
 msgstr "ペインをクリア  ·  Ctrl+B Ctrl+K"
 
-#: src/apprt/gtk/ui/1.5/window.blp:812
+#: src/apprt/gtk/ui/1.5/window.blp:819
 msgid "Toggle Sidebar  ·  Ctrl+B b"
 msgstr "サイドバーを切り替え  ·  Ctrl+B b"
 
-#: src/apprt/gtk/ui/1.5/window.blp:818
+#: src/apprt/gtk/ui/1.5/window.blp:825
 msgid "Zoom Pane  ·  Ctrl+B z"
 msgstr "ペインを拡大  ·  Ctrl+B z"
 
-#: src/apprt/gtk/ui/1.5/window.blp:826
+#: src/apprt/gtk/ui/1.5/window.blp:833
 msgid "Split Pane Right  ·  Ctrl+B v"
 msgstr "ペインを右に分割  ·  Ctrl+B v"
 
-#: src/apprt/gtk/ui/1.5/window.blp:832
+#: src/apprt/gtk/ui/1.5/window.blp:839
 msgid "Split Pane Down  ·  Ctrl+B -"
 msgstr "ペインを下に分割  ·  Ctrl+B -"
 
-#: src/apprt/gtk/ui/1.5/window.blp:838
+#: src/apprt/gtk/ui/1.5/window.blp:845
 msgid "Resize Mode  ·  Ctrl+B r"
 msgstr "サイズ変更モード  ·  Ctrl+B r"
 
-#: src/apprt/gtk/ui/1.5/window.blp:846
+#: src/apprt/gtk/ui/1.5/window.blp:853
 msgid "Swap Pane Left  ·  Ctrl+B H"
 msgstr "ペインを左と入れ替え  ·  Ctrl+B H"
 
-#: src/apprt/gtk/ui/1.5/window.blp:852
+#: src/apprt/gtk/ui/1.5/window.blp:859
 msgid "Swap Pane Right  ·  Ctrl+B L"
 msgstr "ペインを右と入れ替え  ·  Ctrl+B L"
 
-#: src/apprt/gtk/ui/1.5/window.blp:858
+#: src/apprt/gtk/ui/1.5/window.blp:865
 msgid "Swap Pane Up  ·  Ctrl+B K"
 msgstr "ペインを上と入れ替え  ·  Ctrl+B K"
 
-#: src/apprt/gtk/ui/1.5/window.blp:864
+#: src/apprt/gtk/ui/1.5/window.blp:871
 msgid "Swap Pane Down  ·  Ctrl+B J"
 msgstr "ペインを下と入れ替え  ·  Ctrl+B J"
 
-#: src/apprt/gtk/ui/1.5/window.blp:872
+#: src/apprt/gtk/ui/1.5/window.blp:879
 msgid "Move Tab Left  ·  Ctrl+B Shift+Left"
 msgstr "タブを左へ移動  ·  Ctrl+B Shift+Left"
 
-#: src/apprt/gtk/ui/1.5/window.blp:878
+#: src/apprt/gtk/ui/1.5/window.blp:885
 msgid "Move Tab Right  ·  Ctrl+B Shift+Right"
 msgstr "タブを右へ移動  ·  Ctrl+B Shift+Right"
 
-#: src/apprt/gtk/ui/1.5/window.blp:890
+#: src/apprt/gtk/ui/1.5/window.blp:897
 msgid "Goto…  ·  Ctrl+B g"
 msgstr "移動…  ·  Ctrl+B g"
 
-#: src/apprt/gtk/ui/1.5/window.blp:898
+#: src/apprt/gtk/ui/1.5/window.blp:905
 msgid "Previous Workspace  ·  Ctrl+B {"
 msgstr "前のワークスペース  ·  Ctrl+B {"
 
-#: src/apprt/gtk/ui/1.5/window.blp:904
+#: src/apprt/gtk/ui/1.5/window.blp:911
 msgid "Next Workspace  ·  Ctrl+B }"
 msgstr "次のワークスペース  ·  Ctrl+B }"
 
-#: src/apprt/gtk/ui/1.5/window.blp:910
+#: src/apprt/gtk/ui/1.5/window.blp:917
 msgid "Previous Tab  ·  Ctrl+B p"
 msgstr "前のタブ  ·  Ctrl+B p"
 
-#: src/apprt/gtk/ui/1.5/window.blp:916
+#: src/apprt/gtk/ui/1.5/window.blp:923
 msgid "Next Tab  ·  Ctrl+B n"
 msgstr "次のタブ  ·  Ctrl+B n"
 
-#: src/apprt/gtk/ui/1.5/window.blp:922
+#: src/apprt/gtk/ui/1.5/window.blp:929
 msgid "Previous Pane  ·  Ctrl+B Shift+Tab"
 msgstr "前のペイン  ·  Ctrl+B Shift+Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:928
+#: src/apprt/gtk/ui/1.5/window.blp:935
 msgid "Next Pane  ·  Ctrl+B Tab"
 msgstr "次のペイン  ·  Ctrl+B Tab"
 
-#: src/apprt/gtk/ui/1.5/window.blp:934
+#: src/apprt/gtk/ui/1.5/window.blp:941
 msgid "Previous Agent  ·  Ctrl+B Shift+Up"
 msgstr "前のエージェント  ·  Ctrl+B Shift+Up"
 
-#: src/apprt/gtk/ui/1.5/window.blp:940
+#: src/apprt/gtk/ui/1.5/window.blp:947
 msgid "Next Agent  ·  Ctrl+B Shift+Down"
 msgstr "次のエージェント  ·  Ctrl+B Shift+Down"
 
-#: src/apprt/gtk/ui/1.5/window.blp:948
+#: src/apprt/gtk/ui/1.5/window.blp:955
 msgid "Focus Pane Left  ·  Ctrl+B h"
 msgstr "左のペインにフォーカス  ·  Ctrl+B h"
 
-#: src/apprt/gtk/ui/1.5/window.blp:954
+#: src/apprt/gtk/ui/1.5/window.blp:961
 msgid "Focus Pane Right  ·  Ctrl+B l"
 msgstr "右のペインにフォーカス  ·  Ctrl+B l"
 
-#: src/apprt/gtk/ui/1.5/window.blp:960
+#: src/apprt/gtk/ui/1.5/window.blp:967
 msgid "Focus Pane Up  ·  Ctrl+B k"
 msgstr "上のペインにフォーカス  ·  Ctrl+B k"
 
-#: src/apprt/gtk/ui/1.5/window.blp:966
+#: src/apprt/gtk/ui/1.5/window.blp:973
 msgid "Focus Pane Down  ·  Ctrl+B j"
 msgstr "下のペインにフォーカス  ·  Ctrl+B j"
 
-#: src/apprt/gtk/ui/1.5/window.blp:974
+#: src/apprt/gtk/ui/1.5/window.blp:981
 msgid "Open Notification Target  ·  Ctrl+B o"
 msgstr "通知の対象を開く  ·  Ctrl+B o"
 
-#: src/apprt/gtk/ui/1.5/window.blp:986
+#: src/apprt/gtk/ui/1.5/window.blp:993
 msgid "Command Palette…  ·  Ctrl+B ;"
 msgstr "コマンドパレット…  ·  Ctrl+B ;"
 
-#: src/apprt/gtk/ui/1.5/window.blp:992
+#: src/apprt/gtk/ui/1.5/window.blp:999
 msgid "Search Files and Actions…  ·  Ctrl+B Ctrl+F"
 msgstr "ファイルとアクションを検索…  ·  Ctrl+B Ctrl+F"
 
-#: src/apprt/gtk/ui/1.5/window.blp:998
+#: src/apprt/gtk/ui/1.5/window.blp:1005
 msgid "File Finder…  ·  Ctrl+B f"
 msgstr "ファイル検索…  ·  Ctrl+B f"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1004
+#: src/apprt/gtk/ui/1.5/window.blp:1011
 msgid "Source Control  ·  Ctrl+B y"
 msgstr "ソース管理  ·  Ctrl+B y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1010
+#: src/apprt/gtk/ui/1.5/window.blp:1017
 msgid "Session Search…  ·  Ctrl+B E"
 msgstr "セッション検索…  ·  Ctrl+B E"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1016
+#: src/apprt/gtk/ui/1.5/window.blp:1023
 msgid "Snippets…  ·  Ctrl+B S"
 msgstr "スニペット…  ·  Ctrl+B S"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1022
+#: src/apprt/gtk/ui/1.5/window.blp:1029
 msgid "Container Status  ·  Ctrl+B O"
 msgstr "コンテナの状態  ·  Ctrl+B O"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1028
+#: src/apprt/gtk/ui/1.5/window.blp:1035
 msgid "Plugin Manager  ·  Ctrl+B U"
 msgstr "プラグインマネージャー  ·  Ctrl+B U"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1036
+#: src/apprt/gtk/ui/1.5/window.blp:1043
 msgid "Fork Agent from Message…  ·  Ctrl+B Y"
 msgstr "メッセージからエージェントを分岐…  ·  Ctrl+B Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1042
+#: src/apprt/gtk/ui/1.5/window.blp:1049
 msgid "Fork Agent Beside Pane…  ·  Ctrl+B Ctrl+Y"
 msgstr "ペインの横にエージェントを分岐…  ·  Ctrl+B Ctrl+Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1048
+#: src/apprt/gtk/ui/1.5/window.blp:1055
 msgid "Fork Agent into New Workspace…  ·  Ctrl+B Ctrl+Shift+Y"
 msgstr "新しいワークスペースにエージェントを分岐…  ·  Ctrl+B Ctrl+Shift+Y"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1058
+#: src/apprt/gtk/ui/1.5/window.blp:1065
 msgid "Settings…  ·  Ctrl+B s"
 msgstr "設定…  ·  Ctrl+B s"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1064
+#: src/apprt/gtk/ui/1.5/window.blp:1071
 msgid "Reload Configuration  ·  Ctrl+B R"
 msgstr "設定ファイルの再読み込み  ·  Ctrl+B R"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1069
+#: src/apprt/gtk/ui/1.5/window.blp:571
+msgid "Quit and Stop Sessions"
+msgstr "終了してセッションを停止"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1082
+msgid "Quit and Stop Sessions  ·  Ctrl+B Q"
+msgstr "終了してセッションを停止  ·  Ctrl+B Q"
+
+#: src/apprt/gtk/ui/1.5/window.blp:1076
 msgid "Detach  ·  Ctrl+B q"
 msgstr "デタッチ  ·  Ctrl+B q"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1077
+#: src/apprt/gtk/ui/1.5/window.blp:1090
 msgid "Mash Help  ·  Ctrl+B ?"
 msgstr "Mash ヘルプ  ·  Ctrl+B ?"
 
-#: src/apprt/gtk/ui/1.5/window.blp:1083
+#: src/apprt/gtk/ui/1.5/window.blp:1096
 msgid "Check for Updates…  ·  Ctrl+B Z"
 msgstr "アップデートを確認…  ·  Ctrl+B Z"
 
