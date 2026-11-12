@@ -852,13 +852,35 @@ class AppDelegate: NSObject,
         MashMenus.send(MashMenus.detachChord)
     }
 
-    /// Quit and stop sessions: Herdr ends its server, every pane's process
-    /// with it, and then this window closes on its own. The opposite of
-    /// Detach and of Cmd+Q, which only release the client. The helper refuses
-    /// to stop any server that is not Mash's own, so a rebinding that points
-    /// this item at the wrong chord ends nothing.
+    /// Full session exit, unlike Detach/Cmd+Q. Invoke Mash's bundled lifecycle
+    /// helper directly: user keybindings must not make a destructive menu
+    /// action silently disappear or target a different command.
     @IBAction func quitAndStopSessions(_ sender: Any?) {
-        MashMenus.send(MashMenus.quitAndStopChord)
+        // Unlike ordinary navigation commands this is a lifecycle action, not
+        // terminal input. Replaying a chord silently did nothing when an older
+        // user config did not yet bind it. Always invoke the bundle's helper;
+        // it validates Mash's socket and performs the same detached-session
+        // cleanup used by the updater after Herdr saves and stops.
+        guard let resources = Bundle.main.resourceURL else { return }
+        let process = Process()
+        process.executableURL = resources.appendingPathComponent("bin/mash-stop-sessions")
+        var env = ProcessInfo.processInfo.environment
+        env["HOME"] = NSHomeDirectory()
+        env["HERDR_BIN_PATH"] = resources.appendingPathComponent("bin/herdr").path
+        env["HERDR_SOCKET_PATH"] = NSHomeDirectory() + "/.mash/run/herdr.sock"
+        env["PATH"] = resources.appendingPathComponent("bin").path + ":/usr/bin:/bin"
+        process.environment = env
+        process.currentDirectoryURL = URL(fileURLWithPath: NSHomeDirectory())
+        process.terminationHandler = { process in
+            if process.terminationStatus != 0 {
+                NSLog("Mash session shutdown failed with status %d", process.terminationStatus)
+            }
+        }
+        do {
+            try process.run()
+        } catch {
+            NSLog("Could not start Mash session shutdown: %@", error.localizedDescription)
+        }
     }
 
     /// Target of every Mash menu item; the item carries its chord.
